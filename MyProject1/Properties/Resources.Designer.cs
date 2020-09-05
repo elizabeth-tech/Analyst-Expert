@@ -63,6 +63,26 @@ namespace MyProject1.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_clear_symbol_16 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-clear-symbol-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_edit_16 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-edit-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_minus_24 {
             get {
                 object obj = ResourceManager.GetObject("icons8-minus-24", resourceCulture);
@@ -76,6 +96,16 @@ namespace MyProject1.Properties {
         internal static System.Drawing.Bitmap icons8_multiply_24 {
             get {
                 object obj = ResourceManager.GetObject("icons8-multiply-24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_plus_16 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-plus-16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -66,6 +66,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Analyst.resx">
+      <DependentUpon>Analyst.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GeneralLogin.resx">
       <DependentUpon>GeneralLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -97,6 +100,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-minus-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-plus-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-edit-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-clear-symbol-16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

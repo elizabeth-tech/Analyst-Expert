@@ -61,7 +61,7 @@
             this.buttonTurnLogin.FlatAppearance.BorderSize = 0;
             this.buttonTurnLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.buttonTurnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonTurnLogin.Location = new System.Drawing.Point(316, 1);
+            this.buttonTurnLogin.Location = new System.Drawing.Point(315, 1);
             this.buttonTurnLogin.Name = "buttonTurnLogin";
             this.buttonTurnLogin.Size = new System.Drawing.Size(43, 29);
             this.buttonTurnLogin.TabIndex = 1;
@@ -72,11 +72,11 @@
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(36, 8);
+            this.label1.Location = new System.Drawing.Point(36, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(158, 24);
+            this.label1.Size = new System.Drawing.Size(158, 22);
             this.label1.TabIndex = 2;
             this.label1.Text = "Системный анализ";
             // 
