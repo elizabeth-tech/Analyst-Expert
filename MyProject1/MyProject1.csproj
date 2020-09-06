@@ -58,6 +58,12 @@
     <Compile Include="Analyst.Designer.cs">
       <DependentUpon>Analyst.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuForExpert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuForExpert.Designer.cs">
+      <DependentUpon>MenuForExpert.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProblemsExpert.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GeneralLogin.resx">
       <DependentUpon>GeneralLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuForExpert.resx">
+      <DependentUpon>MenuForExpert.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProblemsExpert.resx">
       <DependentUpon>ProblemsExpert.cs</DependentUpon>

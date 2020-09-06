@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProblemsExpert));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProblemsExpert));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.buttonExpertProblemClose = new System.Windows.Forms.Button();
-            this.buttonExpertProblemTurn = new System.Windows.Forms.Button();
             this.dataGridViewProblemsExpert = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonExpertNext = new System.Windows.Forms.Button();
             this.buttonBack = new System.Windows.Forms.Button();
+            this.buttonExpertProblemClose = new System.Windows.Forms.Button();
+            this.buttonExpertProblemTurn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProblemsExpert)).BeginInit();
             this.SuspendLayout();
@@ -60,6 +60,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(838, 32);
             this.panel1.TabIndex = 45;
+            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
             // label1
             // 
@@ -82,34 +83,6 @@
             this.label24.Size = new System.Drawing.Size(193, 17);
             this.label24.TabIndex = 0;
             this.label24.Text = "Эксперт - Выбор проблемы";
-            // 
-            // buttonExpertProblemClose
-            // 
-            this.buttonExpertProblemClose.BackColor = System.Drawing.Color.Transparent;
-            this.buttonExpertProblemClose.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonExpertProblemClose.BackgroundImage")));
-            this.buttonExpertProblemClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonExpertProblemClose.FlatAppearance.BorderSize = 0;
-            this.buttonExpertProblemClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.buttonExpertProblemClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExpertProblemClose.Location = new System.Drawing.Point(791, 0);
-            this.buttonExpertProblemClose.Name = "buttonExpertProblemClose";
-            this.buttonExpertProblemClose.Size = new System.Drawing.Size(47, 30);
-            this.buttonExpertProblemClose.TabIndex = 45;
-            this.buttonExpertProblemClose.UseVisualStyleBackColor = false;
-            // 
-            // buttonExpertProblemTurn
-            // 
-            this.buttonExpertProblemTurn.BackColor = System.Drawing.Color.Transparent;
-            this.buttonExpertProblemTurn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonExpertProblemTurn.BackgroundImage")));
-            this.buttonExpertProblemTurn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonExpertProblemTurn.FlatAppearance.BorderSize = 0;
-            this.buttonExpertProblemTurn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.buttonExpertProblemTurn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExpertProblemTurn.Location = new System.Drawing.Point(738, 0);
-            this.buttonExpertProblemTurn.Name = "buttonExpertProblemTurn";
-            this.buttonExpertProblemTurn.Size = new System.Drawing.Size(47, 30);
-            this.buttonExpertProblemTurn.TabIndex = 48;
-            this.buttonExpertProblemTurn.UseVisualStyleBackColor = false;
             // 
             // dataGridViewProblemsExpert
             // 
@@ -189,6 +162,7 @@
             this.buttonExpertNext.TabIndex = 91;
             this.buttonExpertNext.Text = "Далее";
             this.buttonExpertNext.UseVisualStyleBackColor = false;
+            this.buttonExpertNext.Click += new System.EventHandler(this.buttonExpertNext_Click);
             // 
             // buttonBack
             // 
@@ -204,6 +178,37 @@
             this.buttonBack.TabIndex = 92;
             this.buttonBack.Text = "Назад";
             this.buttonBack.UseVisualStyleBackColor = false;
+            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
+            // 
+            // buttonExpertProblemClose
+            // 
+            this.buttonExpertProblemClose.BackColor = System.Drawing.Color.Transparent;
+            this.buttonExpertProblemClose.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonExpertProblemClose.BackgroundImage")));
+            this.buttonExpertProblemClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonExpertProblemClose.FlatAppearance.BorderSize = 0;
+            this.buttonExpertProblemClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.buttonExpertProblemClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExpertProblemClose.Location = new System.Drawing.Point(791, 0);
+            this.buttonExpertProblemClose.Name = "buttonExpertProblemClose";
+            this.buttonExpertProblemClose.Size = new System.Drawing.Size(47, 30);
+            this.buttonExpertProblemClose.TabIndex = 45;
+            this.buttonExpertProblemClose.UseVisualStyleBackColor = false;
+            this.buttonExpertProblemClose.Click += new System.EventHandler(this.buttonExpertProblemClose_Click);
+            // 
+            // buttonExpertProblemTurn
+            // 
+            this.buttonExpertProblemTurn.BackColor = System.Drawing.Color.Transparent;
+            this.buttonExpertProblemTurn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonExpertProblemTurn.BackgroundImage")));
+            this.buttonExpertProblemTurn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonExpertProblemTurn.FlatAppearance.BorderSize = 0;
+            this.buttonExpertProblemTurn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.buttonExpertProblemTurn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExpertProblemTurn.Location = new System.Drawing.Point(738, 0);
+            this.buttonExpertProblemTurn.Name = "buttonExpertProblemTurn";
+            this.buttonExpertProblemTurn.Size = new System.Drawing.Size(47, 30);
+            this.buttonExpertProblemTurn.TabIndex = 48;
+            this.buttonExpertProblemTurn.UseVisualStyleBackColor = false;
+            this.buttonExpertProblemTurn.Click += new System.EventHandler(this.buttonExpertProblemTurn_Click);
             // 
             // ProblemsExpert
             // 

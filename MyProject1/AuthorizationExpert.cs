@@ -35,7 +35,9 @@ namespace MyProject1
         // Вход. Переход на окно выбора проблемы
         private void buttonExpertLogin_Click(object sender, EventArgs e)
         {
-
+            Close();
+            ProblemsExpert f = new ProblemsExpert();
+            f.Show();
         }
     }
 }

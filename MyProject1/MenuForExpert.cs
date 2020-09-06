@@ -3,14 +3,14 @@ using System.Windows.Forms;
 
 namespace MyProject1
 {
-    public partial class ProblemsExpert : Form
+    public partial class MenuForExpert : Form
     {
-        public ProblemsExpert()
+        public MenuForExpert()
         {
             InitializeComponent();
         }
 
-        // Закрытие окна выбора проблемы для эксперта
+        // Закрытие окна с основным меню для эксперта
         private void buttonExpertProblemClose_Click(object sender, EventArgs e)
         {
             Close();
@@ -18,25 +18,17 @@ namespace MyProject1
             form.Show();
         }
 
-        // Сворачивание окна проблемы для эксперта
+        // Сворачивание окна с основным меню эксперта
         private void buttonExpertProblemTurn_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
         }
 
-        // Возврат к окну авторизации для эксперта
+        // Возврат к выбору проблемы
         private void buttonBack_Click(object sender, EventArgs e)
         {
             Close();
-            AuthorizationExpert f = new AuthorizationExpert();
-            f.Show();
-        }
-
-        // Переход к основному меню с тестами для эксперта
-        private void buttonExpertNext_Click(object sender, EventArgs e)
-        {
-            Close();
-            MenuForExpert f = new MenuForExpert();
+            ProblemsExpert f = new ProblemsExpert();
             f.Show();
         }
 
