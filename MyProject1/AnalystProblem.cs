@@ -35,7 +35,9 @@ namespace MyProject1
         // Переход к окну с изменением альтернатив для проблемы
         private void buttonAnalystNext_Click(object sender, EventArgs e)
         {
-
+            Close();
+            AnalystAlternative f = new AnalystAlternative();
+            f.Show();
         }
     }
 }

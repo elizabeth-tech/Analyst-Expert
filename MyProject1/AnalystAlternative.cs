@@ -35,7 +35,9 @@ namespace MyProject1
         // (Аналитик) Переход на окно выбора экспертов для проблемы
         private void buttonAnalystNext_Click(object sender, EventArgs e)
         {
-
+            Close();
+            Analyst_ExpertChoice f = new Analyst_ExpertChoice();
+            f.Show();
         }
     }
 }
