@@ -31,5 +31,11 @@ namespace MyProject1
             Message m = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero);
             WndProc(ref m);
         }
+
+        // Вход. Переход на окно выбора проблемы
+        private void buttonExpertLogin_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

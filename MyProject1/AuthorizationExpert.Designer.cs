@@ -30,17 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AuthorizationExpert));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonExpertLoginClose = new System.Windows.Forms.Button();
-            this.buttonExpertLoginTurn = new System.Windows.Forms.Button();
-            this.buttonTurnAnalystProblem = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.buttonCloseAnalystProblem = new System.Windows.Forms.Button();
             this.labelFIO = new System.Windows.Forms.Label();
             this.labelPassword = new System.Windows.Forms.Label();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.buttonExpertLogin = new System.Windows.Forms.Button();
             this.comboBoxFIO = new System.Windows.Forms.ComboBox();
+            this.buttonExpertLoginClose = new System.Windows.Forms.Button();
+            this.buttonExpertLoginTurn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,60 +47,14 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(27)))), ((int)(((byte)(38)))));
             this.panel1.Controls.Add(this.buttonExpertLoginClose);
             this.panel1.Controls.Add(this.buttonExpertLoginTurn);
-            this.panel1.Controls.Add(this.buttonTurnAnalystProblem);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label24);
-            this.panel1.Controls.Add(this.buttonCloseAnalystProblem);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(496, 32);
+            this.panel1.Size = new System.Drawing.Size(499, 32);
             this.panel1.TabIndex = 44;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
-            // 
-            // buttonExpertLoginClose
-            // 
-            this.buttonExpertLoginClose.BackColor = System.Drawing.Color.Transparent;
-            this.buttonExpertLoginClose.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonExpertLoginClose.BackgroundImage")));
-            this.buttonExpertLoginClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonExpertLoginClose.FlatAppearance.BorderSize = 0;
-            this.buttonExpertLoginClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.buttonExpertLoginClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExpertLoginClose.Location = new System.Drawing.Point(449, 1);
-            this.buttonExpertLoginClose.Name = "buttonExpertLoginClose";
-            this.buttonExpertLoginClose.Size = new System.Drawing.Size(47, 30);
-            this.buttonExpertLoginClose.TabIndex = 45;
-            this.buttonExpertLoginClose.UseVisualStyleBackColor = false;
-            this.buttonExpertLoginClose.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // buttonExpertLoginTurn
-            // 
-            this.buttonExpertLoginTurn.BackColor = System.Drawing.Color.Transparent;
-            this.buttonExpertLoginTurn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonExpertLoginTurn.BackgroundImage")));
-            this.buttonExpertLoginTurn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonExpertLoginTurn.FlatAppearance.BorderSize = 0;
-            this.buttonExpertLoginTurn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.buttonExpertLoginTurn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExpertLoginTurn.Location = new System.Drawing.Point(396, 1);
-            this.buttonExpertLoginTurn.Name = "buttonExpertLoginTurn";
-            this.buttonExpertLoginTurn.Size = new System.Drawing.Size(47, 30);
-            this.buttonExpertLoginTurn.TabIndex = 48;
-            this.buttonExpertLoginTurn.UseVisualStyleBackColor = false;
-            this.buttonExpertLoginTurn.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // buttonTurnAnalystProblem
-            // 
-            this.buttonTurnAnalystProblem.BackColor = System.Drawing.Color.Transparent;
-            this.buttonTurnAnalystProblem.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonTurnAnalystProblem.BackgroundImage")));
-            this.buttonTurnAnalystProblem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonTurnAnalystProblem.FlatAppearance.BorderSize = 0;
-            this.buttonTurnAnalystProblem.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.buttonTurnAnalystProblem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonTurnAnalystProblem.Location = new System.Drawing.Point(700, 1);
-            this.buttonTurnAnalystProblem.Name = "buttonTurnAnalystProblem";
-            this.buttonTurnAnalystProblem.Size = new System.Drawing.Size(47, 30);
-            this.buttonTurnAnalystProblem.TabIndex = 45;
-            this.buttonTurnAnalystProblem.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -122,23 +74,9 @@
             this.label24.ForeColor = System.Drawing.Color.White;
             this.label24.Location = new System.Drawing.Point(32, 9);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(105, 17);
+            this.label24.Size = new System.Drawing.Size(106, 17);
             this.label24.TabIndex = 0;
-            this.label24.Text = "Эксперт - вход";
-            // 
-            // buttonCloseAnalystProblem
-            // 
-            this.buttonCloseAnalystProblem.BackColor = System.Drawing.Color.Transparent;
-            this.buttonCloseAnalystProblem.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonCloseAnalystProblem.BackgroundImage")));
-            this.buttonCloseAnalystProblem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonCloseAnalystProblem.FlatAppearance.BorderSize = 0;
-            this.buttonCloseAnalystProblem.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.buttonCloseAnalystProblem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCloseAnalystProblem.Location = new System.Drawing.Point(753, 1);
-            this.buttonCloseAnalystProblem.Name = "buttonCloseAnalystProblem";
-            this.buttonCloseAnalystProblem.Size = new System.Drawing.Size(47, 30);
-            this.buttonCloseAnalystProblem.TabIndex = 44;
-            this.buttonCloseAnalystProblem.UseVisualStyleBackColor = false;
+            this.label24.Text = "Эксперт - Вход";
             // 
             // labelFIO
             // 
@@ -185,6 +123,7 @@
             this.buttonExpertLogin.TabIndex = 91;
             this.buttonExpertLogin.Text = "Войти";
             this.buttonExpertLogin.UseVisualStyleBackColor = false;
+            this.buttonExpertLogin.Click += new System.EventHandler(this.buttonExpertLogin_Click);
             // 
             // comboBoxFIO
             // 
@@ -198,12 +137,42 @@
             this.comboBoxFIO.Size = new System.Drawing.Size(188, 25);
             this.comboBoxFIO.TabIndex = 92;
             // 
+            // buttonExpertLoginClose
+            // 
+            this.buttonExpertLoginClose.BackColor = System.Drawing.Color.Transparent;
+            this.buttonExpertLoginClose.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonExpertLoginClose.BackgroundImage")));
+            this.buttonExpertLoginClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonExpertLoginClose.FlatAppearance.BorderSize = 0;
+            this.buttonExpertLoginClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.buttonExpertLoginClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExpertLoginClose.Location = new System.Drawing.Point(449, 1);
+            this.buttonExpertLoginClose.Name = "buttonExpertLoginClose";
+            this.buttonExpertLoginClose.Size = new System.Drawing.Size(47, 30);
+            this.buttonExpertLoginClose.TabIndex = 45;
+            this.buttonExpertLoginClose.UseVisualStyleBackColor = false;
+            this.buttonExpertLoginClose.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // buttonExpertLoginTurn
+            // 
+            this.buttonExpertLoginTurn.BackColor = System.Drawing.Color.Transparent;
+            this.buttonExpertLoginTurn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonExpertLoginTurn.BackgroundImage")));
+            this.buttonExpertLoginTurn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonExpertLoginTurn.FlatAppearance.BorderSize = 0;
+            this.buttonExpertLoginTurn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.buttonExpertLoginTurn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExpertLoginTurn.Location = new System.Drawing.Point(396, 1);
+            this.buttonExpertLoginTurn.Name = "buttonExpertLoginTurn";
+            this.buttonExpertLoginTurn.Size = new System.Drawing.Size(47, 30);
+            this.buttonExpertLoginTurn.TabIndex = 48;
+            this.buttonExpertLoginTurn.UseVisualStyleBackColor = false;
+            this.buttonExpertLoginTurn.Click += new System.EventHandler(this.button1_Click);
+            // 
             // AuthorizationExpert
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(496, 274);
+            this.ClientSize = new System.Drawing.Size(499, 271);
             this.Controls.Add(this.comboBoxFIO);
             this.Controls.Add(this.buttonExpertLogin);
             this.Controls.Add(this.textBoxPassword);
@@ -224,10 +193,8 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button buttonTurnAnalystProblem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Button buttonCloseAnalystProblem;
         private System.Windows.Forms.Button buttonExpertLoginTurn;
         private System.Windows.Forms.Button buttonExpertLoginClose;
         private System.Windows.Forms.Label labelFIO;
