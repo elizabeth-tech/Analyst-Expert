@@ -49,6 +49,8 @@
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.buttonTurnAnalystProblem = new System.Windows.Forms.Button();
             this.buttonCloseAnalystProblem = new System.Windows.Forms.Button();
+            this.кРезультатамToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProblems)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -201,9 +203,12 @@
             // 
             // кРезультатамToolStripMenuItem
             // 
+            this.кРезультатамToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.кРезультатамToolStripMenuItem1,
+            this.выходToolStripMenuItem});
             this.кРезультатамToolStripMenuItem.Name = "кРезультатамToolStripMenuItem";
-            this.кРезультатамToolStripMenuItem.Size = new System.Drawing.Size(106, 21);
-            this.кРезультатамToolStripMenuItem.Text = "К результатам";
+            this.кРезультатамToolStripMenuItem.Size = new System.Drawing.Size(57, 21);
+            this.кРезультатамToolStripMenuItem.Text = "Меню";
             // 
             // toolStripButton1
             // 
@@ -265,6 +270,18 @@
             this.buttonCloseAnalystProblem.UseVisualStyleBackColor = false;
             this.buttonCloseAnalystProblem.Click += new System.EventHandler(this.buttonCloseAnalystProblem_Click);
             // 
+            // кРезультатамToolStripMenuItem1
+            // 
+            this.кРезультатамToolStripMenuItem1.Name = "кРезультатамToolStripMenuItem1";
+            this.кРезультатамToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.кРезультатамToolStripMenuItem1.Text = "К результатам";
+            // 
+            // выходToolStripMenuItem
+            // 
+            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.выходToolStripMenuItem.Text = "Выход";
+            // 
             // AnalystProblem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -312,5 +329,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem кРезультатамToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem кРезультатамToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
     }
 }

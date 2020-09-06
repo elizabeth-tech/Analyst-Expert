@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnalystAlternative));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,6 +49,9 @@
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.buttonTurnAnalystAlternative = new System.Windows.Forms.Button();
             this.buttonCloseAnalystAlternative = new System.Windows.Forms.Button();
+            this.buttonAnalystBack = new System.Windows.Forms.Button();
+            this.кРезультатамToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAnalystAlternative)).BeginInit();
@@ -104,9 +107,12 @@
             // 
             // кРезультатамToolStripMenuItem
             // 
+            this.кРезультатамToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.кРезультатамToolStripMenuItem1,
+            this.выходToolStripMenuItem});
             this.кРезультатамToolStripMenuItem.Name = "кРезультатамToolStripMenuItem";
-            this.кРезультатамToolStripMenuItem.Size = new System.Drawing.Size(106, 21);
-            this.кРезультатамToolStripMenuItem.Text = "К результатам";
+            this.кРезультатамToolStripMenuItem.Size = new System.Drawing.Size(57, 21);
+            this.кРезультатамToolStripMenuItem.Text = "Меню";
             // 
             // dataGridViewAnalystAlternative
             // 
@@ -117,38 +123,38 @@
             this.dataGridViewAnalystAlternative.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewAnalystAlternative.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridViewAnalystAlternative.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(205)))), ((int)(((byte)(221)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAnalystAlternative.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(205)))), ((int)(((byte)(221)))));
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAnalystAlternative.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewAnalystAlternative.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAnalystAlternative.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column12,
             this.Column21,
             this.Column2});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAnalystAlternative.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAnalystAlternative.DefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridViewAnalystAlternative.EnableHeadersVisualStyles = false;
             this.dataGridViewAnalystAlternative.Location = new System.Drawing.Point(19, 107);
             this.dataGridViewAnalystAlternative.Name = "dataGridViewAnalystAlternative";
             this.dataGridViewAnalystAlternative.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(218)))), ((int)(((byte)(188)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAnalystAlternative.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(8, 4, 0, 0);
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.dataGridViewAnalystAlternative.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(218)))), ((int)(((byte)(188)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle11.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAnalystAlternative.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle12.Padding = new System.Windows.Forms.Padding(8, 4, 0, 0);
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black;
+            this.dataGridViewAnalystAlternative.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridViewAnalystAlternative.Size = new System.Drawing.Size(758, 472);
             this.dataGridViewAnalystAlternative.TabIndex = 94;
             // 
@@ -263,12 +269,41 @@
             this.buttonCloseAnalystAlternative.UseVisualStyleBackColor = false;
             this.buttonCloseAnalystAlternative.Click += new System.EventHandler(this.buttonCloseAnalystProblem_Click);
             // 
+            // buttonAnalystBack
+            // 
+            this.buttonAnalystBack.BackColor = System.Drawing.Color.Orange;
+            this.buttonAnalystBack.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
+            this.buttonAnalystBack.FlatAppearance.BorderSize = 0;
+            this.buttonAnalystBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAnalystBack.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonAnalystBack.ForeColor = System.Drawing.Color.Black;
+            this.buttonAnalystBack.Location = new System.Drawing.Point(19, 609);
+            this.buttonAnalystBack.Name = "buttonAnalystBack";
+            this.buttonAnalystBack.Size = new System.Drawing.Size(98, 35);
+            this.buttonAnalystBack.TabIndex = 97;
+            this.buttonAnalystBack.Text = "Назад";
+            this.buttonAnalystBack.UseVisualStyleBackColor = false;
+            this.buttonAnalystBack.Click += new System.EventHandler(this.buttonAnalystBack_Click);
+            // 
+            // кРезультатамToolStripMenuItem1
+            // 
+            this.кРезультатамToolStripMenuItem1.Name = "кРезультатамToolStripMenuItem1";
+            this.кРезультатамToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.кРезультатамToolStripMenuItem1.Text = "К результатам";
+            // 
+            // выходToolStripMenuItem
+            // 
+            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.выходToolStripMenuItem.Text = "Выход";
+            // 
             // AnalystAlternative
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 683);
+            this.Controls.Add(this.buttonAnalystBack);
             this.Controls.Add(this.buttonAnalystNext);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.dataGridViewAnalystAlternative);
@@ -309,5 +344,8 @@
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.Button buttonAnalystNext;
+        private System.Windows.Forms.Button buttonAnalystBack;
+        private System.Windows.Forms.ToolStripMenuItem кРезультатамToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
     }
 }

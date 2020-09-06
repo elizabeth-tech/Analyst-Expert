@@ -39,5 +39,13 @@ namespace MyProject1
             Analyst_ExpertChoice f = new Analyst_ExpertChoice();
             f.Show();
         }
+
+        // Возврат к выбору проблемы
+        private void buttonAnalystBack_Click(object sender, EventArgs e)
+        {
+            Close();
+            AnalystProblem f = new AnalystProblem();
+            f.Show();
+        }
     }
 }

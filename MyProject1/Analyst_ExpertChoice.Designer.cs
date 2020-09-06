@@ -28,28 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Analyst_ExpertChoice));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.buttonTurnAnalystAlternative = new System.Windows.Forms.Button();
-            this.buttonCloseAnalystAlternative = new System.Windows.Forms.Button();
             this.dataGridViewAnalyst_ExpertChoice = new System.Windows.Forms.DataGridView();
             this.Column9 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.кРезультатамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonAnalystNext = new System.Windows.Forms.Button();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.buttonTurnAnalystAlternative = new System.Windows.Forms.Button();
+            this.buttonCloseAnalystAlternative = new System.Windows.Forms.Button();
+            this.buttonAnalystBack = new System.Windows.Forms.Button();
+            this.кРезультатамToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAnalyst_ExpertChoice)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -92,36 +95,6 @@
             this.label24.TabIndex = 0;
             this.label24.Text = "Аналитик - Выбор экспертов";
             // 
-            // buttonTurnAnalystAlternative
-            // 
-            this.buttonTurnAnalystAlternative.BackColor = System.Drawing.Color.Transparent;
-            this.buttonTurnAnalystAlternative.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonTurnAnalystAlternative.BackgroundImage")));
-            this.buttonTurnAnalystAlternative.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonTurnAnalystAlternative.FlatAppearance.BorderSize = 0;
-            this.buttonTurnAnalystAlternative.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.buttonTurnAnalystAlternative.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonTurnAnalystAlternative.Location = new System.Drawing.Point(700, 0);
-            this.buttonTurnAnalystAlternative.Name = "buttonTurnAnalystAlternative";
-            this.buttonTurnAnalystAlternative.Size = new System.Drawing.Size(47, 30);
-            this.buttonTurnAnalystAlternative.TabIndex = 45;
-            this.buttonTurnAnalystAlternative.UseVisualStyleBackColor = false;
-            this.buttonTurnAnalystAlternative.Click += new System.EventHandler(this.buttonTurnAnalystAlternative_Click);
-            // 
-            // buttonCloseAnalystAlternative
-            // 
-            this.buttonCloseAnalystAlternative.BackColor = System.Drawing.Color.Transparent;
-            this.buttonCloseAnalystAlternative.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonCloseAnalystAlternative.BackgroundImage")));
-            this.buttonCloseAnalystAlternative.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonCloseAnalystAlternative.FlatAppearance.BorderSize = 0;
-            this.buttonCloseAnalystAlternative.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.buttonCloseAnalystAlternative.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCloseAnalystAlternative.Location = new System.Drawing.Point(753, 1);
-            this.buttonCloseAnalystAlternative.Name = "buttonCloseAnalystAlternative";
-            this.buttonCloseAnalystAlternative.Size = new System.Drawing.Size(47, 30);
-            this.buttonCloseAnalystAlternative.TabIndex = 44;
-            this.buttonCloseAnalystAlternative.UseVisualStyleBackColor = false;
-            this.buttonCloseAnalystAlternative.Click += new System.EventHandler(this.buttonCloseAnalystAlternative_Click);
-            // 
             // dataGridViewAnalyst_ExpertChoice
             // 
             this.dataGridViewAnalyst_ExpertChoice.AllowUserToAddRows = false;
@@ -131,39 +104,39 @@
             this.dataGridViewAnalyst_ExpertChoice.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewAnalyst_ExpertChoice.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridViewAnalyst_ExpertChoice.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(205)))), ((int)(((byte)(221)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAnalyst_ExpertChoice.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(205)))), ((int)(((byte)(221)))));
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAnalyst_ExpertChoice.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.dataGridViewAnalyst_ExpertChoice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAnalyst_ExpertChoice.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column9,
             this.Column11,
             this.dataGridViewTextBoxColumn2,
             this.Column3});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAnalyst_ExpertChoice.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle18.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAnalyst_ExpertChoice.DefaultCellStyle = dataGridViewCellStyle18;
             this.dataGridViewAnalyst_ExpertChoice.EnableHeadersVisualStyles = false;
             this.dataGridViewAnalyst_ExpertChoice.Location = new System.Drawing.Point(19, 107);
             this.dataGridViewAnalyst_ExpertChoice.Name = "dataGridViewAnalyst_ExpertChoice";
             this.dataGridViewAnalyst_ExpertChoice.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(218)))), ((int)(((byte)(188)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAnalyst_ExpertChoice.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(8, 4, 0, 0);
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.dataGridViewAnalyst_ExpertChoice.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(218)))), ((int)(((byte)(188)))));
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle19.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAnalyst_ExpertChoice.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle20.Padding = new System.Windows.Forms.Padding(8, 4, 0, 0);
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.Black;
+            this.dataGridViewAnalyst_ExpertChoice.RowsDefaultCellStyle = dataGridViewCellStyle20;
             this.dataGridViewAnalyst_ExpertChoice.Size = new System.Drawing.Size(761, 461);
             this.dataGridViewAnalyst_ExpertChoice.TabIndex = 88;
             // 
@@ -210,6 +183,42 @@
             this.toolStrip1.TabIndex = 96;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.кРезультатамToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 32);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(800, 25);
+            this.menuStrip1.TabIndex = 97;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // кРезультатамToolStripMenuItem
+            // 
+            this.кРезультатамToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.кРезультатамToolStripMenuItem1,
+            this.выходToolStripMenuItem});
+            this.кРезультатамToolStripMenuItem.Name = "кРезультатамToolStripMenuItem";
+            this.кРезультатамToolStripMenuItem.Size = new System.Drawing.Size(57, 21);
+            this.кРезультатамToolStripMenuItem.Text = "Меню";
+            // 
+            // buttonAnalystNext
+            // 
+            this.buttonAnalystNext.BackColor = System.Drawing.Color.Orange;
+            this.buttonAnalystNext.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
+            this.buttonAnalystNext.FlatAppearance.BorderSize = 0;
+            this.buttonAnalystNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAnalystNext.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonAnalystNext.ForeColor = System.Drawing.Color.Black;
+            this.buttonAnalystNext.Location = new System.Drawing.Point(682, 609);
+            this.buttonAnalystNext.Name = "buttonAnalystNext";
+            this.buttonAnalystNext.Size = new System.Drawing.Size(98, 35);
+            this.buttonAnalystNext.TabIndex = 98;
+            this.buttonAnalystNext.Text = "Далее";
+            this.buttonAnalystNext.UseVisualStyleBackColor = false;
+            this.buttonAnalystNext.Click += new System.EventHandler(this.buttonAnalystNext_Click);
+            // 
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -240,38 +249,63 @@
             this.toolStripButton3.Text = "toolStripButton3";
             this.toolStripButton3.ToolTipText = "Удалить выбранную проблему";
             // 
-            // menuStrip1
+            // buttonTurnAnalystAlternative
             // 
-            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.кРезультатамToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 32);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 25);
-            this.menuStrip1.TabIndex = 97;
-            this.menuStrip1.Text = "menuStrip1";
+            this.buttonTurnAnalystAlternative.BackColor = System.Drawing.Color.Transparent;
+            this.buttonTurnAnalystAlternative.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonTurnAnalystAlternative.BackgroundImage")));
+            this.buttonTurnAnalystAlternative.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonTurnAnalystAlternative.FlatAppearance.BorderSize = 0;
+            this.buttonTurnAnalystAlternative.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.buttonTurnAnalystAlternative.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonTurnAnalystAlternative.Location = new System.Drawing.Point(700, 0);
+            this.buttonTurnAnalystAlternative.Name = "buttonTurnAnalystAlternative";
+            this.buttonTurnAnalystAlternative.Size = new System.Drawing.Size(47, 30);
+            this.buttonTurnAnalystAlternative.TabIndex = 45;
+            this.buttonTurnAnalystAlternative.UseVisualStyleBackColor = false;
+            this.buttonTurnAnalystAlternative.Click += new System.EventHandler(this.buttonTurnAnalystAlternative_Click);
             // 
-            // кРезультатамToolStripMenuItem
+            // buttonCloseAnalystAlternative
             // 
-            this.кРезультатамToolStripMenuItem.Name = "кРезультатамToolStripMenuItem";
-            this.кРезультатамToolStripMenuItem.Size = new System.Drawing.Size(106, 21);
-            this.кРезультатамToolStripMenuItem.Text = "К результатам";
+            this.buttonCloseAnalystAlternative.BackColor = System.Drawing.Color.Transparent;
+            this.buttonCloseAnalystAlternative.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonCloseAnalystAlternative.BackgroundImage")));
+            this.buttonCloseAnalystAlternative.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonCloseAnalystAlternative.FlatAppearance.BorderSize = 0;
+            this.buttonCloseAnalystAlternative.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.buttonCloseAnalystAlternative.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCloseAnalystAlternative.Location = new System.Drawing.Point(753, 1);
+            this.buttonCloseAnalystAlternative.Name = "buttonCloseAnalystAlternative";
+            this.buttonCloseAnalystAlternative.Size = new System.Drawing.Size(47, 30);
+            this.buttonCloseAnalystAlternative.TabIndex = 44;
+            this.buttonCloseAnalystAlternative.UseVisualStyleBackColor = false;
+            this.buttonCloseAnalystAlternative.Click += new System.EventHandler(this.buttonCloseAnalystAlternative_Click);
             // 
-            // buttonAnalystNext
+            // buttonAnalystBack
             // 
-            this.buttonAnalystNext.BackColor = System.Drawing.Color.Orange;
-            this.buttonAnalystNext.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
-            this.buttonAnalystNext.FlatAppearance.BorderSize = 0;
-            this.buttonAnalystNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAnalystNext.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonAnalystNext.ForeColor = System.Drawing.Color.Black;
-            this.buttonAnalystNext.Location = new System.Drawing.Point(682, 609);
-            this.buttonAnalystNext.Name = "buttonAnalystNext";
-            this.buttonAnalystNext.Size = new System.Drawing.Size(98, 35);
-            this.buttonAnalystNext.TabIndex = 98;
-            this.buttonAnalystNext.Text = "Далее";
-            this.buttonAnalystNext.UseVisualStyleBackColor = false;
-            this.buttonAnalystNext.Click += new System.EventHandler(this.buttonAnalystNext_Click);
+            this.buttonAnalystBack.BackColor = System.Drawing.Color.Orange;
+            this.buttonAnalystBack.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
+            this.buttonAnalystBack.FlatAppearance.BorderSize = 0;
+            this.buttonAnalystBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAnalystBack.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonAnalystBack.ForeColor = System.Drawing.Color.Black;
+            this.buttonAnalystBack.Location = new System.Drawing.Point(19, 609);
+            this.buttonAnalystBack.Name = "buttonAnalystBack";
+            this.buttonAnalystBack.Size = new System.Drawing.Size(98, 35);
+            this.buttonAnalystBack.TabIndex = 99;
+            this.buttonAnalystBack.Text = "Назад";
+            this.buttonAnalystBack.UseVisualStyleBackColor = false;
+            this.buttonAnalystBack.Click += new System.EventHandler(this.buttonAnalystBack_Click);
+            // 
+            // кРезультатамToolStripMenuItem1
+            // 
+            this.кРезультатамToolStripMenuItem1.Name = "кРезультатамToolStripMenuItem1";
+            this.кРезультатамToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.кРезультатамToolStripMenuItem1.Text = "К результатам";
+            // 
+            // выходToolStripMenuItem
+            // 
+            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.выходToolStripMenuItem.Text = "Выход";
             // 
             // Analyst_ExpertChoice
             // 
@@ -279,6 +313,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 683);
+            this.Controls.Add(this.buttonAnalystBack);
             this.Controls.Add(this.buttonAnalystNext);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.toolStrip1);
@@ -320,5 +355,8 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem кРезультатамToolStripMenuItem;
         private System.Windows.Forms.Button buttonAnalystNext;
+        private System.Windows.Forms.Button buttonAnalystBack;
+        private System.Windows.Forms.ToolStripMenuItem кРезультатамToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
     }
 }

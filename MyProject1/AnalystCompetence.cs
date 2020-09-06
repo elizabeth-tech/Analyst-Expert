@@ -3,14 +3,14 @@ using System.Windows.Forms;
 
 namespace MyProject1
 {
-    public partial class Analyst_ExpertChoice : Form
+    public partial class AnalystCompetence : Form
     {
-        public Analyst_ExpertChoice()
+        public AnalystCompetence()
         {
             InitializeComponent();
         }
 
-        // Закрытие окна выбора экспертов
+        // (Аналитик) Закрытие окна изменения компетентности экспертов
         private void buttonCloseAnalystAlternative_Click(object sender, EventArgs e)
         {
             Close();
@@ -18,18 +18,18 @@ namespace MyProject1
             f.Show();
         }
 
-        // Свернуть окно
+        // Сворачивание окна
         private void buttonTurnAnalystAlternative_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
         }
 
-        // Переход к компетентности экспертов
-        private void buttonAnalystNext_Click(object sender, EventArgs e)
+        // Возврат на окно выбора эксперта
+        private void buttonAnalystBack_Click(object sender, EventArgs e)
         {
-            Close();
-            AnalystCompetence f = new AnalystCompetence();
+            Analyst_ExpertChoice f = new Analyst_ExpertChoice();
             f.Show();
+            Close();
         }
 
         // Перетаскивание окна
@@ -40,12 +40,9 @@ namespace MyProject1
             WndProc(ref m);
         }
 
-        // Возврат к изменению альтернатив
-        private void buttonAnalystBack_Click(object sender, EventArgs e)
+        private void кРезультатамToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Close();
-            AnalystAlternative f = new AnalystAlternative();
-            f.Show();
+
         }
     }
 }
