@@ -27,6 +27,7 @@ namespace MyProject1
         {
             AuthorizationExpert f = new AuthorizationExpert();
             f.Show();
+            this.Hide();
         }
 
         // Вход как Аналитик
