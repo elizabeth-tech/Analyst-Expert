@@ -1,6 +1,6 @@
 ﻿namespace MyProject1
 {
-    partial class MenuForExpert
+    partial class ExpertMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuForExpert));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExpertMenu));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -228,8 +228,10 @@
             this.Controls.Add(this.tabControlExpertMenu);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MenuForExpert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Эксперт - основное меню";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabControlExpertMenu.ResumeLayout(false);

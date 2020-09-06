@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace MyProject1
 {
-    public partial class ProblemsExpert : Form
+    public partial class ExpertProblems : Form
     {
-        public ProblemsExpert()
+        public ExpertProblems()
         {
             InitializeComponent();
         }
@@ -28,7 +28,7 @@ namespace MyProject1
         private void buttonBack_Click(object sender, EventArgs e)
         {
             Close();
-            AuthorizationExpert f = new AuthorizationExpert();
+            ExpertAuthorization f = new ExpertAuthorization();
             f.Show();
         }
 
@@ -36,7 +36,7 @@ namespace MyProject1
         private void buttonExpertNext_Click(object sender, EventArgs e)
         {
             Close();
-            MenuForExpert f = new MenuForExpert();
+            ExpertMenu f = new ExpertMenu();
             f.Show();
         }
 

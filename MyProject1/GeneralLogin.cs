@@ -25,7 +25,7 @@ namespace MyProject1
         // Вход как Эксперт
         private void buttonExpertLogin_Click(object sender, EventArgs e)
         {
-            AuthorizationExpert f = new AuthorizationExpert();
+            ExpertAuthorization f = new ExpertAuthorization();
             f.Show();
             this.Hide();
         }
@@ -33,7 +33,8 @@ namespace MyProject1
         // Вход как Аналитик
         private void buttonAnalystLogin_Click(object sender, EventArgs e)
         {
-            Analyst f = new Analyst();
+            this.Hide();
+            AnalystProblem f = new AnalystProblem();
             f.Show();
         }
 

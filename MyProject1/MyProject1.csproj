@@ -46,29 +46,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthorizationExpert.cs">
+    <Compile Include="AnalystAlternative.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AuthorizationExpert.Designer.cs">
-      <DependentUpon>AuthorizationExpert.cs</DependentUpon>
+    <Compile Include="AnalystAlternative.Designer.cs">
+      <DependentUpon>AnalystAlternative.cs</DependentUpon>
     </Compile>
-    <Compile Include="Analyst.cs">
+    <Compile Include="ExpertAuthorization.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Analyst.Designer.cs">
-      <DependentUpon>Analyst.cs</DependentUpon>
+    <Compile Include="ExpertAuthorization.Designer.cs">
+      <DependentUpon>ExpertAuthorization.cs</DependentUpon>
     </Compile>
-    <Compile Include="MenuForExpert.cs">
+    <Compile Include="AnalystProblem.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MenuForExpert.Designer.cs">
-      <DependentUpon>MenuForExpert.cs</DependentUpon>
+    <Compile Include="AnalystProblem.Designer.cs">
+      <DependentUpon>AnalystProblem.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProblemsExpert.cs">
+    <Compile Include="ExpertMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProblemsExpert.Designer.cs">
-      <DependentUpon>ProblemsExpert.cs</DependentUpon>
+    <Compile Include="ExpertMenu.Designer.cs">
+      <DependentUpon>ExpertMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertProblems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExpertProblems.Designer.cs">
+      <DependentUpon>ExpertProblems.cs</DependentUpon>
     </Compile>
     <Compile Include="GeneralLogin.cs">
       <SubType>Form</SubType>
@@ -78,20 +84,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Analyst.resx">
-      <DependentUpon>Analyst.cs</DependentUpon>
+    <EmbeddedResource Include="AnalystAlternative.resx">
+      <DependentUpon>AnalystAlternative.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AuthorizationExpert.resx">
-      <DependentUpon>AuthorizationExpert.cs</DependentUpon>
+    <EmbeddedResource Include="AnalystProblem.resx">
+      <DependentUpon>AnalystProblem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpertAuthorization.resx">
+      <DependentUpon>ExpertAuthorization.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GeneralLogin.resx">
       <DependentUpon>GeneralLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MenuForExpert.resx">
-      <DependentUpon>MenuForExpert.cs</DependentUpon>
+    <EmbeddedResource Include="ExpertMenu.resx">
+      <DependentUpon>ExpertMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProblemsExpert.resx">
-      <DependentUpon>ProblemsExpert.cs</DependentUpon>
+    <EmbeddedResource Include="ExpertProblems.resx">
+      <DependentUpon>ExpertProblems.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

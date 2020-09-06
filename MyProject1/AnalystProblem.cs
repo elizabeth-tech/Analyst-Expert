@@ -3,33 +3,25 @@ using System.Windows.Forms;
 
 namespace MyProject1
 {
-    public partial class MenuForExpert : Form
+    public partial class AnalystProblem : Form
     {
-        public MenuForExpert()
+        public AnalystProblem()
         {
             InitializeComponent();
         }
 
-        // Закрытие окна с основным меню для эксперта
-        private void buttonExpertProblemClose_Click(object sender, EventArgs e)
+        // Закрытие окна аналитика с Проблемами
+        private void buttonCloseAnalystProblem_Click(object sender, EventArgs e)
         {
             Close();
             Form form = Application.OpenForms[0]; // Вызываем форму выбора эксперта или аналитика
             form.Show();
         }
 
-        // Сворачивание окна с основным меню эксперта
-        private void buttonExpertProblemTurn_Click(object sender, EventArgs e)
+        // Сворачивание основной формы входа
+        private void buttonTurnAnalystProblem_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
-        }
-
-        // Возврат к выбору проблемы
-        private void buttonBack_Click(object sender, EventArgs e)
-        {
-            Close();
-            ProblemsExpert f = new ProblemsExpert();
-            f.Show();
         }
 
         // Перетаскивание окна
@@ -38,6 +30,12 @@ namespace MyProject1
             panel1.Capture = false;
             Message m = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero);
             WndProc(ref m);
+        }
+
+        // Переход к окну с изменением альтернатив для проблемы
+        private void buttonAnalystNext_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace MyProject1
 {
-    partial class AuthorizationExpert
+    partial class ExpertAuthorization
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AuthorizationExpert));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExpertAuthorization));
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonExpertLoginClose = new System.Windows.Forms.Button();
             this.buttonExpertLoginTurn = new System.Windows.Forms.Button();
@@ -180,8 +180,10 @@
             this.Controls.Add(this.labelFIO);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AuthorizationExpert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Эксперт - вход";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
