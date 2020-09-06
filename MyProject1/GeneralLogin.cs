@@ -34,7 +34,7 @@ namespace MyProject1
         private void buttonAnalystLogin_Click(object sender, EventArgs e)
         {
             this.Hide();
-            AnalystProblem f = new AnalystProblem();
+            AnalystAuthorization f = new AnalystAuthorization();
             f.Show();
         }
 

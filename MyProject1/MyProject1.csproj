@@ -58,6 +58,12 @@
     <Compile Include="AnalystCompetence.Designer.cs">
       <DependentUpon>AnalystCompetence.cs</DependentUpon>
     </Compile>
+    <Compile Include="AnalystAuthorization.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnalystAuthorization.Designer.cs">
+      <DependentUpon>AnalystAuthorization.cs</DependentUpon>
+    </Compile>
     <Compile Include="Analyst_ExpertChoice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +104,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AnalystAlternative.resx">
       <DependentUpon>AnalystAlternative.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnalystAuthorization.resx">
+      <DependentUpon>AnalystAuthorization.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AnalystCompetence.resx">
       <DependentUpon>AnalystCompetence.cs</DependentUpon>
