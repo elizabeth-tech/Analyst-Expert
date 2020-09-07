@@ -83,6 +83,16 @@ namespace MyProject1.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_menu_20 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-menu-20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_minus_24 {
             get {
                 object obj = ResourceManager.GetObject("icons8-minus-24", resourceCulture);

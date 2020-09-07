@@ -24,14 +24,6 @@ namespace MyProject1
             WindowState = FormWindowState.Minimized;
         }
 
-        // Возврат к выбору проблемы
-        private void buttonBack_Click(object sender, EventArgs e)
-        {
-            Close();
-            ExpertProblems f = new ExpertProblems();
-            f.Show();
-        }
-
         // Перетаскивание окна
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {

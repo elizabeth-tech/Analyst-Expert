@@ -30,8 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExpertAuthorization));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonExpertLoginClose = new System.Windows.Forms.Button();
-            this.buttonExpertLoginTurn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.labelFIO = new System.Windows.Forms.Label();
@@ -39,6 +37,8 @@
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.buttonExpertLogin = new System.Windows.Forms.Button();
             this.comboBoxFIO = new System.Windows.Forms.ComboBox();
+            this.buttonExpertLoginClose = new System.Windows.Forms.Button();
+            this.buttonExpertLoginTurn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +55,87 @@
             this.panel1.Size = new System.Drawing.Size(499, 32);
             this.panel1.TabIndex = 44;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Orange;
+            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(6, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(20, 22);
+            this.label1.TabIndex = 47;
+            this.label1.Text = "S";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label24.ForeColor = System.Drawing.Color.White;
+            this.label24.Location = new System.Drawing.Point(32, 9);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(106, 17);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "Эксперт - Вход";
+            // 
+            // labelFIO
+            // 
+            this.labelFIO.AutoSize = true;
+            this.labelFIO.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelFIO.Location = new System.Drawing.Point(93, 94);
+            this.labelFIO.Name = "labelFIO";
+            this.labelFIO.Size = new System.Drawing.Size(49, 21);
+            this.labelFIO.TabIndex = 45;
+            this.labelFIO.Text = "ФИО:";
+            // 
+            // labelPassword
+            // 
+            this.labelPassword.AutoSize = true;
+            this.labelPassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelPassword.Location = new System.Drawing.Point(93, 135);
+            this.labelPassword.Name = "labelPassword";
+            this.labelPassword.Size = new System.Drawing.Size(66, 21);
+            this.labelPassword.TabIndex = 46;
+            this.labelPassword.Text = "Пароль:";
+            // 
+            // textBoxPassword
+            // 
+            this.textBoxPassword.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxPassword.ForeColor = System.Drawing.Color.Black;
+            this.textBoxPassword.Location = new System.Drawing.Point(177, 131);
+            this.textBoxPassword.MaxLength = 20;
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.Size = new System.Drawing.Size(188, 25);
+            this.textBoxPassword.TabIndex = 48;
+            this.textBoxPassword.UseSystemPasswordChar = true;
+            // 
+            // buttonExpertLogin
+            // 
+            this.buttonExpertLogin.BackColor = System.Drawing.Color.Orange;
+            this.buttonExpertLogin.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
+            this.buttonExpertLogin.FlatAppearance.BorderSize = 0;
+            this.buttonExpertLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExpertLogin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonExpertLogin.ForeColor = System.Drawing.Color.Black;
+            this.buttonExpertLogin.Location = new System.Drawing.Point(207, 195);
+            this.buttonExpertLogin.Name = "buttonExpertLogin";
+            this.buttonExpertLogin.Size = new System.Drawing.Size(84, 33);
+            this.buttonExpertLogin.TabIndex = 91;
+            this.buttonExpertLogin.Text = "Войти";
+            this.buttonExpertLogin.UseVisualStyleBackColor = false;
+            this.buttonExpertLogin.Click += new System.EventHandler(this.buttonExpertLogin_Click);
+            // 
+            // comboBoxFIO
+            // 
+            this.comboBoxFIO.BackColor = System.Drawing.Color.White;
+            this.comboBoxFIO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFIO.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBoxFIO.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxFIO.FormattingEnabled = true;
+            this.comboBoxFIO.Location = new System.Drawing.Point(177, 90);
+            this.comboBoxFIO.Name = "comboBoxFIO";
+            this.comboBoxFIO.Size = new System.Drawing.Size(188, 25);
+            this.comboBoxFIO.TabIndex = 92;
             // 
             // buttonExpertLoginClose
             // 
@@ -86,88 +167,7 @@
             this.buttonExpertLoginTurn.UseVisualStyleBackColor = false;
             this.buttonExpertLoginTurn.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Orange;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(6, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 22);
-            this.label1.TabIndex = 47;
-            this.label1.Text = "S";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label24.ForeColor = System.Drawing.Color.White;
-            this.label24.Location = new System.Drawing.Point(32, 9);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(106, 17);
-            this.label24.TabIndex = 0;
-            this.label24.Text = "Эксперт - Вход";
-            // 
-            // labelFIO
-            // 
-            this.labelFIO.AutoSize = true;
-            this.labelFIO.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFIO.Location = new System.Drawing.Point(93, 107);
-            this.labelFIO.Name = "labelFIO";
-            this.labelFIO.Size = new System.Drawing.Size(49, 21);
-            this.labelFIO.TabIndex = 45;
-            this.labelFIO.Text = "ФИО:";
-            // 
-            // labelPassword
-            // 
-            this.labelPassword.AutoSize = true;
-            this.labelPassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelPassword.Location = new System.Drawing.Point(93, 148);
-            this.labelPassword.Name = "labelPassword";
-            this.labelPassword.Size = new System.Drawing.Size(66, 21);
-            this.labelPassword.TabIndex = 46;
-            this.labelPassword.Text = "Пароль:";
-            // 
-            // textBoxPassword
-            // 
-            this.textBoxPassword.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxPassword.ForeColor = System.Drawing.Color.Black;
-            this.textBoxPassword.Location = new System.Drawing.Point(177, 144);
-            this.textBoxPassword.MaxLength = 20;
-            this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(188, 25);
-            this.textBoxPassword.TabIndex = 48;
-            this.textBoxPassword.UseSystemPasswordChar = true;
-            // 
-            // buttonExpertLogin
-            // 
-            this.buttonExpertLogin.BackColor = System.Drawing.Color.Orange;
-            this.buttonExpertLogin.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
-            this.buttonExpertLogin.FlatAppearance.BorderSize = 0;
-            this.buttonExpertLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExpertLogin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonExpertLogin.ForeColor = System.Drawing.Color.Black;
-            this.buttonExpertLogin.Location = new System.Drawing.Point(207, 208);
-            this.buttonExpertLogin.Name = "buttonExpertLogin";
-            this.buttonExpertLogin.Size = new System.Drawing.Size(84, 33);
-            this.buttonExpertLogin.TabIndex = 91;
-            this.buttonExpertLogin.Text = "Войти";
-            this.buttonExpertLogin.UseVisualStyleBackColor = false;
-            this.buttonExpertLogin.Click += new System.EventHandler(this.buttonExpertLogin_Click);
-            // 
-            // comboBoxFIO
-            // 
-            this.comboBoxFIO.BackColor = System.Drawing.Color.White;
-            this.comboBoxFIO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFIO.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBoxFIO.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxFIO.FormattingEnabled = true;
-            this.comboBoxFIO.Location = new System.Drawing.Point(177, 103);
-            this.comboBoxFIO.Name = "comboBoxFIO";
-            this.comboBoxFIO.Size = new System.Drawing.Size(188, 25);
-            this.comboBoxFIO.TabIndex = 92;
-            // 
-            // AuthorizationExpert
+            // ExpertAuthorization
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -181,7 +181,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "AuthorizationExpert";
+            this.Name = "ExpertAuthorization";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Эксперт - вход";
             this.panel1.ResumeLayout(false);

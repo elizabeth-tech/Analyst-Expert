@@ -36,7 +36,7 @@ namespace MyProject1
         private void buttonExpertLogin_Click(object sender, EventArgs e)
         {
             Close();
-            ExpertProblems f = new ExpertProblems();
+            ExpertMenu f = new ExpertMenu();
             f.Show();
         }
     }
