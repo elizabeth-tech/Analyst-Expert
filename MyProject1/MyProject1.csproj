@@ -46,12 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalystAlternative.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AnalystAlternative.Designer.cs">
-      <DependentUpon>AnalystAlternative.cs</DependentUpon>
-    </Compile>
     <Compile Include="AnalystCompetence.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,11 +58,41 @@
     <Compile Include="AnalystAuthorization.Designer.cs">
       <DependentUpon>AnalystAuthorization.cs</DependentUpon>
     </Compile>
-    <Compile Include="Analyst_ExpertChoice.cs">
+    <Compile Include="AnalystMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Analyst_ExpertChoice.Designer.cs">
-      <DependentUpon>Analyst_ExpertChoice.cs</DependentUpon>
+    <Compile Include="AnalystMenu.Designer.cs">
+      <DependentUpon>AnalystMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AnalystResults.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnalystResults.Designer.cs">
+      <DependentUpon>AnalystResults.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Analyst_AddExpert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Analyst_AddExpert.Designer.cs">
+      <DependentUpon>Analyst_AddExpert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Analyst_AddProblem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Analyst_AddProblem.Designer.cs">
+      <DependentUpon>Analyst_AddProblem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Analyst_EditExpert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Analyst_EditExpert.Designer.cs">
+      <DependentUpon>Analyst_EditExpert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Analyst_ProblemEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Analyst_ProblemEdit.Designer.cs">
+      <DependentUpon>Analyst_ProblemEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="ExpertAuthorization.cs">
       <SubType>Form</SubType>
@@ -76,11 +100,11 @@
     <Compile Include="ExpertAuthorization.Designer.cs">
       <DependentUpon>ExpertAuthorization.cs</DependentUpon>
     </Compile>
-    <Compile Include="AnalystProblem.cs">
+    <Compile Include="Analyst_ProblemAndAlternatives.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AnalystProblem.Designer.cs">
-      <DependentUpon>AnalystProblem.cs</DependentUpon>
+    <Compile Include="Analyst_ProblemAndAlternatives.Designer.cs">
+      <DependentUpon>Analyst_ProblemAndAlternatives.cs</DependentUpon>
     </Compile>
     <Compile Include="ExpertMenu.cs">
       <SubType>Form</SubType>
@@ -96,20 +120,32 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AnalystAlternative.resx">
-      <DependentUpon>AnalystAlternative.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AnalystAuthorization.resx">
       <DependentUpon>AnalystAuthorization.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AnalystCompetence.resx">
       <DependentUpon>AnalystCompetence.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AnalystProblem.resx">
-      <DependentUpon>AnalystProblem.cs</DependentUpon>
+    <EmbeddedResource Include="AnalystMenu.resx">
+      <DependentUpon>AnalystMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Analyst_ExpertChoice.resx">
-      <DependentUpon>Analyst_ExpertChoice.cs</DependentUpon>
+    <EmbeddedResource Include="AnalystResults.resx">
+      <DependentUpon>AnalystResults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Analyst_AddExpert.resx">
+      <DependentUpon>Analyst_AddExpert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Analyst_AddProblem.resx">
+      <DependentUpon>Analyst_AddProblem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Analyst_EditExpert.resx">
+      <DependentUpon>Analyst_EditExpert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Analyst_ProblemAndAlternatives.resx">
+      <DependentUpon>Analyst_ProblemAndAlternatives.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Analyst_ProblemEdit.resx">
+      <DependentUpon>Analyst_ProblemEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExpertAuthorization.resx">
       <DependentUpon>ExpertAuthorization.cs</DependentUpon>
@@ -150,16 +186,16 @@
     <None Include="Resources\icons8-minus-24.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8-plus-16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-edit-16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-clear-symbol-16.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icons8-menu-20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-delete-20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-plus-20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-edit-20.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

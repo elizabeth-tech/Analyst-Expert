@@ -63,9 +63,9 @@ namespace MyProject1.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_clear_symbol_16 {
+        internal static System.Drawing.Bitmap icons8_delete_20 {
             get {
-                object obj = ResourceManager.GetObject("icons8-clear-symbol-16", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8-delete-20", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace MyProject1.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_edit_16 {
+        internal static System.Drawing.Bitmap icons8_edit_20 {
             get {
-                object obj = ResourceManager.GetObject("icons8-edit-16", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8-edit-20", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace MyProject1.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_plus_16 {
+        internal static System.Drawing.Bitmap icons8_plus_20 {
             get {
-                object obj = ResourceManager.GetObject("icons8-plus-16", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8-plus-20", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

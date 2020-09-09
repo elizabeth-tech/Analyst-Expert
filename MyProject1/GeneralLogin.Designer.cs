@@ -99,7 +99,7 @@
             this.buttonExpertLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonExpertLogin.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonExpertLogin.ForeColor = System.Drawing.Color.Black;
-            this.buttonExpertLogin.Location = new System.Drawing.Point(61, 134);
+            this.buttonExpertLogin.Location = new System.Drawing.Point(60, 145);
             this.buttonExpertLogin.Name = "buttonExpertLogin";
             this.buttonExpertLogin.Size = new System.Drawing.Size(122, 40);
             this.buttonExpertLogin.TabIndex = 47;
@@ -127,7 +127,7 @@
             this.buttonAnalystLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAnalystLogin.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonAnalystLogin.ForeColor = System.Drawing.Color.Black;
-            this.buttonAnalystLogin.Location = new System.Drawing.Point(216, 134);
+            this.buttonAnalystLogin.Location = new System.Drawing.Point(215, 145);
             this.buttonAnalystLogin.Name = "buttonAnalystLogin";
             this.buttonAnalystLogin.Size = new System.Drawing.Size(122, 40);
             this.buttonAnalystLogin.TabIndex = 49;

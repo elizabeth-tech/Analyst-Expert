@@ -24,12 +24,20 @@ namespace MyProject1
             form.Show();
         }
 
-        // Переключение на окно выбора проблемы
+        // Переключение на основное меню
         private void buttonAnalystLogin_Click(object sender, EventArgs e)
         {
             Close();
-            AnalystProblem f = new AnalystProblem();
+            AnalystMenu f = new AnalystMenu();
             f.Show();
+        }
+
+        // Перетаскивание окна
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            panel1.Capture = false;
+            Message m = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero);
+            WndProc(ref m);
         }
     }
 }
