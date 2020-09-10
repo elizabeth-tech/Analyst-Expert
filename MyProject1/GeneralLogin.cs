@@ -26,16 +26,14 @@ namespace MyProject1
         private void buttonExpertLogin_Click(object sender, EventArgs e)
         {
             ExpertAuthorization f = new ExpertAuthorization();
-            f.Show();
-            this.Hide();
+            f.ShowDialog();
         }
 
         // Вход как Аналитик
         private void buttonAnalystLogin_Click(object sender, EventArgs e)
         {
-            this.Hide();
             AnalystAuthorization f = new AnalystAuthorization();
-            f.Show();
+            f.ShowDialog();
         }
 
         // Для перетаскивания формы

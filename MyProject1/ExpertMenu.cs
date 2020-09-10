@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace MyProject1
 {
     public partial class ExpertMenu : Form
     {
+        // Строка подключения (физическое расположение локальной базы)
+        string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Test projects\Portfolio\MyProject1\MyProject1\Database.mdf;Integrated Security=True";
+
         public ExpertMenu()
         {
             InitializeComponent();
@@ -30,6 +34,27 @@ namespace MyProject1
             panel1.Capture = false;
             Message m = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero);
             WndProc(ref m);
+        }
+
+        // Загрузка формы и заполнение comboBox проблемами
+        private async void ExpertMenu_Load(object sender, EventArgs e)
+        {
+            label3.Text = Data.name.ToString(); // Вывод ФИО эксперта
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                SqlCommand command = new SqlCommand("SELECT ProblemName FROM Problems", connection);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        comboBox1.Items.Add(reader.GetString(0));
+                    }
+                }
+                reader.Close();
+            }
+            comboBox1.Text = comboBox1.Items[0].ToString();
         }
     }
 }

@@ -38,8 +38,8 @@
             this.labelPassword = new System.Windows.Forms.Label();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.buttonExpertLogin = new System.Windows.Forms.Button();
-            this.comboBoxFIO = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.comboBoxFIO = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -133,12 +133,13 @@
             // 
             this.textBoxPassword.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxPassword.ForeColor = System.Drawing.Color.Black;
-            this.textBoxPassword.Location = new System.Drawing.Point(165, 140);
+            this.textBoxPassword.Location = new System.Drawing.Point(165, 144);
             this.textBoxPassword.MaxLength = 20;
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(188, 25);
             this.textBoxPassword.TabIndex = 48;
             this.textBoxPassword.UseSystemPasswordChar = true;
+            this.textBoxPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPassword_KeyPress);
             // 
             // buttonExpertLogin
             // 
@@ -156,18 +157,6 @@
             this.buttonExpertLogin.UseVisualStyleBackColor = false;
             this.buttonExpertLogin.Click += new System.EventHandler(this.buttonExpertLogin_Click);
             // 
-            // comboBoxFIO
-            // 
-            this.comboBoxFIO.BackColor = System.Drawing.Color.White;
-            this.comboBoxFIO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFIO.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBoxFIO.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxFIO.FormattingEnabled = true;
-            this.comboBoxFIO.Location = new System.Drawing.Point(165, 99);
-            this.comboBoxFIO.Name = "comboBoxFIO";
-            this.comboBoxFIO.Size = new System.Drawing.Size(188, 25);
-            this.comboBoxFIO.TabIndex = 92;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -178,14 +167,24 @@
             this.label2.TabIndex = 98;
             this.label2.Text = "Добро пожаловать!";
             // 
+            // comboBoxFIO
+            // 
+            this.comboBoxFIO.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBoxFIO.FormattingEnabled = true;
+            this.comboBoxFIO.Location = new System.Drawing.Point(165, 103);
+            this.comboBoxFIO.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.comboBoxFIO.Name = "comboBoxFIO";
+            this.comboBoxFIO.Size = new System.Drawing.Size(188, 25);
+            this.comboBoxFIO.TabIndex = 99;
+            // 
             // ExpertAuthorization
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(499, 260);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBoxFIO);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.buttonExpertLogin);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.labelPassword);
@@ -196,6 +195,7 @@
             this.Name = "ExpertAuthorization";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Эксперт - вход";
+            this.Load += new System.EventHandler(this.ExpertAuthorization_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -214,7 +214,7 @@
         private System.Windows.Forms.Label labelPassword;
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Button buttonExpertLogin;
-        private System.Windows.Forms.ComboBox comboBoxFIO;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBoxFIO;
     }
 }
