@@ -93,9 +93,7 @@ namespace MyProject1
                 if (reader.HasRows)
                 {
                     while (reader.Read())
-                    {
                         comboBoxFIO.Items.Add(reader.GetString(0));
-                    }
                 }
                 reader.Close();
             }

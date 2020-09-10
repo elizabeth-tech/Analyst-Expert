@@ -127,7 +127,7 @@
             // 
             this.textBoxPassword.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxPassword.ForeColor = System.Drawing.Color.Black;
-            this.textBoxPassword.Location = new System.Drawing.Point(165, 107);
+            this.textBoxPassword.Location = new System.Drawing.Point(162, 112);
             this.textBoxPassword.MaxLength = 20;
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(188, 25);
@@ -138,11 +138,11 @@
             // 
             this.labelPassword.AutoSize = true;
             this.labelPassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelPassword.Location = new System.Drawing.Point(81, 111);
+            this.labelPassword.Location = new System.Drawing.Point(93, 112);
             this.labelPassword.Name = "labelPassword";
-            this.labelPassword.Size = new System.Drawing.Size(66, 21);
+            this.labelPassword.Size = new System.Drawing.Size(63, 21);
             this.labelPassword.TabIndex = 94;
-            this.labelPassword.Text = "Пароль:";
+            this.labelPassword.Text = "Пароль";
             // 
             // label2
             // 

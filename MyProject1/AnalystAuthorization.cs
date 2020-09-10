@@ -24,12 +24,36 @@ namespace MyProject1
             form.Show();
         }
 
-        // Переключение на основное меню
+        // Вход. Переключение на основное меню
         private void buttonAnalystLogin_Click(object sender, EventArgs e)
         {
-            Close();
-            AnalystMenu f = new AnalystMenu();
-            f.Show();
+            // Проверка на пустой ввод
+            if (textBoxPassword.Text == String.Empty)
+            {
+                DialogResult result = MessageBox.Show("Необходимо ввести пароль!", "Ошибка входа", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                if (result == DialogResult.OK)
+                    this.Activate();
+            }
+            else
+            {
+                if (textBoxPassword.Text != "1234")
+                {
+                    DialogResult result = MessageBox.Show("Неверный пароль! Вход невозможен!", "Ошибка входа", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                    if (result == DialogResult.OK)
+                    {
+                        this.Activate();
+                        textBoxPassword.Clear();
+                    }
+                }
+                else
+                {
+                    Close();
+                    Form form = Application.OpenForms[0];
+                    form.Hide(); // Прячем форму выбора эксперта или аналитика
+                    AnalystMenu f = new AnalystMenu();
+                    f.Show();
+                }
+            }
         }
 
         // Перетаскивание окна

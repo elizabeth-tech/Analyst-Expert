@@ -113,21 +113,21 @@
             // 
             this.labelFIO.AutoSize = true;
             this.labelFIO.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFIO.Location = new System.Drawing.Point(81, 103);
+            this.labelFIO.Location = new System.Drawing.Point(96, 103);
             this.labelFIO.Name = "labelFIO";
-            this.labelFIO.Size = new System.Drawing.Size(49, 21);
+            this.labelFIO.Size = new System.Drawing.Size(46, 21);
             this.labelFIO.TabIndex = 45;
-            this.labelFIO.Text = "ФИО:";
+            this.labelFIO.Text = "ФИО";
             // 
             // labelPassword
             // 
             this.labelPassword.AutoSize = true;
             this.labelPassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelPassword.Location = new System.Drawing.Point(81, 144);
+            this.labelPassword.Location = new System.Drawing.Point(96, 144);
             this.labelPassword.Name = "labelPassword";
-            this.labelPassword.Size = new System.Drawing.Size(66, 21);
+            this.labelPassword.Size = new System.Drawing.Size(63, 21);
             this.labelPassword.TabIndex = 46;
-            this.labelPassword.Text = "Пароль:";
+            this.labelPassword.Text = "Пароль";
             // 
             // textBoxPassword
             // 
