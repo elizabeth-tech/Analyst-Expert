@@ -8,6 +8,7 @@ namespace MyProject1
         public AnalystAuthorization()
         {
             InitializeComponent();
+            this.ActiveControl = textBoxPassword;
         }
 
         // Сворачивание окна входа аналитика
@@ -32,7 +33,10 @@ namespace MyProject1
             {
                 DialogResult result = MessageBox.Show("Необходимо ввести пароль!", "Ошибка входа", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
                 if (result == DialogResult.OK)
+                {
                     this.Activate();
+                    this.ActiveControl = textBoxPassword;
+                }
             }
             else
             {
@@ -43,6 +47,7 @@ namespace MyProject1
                     {
                         this.Activate();
                         textBoxPassword.Clear();
+                        this.ActiveControl = textBoxPassword;
                     }
                 }
                 else
@@ -63,5 +68,6 @@ namespace MyProject1
             Message m = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero);
             WndProc(ref m);
         }
+
     }
 }

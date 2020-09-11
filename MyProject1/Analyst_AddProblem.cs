@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace MyProject1
@@ -8,6 +9,7 @@ namespace MyProject1
         public Analyst_AddProblem()
         {
             InitializeComponent();
+            this.ActiveControl = textBoxProblemName; // Перевод фокуса на поле ввода
         }
 
         // Закрытие окна
@@ -34,6 +36,55 @@ namespace MyProject1
             panel1.Capture = false;
             Message m = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero);
             WndProc(ref m);
+        }
+
+        // Кнопка Ок - добавление проблемы
+        private async void buttonOk_Click(object sender, EventArgs e)
+        {
+            if(textBoxProblemName.Text != String.Empty) // Если ввели не пустое
+            {
+                // Проверка на дубликат в базе
+                using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                {
+                    SqlCommand command = new SqlCommand("select count(*) from Problems where Problems.ProblemName=N'" + textBoxProblemName.Text + "';", connection);
+                    try
+                    {
+                        await connection.OpenAsync();
+                        int count = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                        if (count > 0) // Если есть дубликат
+                        {
+                            DialogResult result = MessageBox.Show("Такая проблема уже существует!", "Ошибка добавления", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                            if (result == DialogResult.OK)
+                            {
+                                this.Activate();
+                                textBoxProblemName.Clear();
+                                this.ActiveControl = textBoxProblemName;
+                            }
+                        }
+                        else // Если дубликата нет, то вносим в базу
+                        {
+                            SqlCommand command2 = new SqlCommand("insert into Problems values(N'" + textBoxProblemName.Text + "');", connection);
+                            command2.ExecuteNonQuery();
+                            Close();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+               
+            }
+            else // Если пустая строка, то выводим сообщение
+            {
+                DialogResult result = MessageBox.Show("Введите проблему!", "Ошибка добавления", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                if (result == DialogResult.OK)
+                {
+                    this.Activate();
+                    textBoxProblemName.Clear();
+                    this.ActiveControl = textBoxProblemName;
+                }
+            }
         }
     }
 }

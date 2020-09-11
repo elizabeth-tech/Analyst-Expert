@@ -6,9 +6,6 @@ namespace MyProject1
 {
     public partial class ExpertMenu : Form
     {
-        // Строка подключения (физическое расположение локальной базы)
-        string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Test projects\Portfolio\MyProject1\MyProject1\Database.mdf;Integrated Security=True";
-
         public ExpertMenu()
         {
             InitializeComponent();
@@ -39,8 +36,8 @@ namespace MyProject1
         // Загрузка формы и заполнение comboBox проблемами
         private async void ExpertMenu_Load(object sender, EventArgs e)
         {
-            label3.Text = Data.name.ToString(); // Вывод ФИО эксперта
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            label3.Text = Data.nameExpert.ToString(); // Вывод ФИО эксперта
+            using (SqlConnection connection = new SqlConnection(Data.connectionString))
             {
                 await connection.OpenAsync();
                 SqlCommand command = new SqlCommand("SELECT ProblemName FROM Problems", connection);
@@ -48,9 +45,7 @@ namespace MyProject1
                 if (reader.HasRows)
                 {
                     while (reader.Read())
-                    {
                         comboBox1.Items.Add(reader.GetString(0));
-                    }
                 }
                 reader.Close();
             }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
@@ -7,12 +6,56 @@ namespace MyProject1
 {
     public partial class Analyst_ProblemAndAlternatives : Form
     {
-        // Строка подключения (физическое расположение локальной базы)
-        string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Test projects\Portfolio\MyProject1\MyProject1\Database.mdf;Integrated Security=True";
-
         public Analyst_ProblemAndAlternatives()
         {
             InitializeComponent();
+        }
+
+        // Загрузка списка проблем
+        public async void LoadProblems()
+        {
+            comboBoxProblem.Items.Clear();
+            using (SqlConnection connection = new SqlConnection(Data.connectionString))
+            {
+                await connection.OpenAsync();
+                SqlCommand command = new SqlCommand("SELECT Id, ProblemName FROM Problems", connection);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        comboBoxProblem.Items.Add(reader.GetString(1));
+                }
+                reader.Close();
+            }
+            comboBoxProblem.Text = comboBoxProblem.Items[0].ToString();
+        }
+
+        // Заполнение таблицы альтенативами
+        private async void LoadAlternatives()
+        {
+            using (SqlConnection connection = new SqlConnection(Data.connectionString))
+            {
+                await connection.OpenAsync();
+                SqlCommand command = new SqlCommand("select Alternatives.AlterantiveName" +
+                    " from Problems" +
+                    " join Alternatives on Alternatives.IdProblem = Problems.Id" +
+                    " where Problems.Id = (select Problems.Id from Problems" +
+                    " where Problems.ProblemName = N'" + comboBoxProblem.Text + "')", connection);
+                SqlDataReader reader = command.ExecuteReader();
+                dataGridViewAlternatives.Rows.Clear();
+                if (reader.HasRows)
+                {
+                    int i = 0;
+                    while (reader.Read())
+                    {
+                        dataGridViewAlternatives.Rows.Add();
+                        dataGridViewAlternatives.Rows[i].Cells[0].Value = reader.GetString(0);
+                        i++;
+                    }
+
+                }
+                reader.Close();
+            }
         }
 
         // Перетаскивание окна
@@ -27,14 +70,15 @@ namespace MyProject1
         private void buttonAddProblem_Click(object sender, EventArgs e)
         {
             Analyst_AddProblem f = new Analyst_AddProblem();
-            f.Show();
+            f.ShowDialog();
         }
 
         // Открытие окна по редактированию проблемы
         private void buttonEditProblem_Click(object sender, EventArgs e)
         {
-            Analyst_ProblemEdit f = new Analyst_ProblemEdit();
-            f.Show();
+            Analyst_EditProblem f = new Analyst_EditProblem();
+            Data.nameProblem = comboBoxProblem.Text;
+            f.ShowDialog();   
         }
 
         // Закрыть окно
@@ -57,47 +101,38 @@ namespace MyProject1
             WndProc(ref m);
         }
 
-        // Загрузка формы
-        private async void Analyst_ProblemAndAlternatives_Load(object sender, EventArgs e)
+        // Смена проблемы - смена альтернатив к ней
+        private void comboBoxProblem_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Загрузка списка проблем
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            // Заполнение таблицы альтенативами
+            LoadAlternatives();
+        }
+
+        // Удаление выбранной проблемы
+        private async void buttonDeleteProblem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить проблему: \n'" + comboBoxProblem.Text + "'?", "Удаление проблемы", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+            if (result == DialogResult.Yes)
             {
-                await connection.OpenAsync();
-                SqlCommand command = new SqlCommand("SELECT Id, ProblemName FROM Problems", connection);
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+                using (SqlConnection connection = new SqlConnection(Data.connectionString))
                 {
-                    while (reader.Read())
-                        comboBoxProblem.Items.Add(reader.GetString(1));   
+                    await connection.OpenAsync();
+                    SqlCommand command = new SqlCommand("delete from Problems where Problems.ProblemName=N'" + comboBoxProblem.Text + "';", connection);
+                    command.ExecuteNonQuery();
                 }
-                reader.Close();
+                this.Activate();
+                LoadProblems(); // Загрузка списка проблем
+                LoadAlternatives(); // Заполнение таблицы альтенативами
             }
-            comboBoxProblem.Text = comboBoxProblem.Items[0].ToString();
+            else
+                this.Activate();
+        }
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                await connection.OpenAsync();
-                SqlCommand command = new SqlCommand("select Alternatives.AlterantiveName" +
-                    " from Problems" +
-                    " join Alternatives on Alternatives.IdProblem = Problems.Id" +
-                    " where Problems.Id = (select Problems.Id from Problems" +
-                    " where Problems.ProblemName = N'" + comboBoxProblem.Text + "')", connection);
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    int i = 0;
-                    while (reader.Read())
-                    {
-                        dataGridViewAlternatives.Rows.Add();
-                        dataGridViewAlternatives.Rows[i].Cells[0].Value = reader.GetString(0);
-                        i++;
-                    }
-
-                }
-                reader.Close();
-            }
-
+        // При активации фокуса - обновляем данные формы
+        private void Analyst_ProblemAndAlternatives_Activated(object sender, EventArgs e)
+        {
+            LoadProblems(); // Загрузка списка проблем
+            LoadAlternatives(); // Заполнение таблицы альтенативами
         }
     }
 }

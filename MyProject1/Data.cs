@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyProject1
+﻿namespace MyProject1
 {
     static class Data
     {
-        public static string name;
+        // Строка подключения (физическое расположение локальной базы)
+        public static string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Test projects\Portfolio\MyProject1\MyProject1\Database.mdf;Integrated Security=True";
+        
+        public static string nameExpert;
+        public static string nameProblem;
     }
 }

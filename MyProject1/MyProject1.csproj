@@ -103,11 +103,11 @@
     <Compile Include="Analyst_EditExpert.Designer.cs">
       <DependentUpon>Analyst_EditExpert.cs</DependentUpon>
     </Compile>
-    <Compile Include="Analyst_ProblemEdit.cs">
+    <Compile Include="Analyst_EditProblem.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Analyst_ProblemEdit.Designer.cs">
-      <DependentUpon>Analyst_ProblemEdit.cs</DependentUpon>
+    <Compile Include="Analyst_EditProblem.Designer.cs">
+      <DependentUpon>Analyst_EditProblem.cs</DependentUpon>
     </Compile>
     <Compile Include="Data.cs" />
     <Compile Include="ExpertAuthorization.cs">
@@ -160,8 +160,8 @@
     <EmbeddedResource Include="Analyst_ProblemAndAlternatives.resx">
       <DependentUpon>Analyst_ProblemAndAlternatives.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Analyst_ProblemEdit.resx">
-      <DependentUpon>Analyst_ProblemEdit.cs</DependentUpon>
+    <EmbeddedResource Include="Analyst_EditProblem.resx">
+      <DependentUpon>Analyst_EditProblem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExpertAuthorization.resx">
       <DependentUpon>ExpertAuthorization.cs</DependentUpon>
@@ -191,9 +191,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-multiply-24.png" />

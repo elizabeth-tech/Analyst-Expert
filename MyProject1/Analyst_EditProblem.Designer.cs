@@ -1,6 +1,6 @@
 ﻿namespace MyProject1
 {
-    partial class Analyst_ProblemEdit
+    partial class Analyst_EditProblem
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Analyst_ProblemEdit));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Analyst_EditProblem));
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonTurnAnalystProblem = new System.Windows.Forms.Button();
@@ -123,6 +123,8 @@
             // 
             this.textBoxProblemName.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxProblemName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxProblemName.Enabled = false;
+            this.textBoxProblemName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxProblemName.Location = new System.Drawing.Point(53, 94);
             this.textBoxProblemName.Multiline = true;
             this.textBoxProblemName.Name = "textBoxProblemName";
@@ -132,6 +134,7 @@
             // 
             // textBoxNewProblemName
             // 
+            this.textBoxNewProblemName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxNewProblemName.Location = new System.Drawing.Point(53, 154);
             this.textBoxNewProblemName.Name = "textBoxNewProblemName";
             this.textBoxNewProblemName.Size = new System.Drawing.Size(449, 25);
@@ -161,6 +164,7 @@
             this.buttonSave.TabIndex = 133;
             this.buttonSave.Text = "Сохранить";
             this.buttonSave.UseVisualStyleBackColor = false;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonCancel
             // 
@@ -178,7 +182,7 @@
             this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // Analyst_ProblemEdit
+            // Analyst_EditProblem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -195,9 +199,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Analyst_ProblemEdit";
+            this.Name = "Analyst_EditProblem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Аналитик - Редактирование проблемы";
+            this.Load += new System.EventHandler(this.Analyst_EditProblem_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

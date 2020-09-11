@@ -6,12 +6,10 @@ namespace MyProject1
 {
     public partial class ExpertAuthorization : Form
     {
-        // Строка подключения (физическое расположение локальной базы)
-        string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Test projects\Portfolio\MyProject1\MyProject1\Database.mdf;Integrated Security=True";
-
         public ExpertAuthorization()
         {
             InitializeComponent();
+            this.ActiveControl = textBoxPassword;
         }
 
         // Закрытие окна входа эксперта
@@ -37,14 +35,17 @@ namespace MyProject1
         // Вход
         private void buttonExpertLogin_Click(object sender, EventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(Data.connectionString))
             {
                 // Проверка на пустой ввод
                 if (textBoxPassword.Text == String.Empty)
                 {
                     DialogResult result = MessageBox.Show("Необходимо ввести пароль!", "Ошибка входа", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
                     if (result == DialogResult.OK)
+                    {
                         this.Activate();
+                        this.ActiveControl = textBoxPassword;
+                    }
                 }
                 else
                 {
@@ -61,11 +62,12 @@ namespace MyProject1
                             {
                                 this.Activate();
                                 textBoxPassword.Clear();
+                                this.ActiveControl = textBoxPassword;
                             }
                         }
                         else
                         {
-                            Data.name = comboBoxFIO.Text; // Сохраняем логин (ФИО) эксперта, для дальнейшего использования
+                            Data.nameExpert = comboBoxFIO.Text; // Сохраняем логин (ФИО) эксперта, для дальнейшего использования
                             // Переход на окно основного меню для прохождения тестов
                             Close();
                             ExpertMenu f = new ExpertMenu();
@@ -85,7 +87,7 @@ namespace MyProject1
         // При загрузке формы, асинхронно загружаем ФИО всех экспертов в поле ComboBox
         private async void ExpertAuthorization_Load(object sender, EventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(Data.connectionString))
             {
                 await connection.OpenAsync();
                 SqlCommand command = new SqlCommand("SELECT FIOExpert FROM Experts", connection);
