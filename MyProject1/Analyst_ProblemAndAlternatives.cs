@@ -36,7 +36,7 @@ namespace MyProject1
             using (SqlConnection connection = new SqlConnection(Data.connectionString))
             {
                 await connection.OpenAsync();
-                SqlCommand command = new SqlCommand("select Alternatives.AlterantiveName" +
+                SqlCommand command = new SqlCommand("select Alternatives.AlternativeName" +
                     " from Problems" +
                     " join Alternatives on Alternatives.IdProblem = Problems.Id" +
                     " where Problems.Id = (select Problems.Id from Problems" +
@@ -111,14 +111,22 @@ namespace MyProject1
         // Удаление выбранной проблемы
         private async void buttonDeleteProblem_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить проблему: \n'" + comboBoxProblem.Text + "'?", "Удаление проблемы", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+            DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить проблему: \n'" + comboBoxProblem.Text + "'?\nВсе связанные с ней альтернативы также будут удалены!", "Удаление проблемы", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
             if (result == DialogResult.Yes)
             {
                 using (SqlConnection connection = new SqlConnection(Data.connectionString))
                 {
-                    await connection.OpenAsync();
-                    SqlCommand command = new SqlCommand("delete from Problems where Problems.ProblemName=N'" + comboBoxProblem.Text + "';", connection);
-                    command.ExecuteNonQuery();
+                    try
+                    {
+                        await connection.OpenAsync();
+                        // Удаляем саму проблему (включено каскадное удаление в базе, все альтернативы с id этой проблемы также удаляются)
+                        SqlCommand command3 = new SqlCommand("delete from Problems where Problems.ProblemName=N'" + comboBoxProblem.Text + "';", connection);
+                        command3.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
                 this.Activate();
                 LoadProblems(); // Загрузка списка проблем
@@ -133,6 +141,104 @@ namespace MyProject1
         {
             LoadProblems(); // Загрузка списка проблем
             LoadAlternatives(); // Заполнение таблицы альтенативами
+        }
+
+        // Добавление альтернативы
+        private async void buttonAddAlternative_Click(object sender, EventArgs e)
+        {
+            if (textBoxAlternativeAdd.Text != String.Empty) // Если ввели не пустое
+            {
+                // Пролучаем id проблемы, к которой нужно добавить альтернативу
+                using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                {
+                    SqlCommand command = new SqlCommand("select Id from Problems where ProblemName=N'" + comboBoxProblem.Text + "';", connection);
+                    int IdProblem;
+                    try
+                    {
+                        await connection.OpenAsync();
+                        IdProblem = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
+                        // Выполняем проверку на дубликат альтернативы
+                        SqlCommand command2 = new SqlCommand("select count(*) from Alternatives where AlternativeName=N'" + textBoxAlternativeAdd.Text + "' and IdProblem=" + IdProblem.ToString() + ";", connection);
+                        int count = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                        if (count > 0) // Если есть дубликат
+                        {
+                            DialogResult result = MessageBox.Show("Такая альтернатива уже существует!", "Ошибка добавления", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                            if (result == DialogResult.OK)
+                            {
+                                this.Activate();
+                                textBoxAlternativeAdd.Clear();
+                                this.ActiveControl = textBoxAlternativeAdd;
+                            }
+                        }
+                        else // Если дубликата нет, то вносим в базу альтернативу к выбранной проблеме
+                        {
+                            SqlCommand command3 = new SqlCommand("insert into Alternatives values(" + IdProblem + ", N'" + textBoxAlternativeAdd.Text + "');", connection);
+                            command3.ExecuteNonQuery();
+                            textBoxAlternativeAdd.Clear();
+                            LoadProblems();
+                            LoadAlternatives();
+                        } 
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }  
+                }
+            }
+            else // Если пустая строка, то выводим сообщение
+            {
+                DialogResult result = MessageBox.Show("Введите альтернативу!", "Ошибка добавления", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                if (result == DialogResult.OK)
+                {
+                    this.Activate();
+                    textBoxAlternativeAdd.Clear();
+                    this.ActiveControl = textBoxAlternativeAdd;
+                }
+            }
+        }
+
+        // Удаление выбранной альтернативы
+        private async void buttonDeleteAlternative_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить альтернативу: \n'" + dataGridViewAlternatives.CurrentCell.Value.ToString() + "'?", "Удаление альтернативы", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+            if (result == DialogResult.Yes)
+            {
+                using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                {
+                    // Пролучаем id проблемы, у которой нужно удалять альтернативу
+                    SqlCommand command = new SqlCommand("select Id from Problems where ProblemName=N'" + comboBoxProblem.Text + "';", connection);
+                    int IdProblem;
+                    try
+                    {
+                        await connection.OpenAsync();
+                        IdProblem = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
+                        // Удаляем альтернативу
+                        SqlCommand command2 = new SqlCommand("delete from Alternatives where AlternativeName=N'" + dataGridViewAlternatives.CurrentCell.Value.ToString() + "' and IdProblem=" + IdProblem.ToString() + ";", connection);
+                        command2.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                this.Activate();
+                LoadProblems(); // Загрузка списка проблем
+                LoadAlternatives(); // Заполнение таблицы альтернативами
+            }
+            else
+                this.Activate();
+        }
+
+        // Редактирование альтернативы
+        private void buttonEditAlternative_Click(object sender, EventArgs e)
+        {
+            // Сохранение названия редактируемой альтернативы и проблемы
+            Data.nameAlternative = dataGridViewAlternatives.CurrentCell.Value.ToString();
+            Data.nameProblem = comboBoxProblem.Text;
+            Analyst_EditAlternative f = new Analyst_EditAlternative();
+            f.ShowDialog();
         }
     }
 }

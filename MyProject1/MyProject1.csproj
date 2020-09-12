@@ -97,6 +97,12 @@
     <Compile Include="Analyst_AddProblem.Designer.cs">
       <DependentUpon>Analyst_AddProblem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Analyst_EditAlternative.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Analyst_EditAlternative.Designer.cs">
+      <DependentUpon>Analyst_EditAlternative.cs</DependentUpon>
+    </Compile>
     <Compile Include="Analyst_EditExpert.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Analyst_AddProblem.resx">
       <DependentUpon>Analyst_AddProblem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Analyst_EditAlternative.resx">
+      <DependentUpon>Analyst_EditAlternative.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Analyst_EditExpert.resx">
       <DependentUpon>Analyst_EditExpert.cs</DependentUpon>
