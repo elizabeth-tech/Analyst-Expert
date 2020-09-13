@@ -168,7 +168,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.BackColor = System.Drawing.Color.Orange;
+            this.buttonCancel.BackColor = System.Drawing.Color.DarkOrange;
             this.buttonCancel.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
             this.buttonCancel.FlatAppearance.BorderSize = 0;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

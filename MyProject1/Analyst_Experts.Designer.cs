@@ -1,6 +1,6 @@
 ﻿namespace MyProject1
 {
-    partial class AnalystCompetence
+    partial class Analyst_Experts
     {
         /// <summary>
         /// Required designer variable.
@@ -28,21 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnalystCompetence));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Analyst_Experts));
             this.comboBoxExpert = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.buttonSaveExpertProblem = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxPositionExpert = new System.Windows.Forms.TextBox();
             this.textBoxCompetence = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.dataGridViewExpertProblems = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonTurnAnalystProblem = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -51,6 +49,12 @@
             this.buttonEditExpert = new System.Windows.Forms.Button();
             this.buttonAddExpert = new System.Windows.Forms.Button();
             this.buttonDeleteExpert = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label5 = new System.Windows.Forms.Label();
+            this.buttonAddAssignProblem = new System.Windows.Forms.Button();
+            this.buttonDeleteAssignProblem = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExpertProblems)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -64,6 +68,7 @@
             this.comboBoxExpert.Name = "comboBoxExpert";
             this.comboBoxExpert.Size = new System.Drawing.Size(297, 25);
             this.comboBoxExpert.TabIndex = 120;
+            this.comboBoxExpert.SelectedIndexChanged += new System.EventHandler(this.comboBoxExpert_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -74,22 +79,6 @@
             this.label3.Size = new System.Drawing.Size(64, 20);
             this.label3.TabIndex = 111;
             this.label3.Text = "Эксперт";
-            // 
-            // buttonSaveExpertProblem
-            // 
-            this.buttonSaveExpertProblem.BackColor = System.Drawing.Color.DarkOrange;
-            this.buttonSaveExpertProblem.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
-            this.buttonSaveExpertProblem.FlatAppearance.BorderSize = 0;
-            this.buttonSaveExpertProblem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSaveExpertProblem.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSaveExpertProblem.ForeColor = System.Drawing.Color.Black;
-            this.buttonSaveExpertProblem.Location = new System.Drawing.Point(186, 543);
-            this.buttonSaveExpertProblem.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonSaveExpertProblem.Name = "buttonSaveExpertProblem";
-            this.buttonSaveExpertProblem.Size = new System.Drawing.Size(232, 39);
-            this.buttonSaveExpertProblem.TabIndex = 110;
-            this.buttonSaveExpertProblem.Text = "Сохранить изменения";
-            this.buttonSaveExpertProblem.UseVisualStyleBackColor = false;
             // 
             // label2
             // 
@@ -105,6 +94,7 @@
             // 
             this.textBoxPositionExpert.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxPositionExpert.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxPositionExpert.Enabled = false;
             this.textBoxPositionExpert.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxPositionExpert.Location = new System.Drawing.Point(168, 156);
             this.textBoxPositionExpert.Multiline = true;
@@ -117,6 +107,7 @@
             // 
             this.textBoxCompetence.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxCompetence.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxCompetence.Enabled = false;
             this.textBoxCompetence.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxCompetence.Location = new System.Drawing.Point(168, 219);
             this.textBoxCompetence.Multiline = true;
@@ -142,7 +133,7 @@
             this.dataGridViewExpertProblems.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dataGridViewExpertProblems.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewExpertProblems.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridViewExpertProblems.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridViewExpertProblems.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewExpertProblems.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(205)))), ((int)(((byte)(221)))));
@@ -151,8 +142,7 @@
             this.dataGridViewExpertProblems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewExpertProblems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewExpertProblems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2});
+            this.Column1});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -163,8 +153,9 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewExpertProblems.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewExpertProblems.EnableHeadersVisualStyles = false;
-            this.dataGridViewExpertProblems.Location = new System.Drawing.Point(35, 266);
+            this.dataGridViewExpertProblems.Location = new System.Drawing.Point(57, 334);
             this.dataGridViewExpertProblems.Name = "dataGridViewExpertProblems";
+            this.dataGridViewExpertProblems.ReadOnly = true;
             this.dataGridViewExpertProblems.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(218)))), ((int)(((byte)(188)))));
@@ -177,20 +168,6 @@
             this.dataGridViewExpertProblems.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewExpertProblems.Size = new System.Drawing.Size(584, 270);
             this.dataGridViewExpertProblems.TabIndex = 126;
-            this.dataGridViewExpertProblems.Visible = false;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "№";
-            this.Column1.Name = "Column1";
-            this.Column1.Visible = false;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Назначенные проблемы";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 500;
             // 
             // panel1
             // 
@@ -202,7 +179,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(645, 32);
+            this.panel1.Size = new System.Drawing.Size(693, 32);
             this.panel1.TabIndex = 127;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown_1);
             // 
@@ -214,7 +191,7 @@
             this.buttonTurnAnalystProblem.FlatAppearance.BorderSize = 0;
             this.buttonTurnAnalystProblem.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.buttonTurnAnalystProblem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonTurnAnalystProblem.Location = new System.Drawing.Point(545, 0);
+            this.buttonTurnAnalystProblem.Location = new System.Drawing.Point(593, 0);
             this.buttonTurnAnalystProblem.Name = "buttonTurnAnalystProblem";
             this.buttonTurnAnalystProblem.Size = new System.Drawing.Size(47, 32);
             this.buttonTurnAnalystProblem.TabIndex = 45;
@@ -251,7 +228,7 @@
             this.buttonCloseAnalystProblem.FlatAppearance.BorderSize = 0;
             this.buttonCloseAnalystProblem.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.buttonCloseAnalystProblem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCloseAnalystProblem.Location = new System.Drawing.Point(598, 0);
+            this.buttonCloseAnalystProblem.Location = new System.Drawing.Point(646, 0);
             this.buttonCloseAnalystProblem.Name = "buttonCloseAnalystProblem";
             this.buttonCloseAnalystProblem.Size = new System.Drawing.Size(47, 32);
             this.buttonCloseAnalystProblem.TabIndex = 44;
@@ -270,6 +247,7 @@
             this.buttonEditExpert.Name = "buttonEditExpert";
             this.buttonEditExpert.Size = new System.Drawing.Size(41, 38);
             this.buttonEditExpert.TabIndex = 114;
+            this.toolTip1.SetToolTip(this.buttonEditExpert, "Редактировать эксперта");
             this.buttonEditExpert.UseVisualStyleBackColor = false;
             this.buttonEditExpert.Click += new System.EventHandler(this.buttonEditExpert_Click);
             // 
@@ -285,6 +263,7 @@
             this.buttonAddExpert.Name = "buttonAddExpert";
             this.buttonAddExpert.Size = new System.Drawing.Size(41, 38);
             this.buttonAddExpert.TabIndex = 113;
+            this.toolTip1.SetToolTip(this.buttonAddExpert, "Добавить эксперта");
             this.buttonAddExpert.UseVisualStyleBackColor = false;
             this.buttonAddExpert.Click += new System.EventHandler(this.buttonAddExpert_Click);
             // 
@@ -300,14 +279,79 @@
             this.buttonDeleteExpert.Name = "buttonDeleteExpert";
             this.buttonDeleteExpert.Size = new System.Drawing.Size(41, 38);
             this.buttonDeleteExpert.TabIndex = 112;
+            this.toolTip1.SetToolTip(this.buttonDeleteExpert, "Удалить эксперта");
             this.buttonDeleteExpert.UseVisualStyleBackColor = false;
+            this.buttonDeleteExpert.Click += new System.EventHandler(this.buttonDeleteExpert_Click);
             // 
-            // AnalystCompetence
+            // Column1
+            // 
+            this.Column1.HeaderText = "Назначенные проблемы";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 500;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(249, 289);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(183, 20);
+            this.label5.TabIndex = 128;
+            this.label5.Text = "Назначенные проблемы";
+            // 
+            // buttonAddAssignProblem
+            // 
+            this.buttonAddAssignProblem.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonAddAssignProblem.BackgroundImage = global::MyProject1.Properties.Resources.icons8_plus_20;
+            this.buttonAddAssignProblem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonAddAssignProblem.FlatAppearance.BorderSize = 0;
+            this.buttonAddAssignProblem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddAssignProblem.Location = new System.Drawing.Point(57, 289);
+            this.buttonAddAssignProblem.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonAddAssignProblem.Name = "buttonAddAssignProblem";
+            this.buttonAddAssignProblem.Size = new System.Drawing.Size(41, 38);
+            this.buttonAddAssignProblem.TabIndex = 129;
+            this.toolTip1.SetToolTip(this.buttonAddAssignProblem, "Назначить эксперту проблему");
+            this.buttonAddAssignProblem.UseVisualStyleBackColor = false;
+            this.buttonAddAssignProblem.Click += new System.EventHandler(this.buttonAddAssignProblem_Click);
+            // 
+            // buttonDeleteAssignProblem
+            // 
+            this.buttonDeleteAssignProblem.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonDeleteAssignProblem.BackgroundImage = global::MyProject1.Properties.Resources.icons8_delete_20;
+            this.buttonDeleteAssignProblem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonDeleteAssignProblem.FlatAppearance.BorderSize = 0;
+            this.buttonDeleteAssignProblem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDeleteAssignProblem.Location = new System.Drawing.Point(104, 289);
+            this.buttonDeleteAssignProblem.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonDeleteAssignProblem.Name = "buttonDeleteAssignProblem";
+            this.buttonDeleteAssignProblem.Size = new System.Drawing.Size(41, 38);
+            this.buttonDeleteAssignProblem.TabIndex = 131;
+            this.toolTip1.SetToolTip(this.buttonDeleteAssignProblem, "Удалить назначенную проблему");
+            this.buttonDeleteAssignProblem.UseVisualStyleBackColor = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label6.Location = new System.Drawing.Point(54, 607);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(493, 17);
+            this.label6.TabIndex = 132;
+            this.label6.Text = "*при помощи ПКМ выберите назначенную проблему, которую желаете удалить\r\n";
+            // 
+            // Analyst_Experts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(645, 625);
+            this.ClientSize = new System.Drawing.Size(693, 702);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.buttonDeleteAssignProblem);
+            this.Controls.Add(this.buttonAddAssignProblem);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridViewExpertProblems);
             this.Controls.Add(this.label4);
@@ -319,14 +363,14 @@
             this.Controls.Add(this.buttonAddExpert);
             this.Controls.Add(this.buttonDeleteExpert);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.buttonSaveExpertProblem);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "AnalystCompetence";
+            this.Name = "Analyst_Experts";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Аналитик - Компентность экспертов";
+            this.Activated += new System.EventHandler(this.Analyst_Experts_Activated);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExpertProblems)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -341,7 +385,6 @@
         private System.Windows.Forms.Button buttonAddExpert;
         private System.Windows.Forms.Button buttonDeleteExpert;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button buttonSaveExpertProblem;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxPositionExpert;
         private System.Windows.Forms.TextBox textBoxCompetence;
@@ -352,7 +395,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Button buttonCloseAnalystProblem;
+        private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button buttonAddAssignProblem;
+        private System.Windows.Forms.Button buttonDeleteAssignProblem;
+        private System.Windows.Forms.Label label6;
     }
 }

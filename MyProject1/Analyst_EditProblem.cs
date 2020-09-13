@@ -45,7 +45,7 @@ namespace MyProject1
                 // Проверка на дубликат в базе
                 using (SqlConnection connection = new SqlConnection(Data.connectionString))
                 {
-                    SqlCommand command = new SqlCommand("select count(*) from Problems where Problems.ProblemName=N'" + textBoxNewProblemName.Text + "';", connection);
+                    SqlCommand command = new SqlCommand("select count(*) from Problems where ProblemName=N'" + textBoxNewProblemName.Text + "';", connection);
                     try
                     {
                         await connection.OpenAsync();
@@ -62,7 +62,7 @@ namespace MyProject1
                         }
                         else // Если дубликата нет, то вносим в базу
                         {
-                            SqlCommand command2 = new SqlCommand("UPDATE Problems SET ProblemName=N'" + textBoxNewProblemName.Text + "' WHERE ProblemName=N'" + textBoxProblemName.Text + "';", connection);
+                            SqlCommand command2 = new SqlCommand("Update Problems set ProblemName=N'" + textBoxNewProblemName.Text + "' where ProblemName=N'" + textBoxProblemName.Text + "';", connection);
                             command2.ExecuteNonQuery();
                             Close();
                         }

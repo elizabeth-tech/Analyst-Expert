@@ -13,21 +13,28 @@ namespace MyProject1
 
         // Загрузка списка проблем
         public async void LoadProblems()
-        {
-            comboBoxProblem.Items.Clear();
+        {   
             using (SqlConnection connection = new SqlConnection(Data.connectionString))
             {
-                await connection.OpenAsync();
-                SqlCommand command = new SqlCommand("SELECT Id, ProblemName FROM Problems", connection);
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+                try
                 {
-                    while (reader.Read())
-                        comboBoxProblem.Items.Add(reader.GetString(1));
+                    await connection.OpenAsync();
+                    SqlCommand command = new SqlCommand("SELECT ProblemName FROM Problems", connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    comboBoxProblem.Items.Clear();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                            comboBoxProblem.Items.Add(reader.GetString(0));
+                    }
+                    reader.Close();
+                    comboBoxProblem.Text = comboBoxProblem.Items[0].ToString();
                 }
-                reader.Close();
-            }
-            comboBoxProblem.Text = comboBoxProblem.Items[0].ToString();
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }    
         }
 
         // Заполнение таблицы альтенативами
@@ -35,26 +42,33 @@ namespace MyProject1
         {
             using (SqlConnection connection = new SqlConnection(Data.connectionString))
             {
-                await connection.OpenAsync();
-                SqlCommand command = new SqlCommand("select Alternatives.AlternativeName" +
-                    " from Problems" +
-                    " join Alternatives on Alternatives.IdProblem = Problems.Id" +
-                    " where Problems.Id = (select Problems.Id from Problems" +
-                    " where Problems.ProblemName = N'" + comboBoxProblem.Text + "')", connection);
-                SqlDataReader reader = command.ExecuteReader();
-                dataGridViewAlternatives.Rows.Clear();
-                if (reader.HasRows)
+                try
                 {
-                    int i = 0;
-                    while (reader.Read())
+                    await connection.OpenAsync();
+                    SqlCommand command = new SqlCommand("select Alternatives.AlternativeName" +
+                        " from Problems" +
+                        " join Alternatives on Alternatives.IdProblem = Problems.Id" +
+                        " where Problems.Id = (select Problems.Id from Problems" +
+                        " where Problems.ProblemName = N'" + comboBoxProblem.Text + "')", connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    dataGridViewAlternatives.Rows.Clear();
+                    if (reader.HasRows)
                     {
-                        dataGridViewAlternatives.Rows.Add();
-                        dataGridViewAlternatives.Rows[i].Cells[0].Value = reader.GetString(0);
-                        i++;
-                    }
+                        int i = 0;
+                        while (reader.Read())
+                        {
+                            dataGridViewAlternatives.Rows.Add();
+                            dataGridViewAlternatives.Rows[i].Cells[0].Value = reader.GetString(0);
+                            i++;
+                        }
 
+                    }
+                    reader.Close();
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 

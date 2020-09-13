@@ -34,7 +34,7 @@ namespace MyProject1
         // Переход к окну экспертов и их компетентности
         private void buttonExperts_Click(object sender, EventArgs e)
         {
-            AnalystCompetence f = new AnalystCompetence();
+            Analyst_Experts f = new Analyst_Experts();
             f.Show();
         }
 

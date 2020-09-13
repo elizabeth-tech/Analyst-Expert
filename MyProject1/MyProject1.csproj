@@ -61,11 +61,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalystCompetence.cs">
+    <Compile Include="Analyst_AddAssignProblem.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AnalystCompetence.Designer.cs">
-      <DependentUpon>AnalystCompetence.cs</DependentUpon>
+    <Compile Include="Analyst_AddAssignProblem.Designer.cs">
+      <DependentUpon>Analyst_AddAssignProblem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Analyst_Experts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Analyst_Experts.Designer.cs">
+      <DependentUpon>Analyst_Experts.cs</DependentUpon>
     </Compile>
     <Compile Include="AnalystAuthorization.cs">
       <SubType>Form</SubType>
@@ -145,8 +151,11 @@
     <EmbeddedResource Include="AnalystAuthorization.resx">
       <DependentUpon>AnalystAuthorization.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AnalystCompetence.resx">
-      <DependentUpon>AnalystCompetence.cs</DependentUpon>
+    <EmbeddedResource Include="Analyst_AddAssignProblem.resx">
+      <DependentUpon>Analyst_AddAssignProblem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Analyst_Experts.resx">
+      <DependentUpon>Analyst_Experts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AnalystMenu.resx">
       <DependentUpon>AnalystMenu.cs</DependentUpon>
