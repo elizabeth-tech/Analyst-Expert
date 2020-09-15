@@ -37,7 +37,7 @@ namespace MyProject1
             }    
         }
 
-        // Заполнение таблицы альтенативами
+        // Заполнение таблицы альтернативами
         private async void LoadAlternatives()
         {
             using (SqlConnection connection = new SqlConnection(Data.connectionString))
@@ -54,6 +54,11 @@ namespace MyProject1
                     dataGridViewAlternatives.Rows.Clear();
                     if (reader.HasRows)
                     {
+                        buttonDeleteAlternative.Visible = true;
+                        buttonEditAlternative.Visible = true;
+                        label5.Visible = true;
+                        dataGridViewAlternatives.Visible = true;
+                        label6.Visible = false;
                         int i = 0;
                         while (reader.Read())
                         {
@@ -62,6 +67,14 @@ namespace MyProject1
                             i++;
                         }
 
+                    }
+                    else
+                    {
+                        buttonDeleteAlternative.Visible = false;
+                        buttonEditAlternative.Visible = false;
+                        label5.Visible = false;
+                        dataGridViewAlternatives.Visible = false;
+                        label6.Visible = true;
                     }
                     reader.Close();
                 }

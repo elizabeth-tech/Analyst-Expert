@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace MyProject1
@@ -36,6 +37,7 @@ namespace MyProject1
             {
                 try
                 {
+                    // Для назначения новой проблемы, показываем только те, которые еще не были назначены конкретному эксперту 
                     await connection.OpenAsync();
                     SqlCommand command = new SqlCommand("SELECT Problems.ProblemName FROM Problems" +
                         " left join(select ExpertProblems.IdProblem from ExpertProblems" +
@@ -49,9 +51,18 @@ namespace MyProject1
                     {
                         while (reader.Read())
                             comboBoxProblems.Items.Add(reader.GetString(0));
+                        comboBoxProblems.Text = comboBoxProblems.Items[0].ToString();
+                    }
+                    else
+                    {
+                        label3.Visible = false;
+                        comboBoxProblems.Visible = false;
+                        label2.Visible = true;
+                        buttonOk.BackColor = Color.Gainsboro;
+                        buttonOk.Enabled = false;
                     }
                     reader.Close();
-                    comboBoxProblems.Text = comboBoxProblems.Items[0].ToString();
+                    
                 }
                 catch (Exception ex)
                 {
@@ -61,50 +72,27 @@ namespace MyProject1
         }
 
         // Назначение новой проблемы эксперту (Добавить)
-        private void buttonOk_Click(object sender, EventArgs e)
+        private async void buttonOk_Click(object sender, EventArgs e)
         {
-          /*  if (textBoxPassword.Text != String.Empty) // Если ввели не пустой пароль
+            using (SqlConnection connection = new SqlConnection(Data.connectionString))
             {
-                // Проверка на дубликат в базе
-                using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                try
                 {
-                    SqlCommand command = new SqlCommand("select count(*) from Experts where FIOExpert=N'" + textBoxFio.Text + "';", connection);
-                    try
-                    {
-                        await connection.OpenAsync();
-                        int count = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                        if (count > 0) // Если есть дубликат
-                        {
-                            DialogResult result = MessageBox.Show("Такой эксперт уже существует!", "Ошибка добавления", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
-                            if (result == DialogResult.OK)
-                            {
-                                this.Activate();
-                                textBoxFio.Clear();
-                                this.ActiveControl = textBoxFio;
-                            }
-                        }
-                        else // Если дубликата нет, то вносим в базу
-                        {
-                            SqlCommand command2 = new SqlCommand("insert into Experts values(N'" + textBoxFio.Text + "', N'" + textBoxPositionExpert.Text + "', " + textBoxCompetence.Text + ", N'" + textBoxPassword.Text + "');", connection);
-                            command2.ExecuteNonQuery();
-                            Close();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    await connection.OpenAsync();
+                    // Получаем id проблемы, которую хотим назначить эксперту
+                    SqlCommand command = new SqlCommand("Select Id from Problems where ProblemName=N'" + comboBoxProblems.Text + "'", connection);
+                    int IdProblem = (int)command.ExecuteScalar();
+
+                    // Добавляем в базу информацию о назначенной проблеме
+                    SqlCommand command2 = new SqlCommand("insert into ExpertProblems values(" + Data.IdExpert.ToString() + "," + IdProblem.ToString() + ");", connection);
+                    command2.ExecuteNonQuery();
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
-            else // Если пустая строка, то выводим сообщение
-            {
-                DialogResult result = MessageBox.Show("Все поля обязательны к заполнению! Внесите данные о пароле!", "Ошибка добавления", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
-                if (result == DialogResult.OK)
-                {
-                    this.Activate();
-                    this.ActiveControl = textBoxPassword;
-                }
-            }*/
         }
     }
 }

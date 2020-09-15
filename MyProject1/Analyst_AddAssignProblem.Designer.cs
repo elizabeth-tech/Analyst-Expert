@@ -30,14 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Analyst_AddAssignProblem));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonTurnAnalystProblem = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.buttonTurnAnalystProblem = new System.Windows.Forms.Button();
             this.buttonCloseAnalystProblem = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.comboBoxProblems = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +54,21 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(553, 32);
             this.panel1.TabIndex = 46;
+            // 
+            // buttonTurnAnalystProblem
+            // 
+            this.buttonTurnAnalystProblem.BackColor = System.Drawing.Color.Transparent;
+            this.buttonTurnAnalystProblem.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonTurnAnalystProblem.BackgroundImage")));
+            this.buttonTurnAnalystProblem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonTurnAnalystProblem.FlatAppearance.BorderSize = 0;
+            this.buttonTurnAnalystProblem.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.buttonTurnAnalystProblem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonTurnAnalystProblem.Location = new System.Drawing.Point(453, 0);
+            this.buttonTurnAnalystProblem.Name = "buttonTurnAnalystProblem";
+            this.buttonTurnAnalystProblem.Size = new System.Drawing.Size(47, 32);
+            this.buttonTurnAnalystProblem.TabIndex = 45;
+            this.buttonTurnAnalystProblem.UseVisualStyleBackColor = false;
+            this.buttonTurnAnalystProblem.Click += new System.EventHandler(this.buttonTurnAnalystProblem_Click);
             // 
             // label1
             // 
@@ -75,21 +91,6 @@
             this.label24.Size = new System.Drawing.Size(341, 17);
             this.label24.TabIndex = 0;
             this.label24.Text = "Аналитик - Назначение новой проблемы эксперту";
-            // 
-            // buttonTurnAnalystProblem
-            // 
-            this.buttonTurnAnalystProblem.BackColor = System.Drawing.Color.Transparent;
-            this.buttonTurnAnalystProblem.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonTurnAnalystProblem.BackgroundImage")));
-            this.buttonTurnAnalystProblem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonTurnAnalystProblem.FlatAppearance.BorderSize = 0;
-            this.buttonTurnAnalystProblem.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.buttonTurnAnalystProblem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonTurnAnalystProblem.Location = new System.Drawing.Point(453, 0);
-            this.buttonTurnAnalystProblem.Name = "buttonTurnAnalystProblem";
-            this.buttonTurnAnalystProblem.Size = new System.Drawing.Size(47, 32);
-            this.buttonTurnAnalystProblem.TabIndex = 45;
-            this.buttonTurnAnalystProblem.UseVisualStyleBackColor = false;
-            this.buttonTurnAnalystProblem.Click += new System.EventHandler(this.buttonTurnAnalystProblem_Click);
             // 
             // buttonCloseAnalystProblem
             // 
@@ -158,12 +159,25 @@
             this.label3.TabIndex = 137;
             this.label3.Text = "Проблема";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(82, 95);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(390, 20);
+            this.label2.TabIndex = 138;
+            this.label2.Text = "Данному эксперту уже назначен весь список проблем";
+            this.label2.Visible = false;
+            // 
             // Analyst_AddAssignProblem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(553, 227);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBoxProblems);
             this.Controls.Add(this.buttonCancel);
@@ -195,5 +209,6 @@
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.ComboBox comboBoxProblems;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -67,6 +67,13 @@ namespace MyProject1
                         }
 
                     }
+                    else
+                    {
+                        label6.Visible = false;
+                        buttonDeleteAssignProblem.Visible = false;
+                        dataGridViewExpertProblems.Visible = false;
+                        label7.Visible = true;
+                    }
                     reader.Close();
                 }
                 catch (Exception ex)
@@ -149,6 +156,10 @@ namespace MyProject1
                     dataGridViewExpertProblems.Rows.Clear();
                     if (reader2.HasRows)
                     {
+                        label6.Visible = true;
+                        buttonDeleteAssignProblem.Visible = true;
+                        dataGridViewExpertProblems.Visible = true;
+                        label7.Visible = false;
                         int i = 0;
                         while (reader2.Read())
                         {
@@ -157,6 +168,13 @@ namespace MyProject1
                             i++;
                         }
 
+                    }
+                    else
+                    {
+                        label6.Visible = false;
+                        buttonDeleteAssignProblem.Visible = false;
+                        dataGridViewExpertProblems.Visible = false;
+                        label7.Visible = true;
                     }
                     reader2.Close();
                 }
@@ -188,7 +206,8 @@ namespace MyProject1
                     }
                 }
                 this.Activate();
-                LoadExperts(); // Загрузка списка эксперт
+                LoadExperts();
+                LoadExpertProblems();
             }
             else
                 this.Activate();
@@ -204,13 +223,7 @@ namespace MyProject1
                 {
                     await connection.OpenAsync();
                     SqlCommand command = new SqlCommand("Select Id from Experts where FIOExpert=N'" + comboBoxExpert.Text + "';", connection);
-                    SqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                            IdExpert = reader.GetInt32(0);
-                    }
-                    reader.Close();
+                    IdExpert = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
                 }
                 catch (Exception ex)
                 {
@@ -220,6 +233,43 @@ namespace MyProject1
             Data.IdExpert = IdExpert;
             Analyst_AddAssignProblem f = new Analyst_AddAssignProblem();
             f.ShowDialog();
+        }
+
+        // Удаление назначенной проблемы
+        private async void buttonDeleteAssignProblem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Вы уверены, что хотите отменить назначенную проблему: \n'" + dataGridViewExpertProblems.CurrentCell.Value.ToString() + "'?", "Отмена назначенной проблемы", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+            if (result == DialogResult.Yes)
+            {
+                using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                {
+                    try
+                    {
+                        await connection.OpenAsync();
+
+                        // Получаем id проблемы
+                        SqlCommand command = new SqlCommand("Select Id from Problems where ProblemName=N'" + dataGridViewExpertProblems.CurrentCell.Value.ToString() + "'", connection);
+                        int IdProblem = (int)command.ExecuteScalar();
+
+                        // Получаем id эксперта
+                        SqlCommand command2 = new SqlCommand("Select Id from Experts where FIOExpert=N'" + comboBoxExpert.Text + "'", connection);
+                        int IdExpert = (int)command2.ExecuteScalar();
+
+                        // Удаляем назначенную проблему
+                        SqlCommand command3 = new SqlCommand("delete from ExpertProblems where IdExpert=" + IdExpert.ToString() + " and IdProblem=" + IdProblem.ToString() + ";", connection);
+                        command3.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                this.Activate();
+                LoadExperts();
+                LoadExpertProblems();
+            }
+            else
+                this.Activate();
         }
     }
 }
