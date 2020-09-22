@@ -30,18 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExpertMenu));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonExpertMenuClose = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonExpertMenuTurn = new System.Windows.Forms.Button();
             this.label24 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.labelFIO = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.PasswordChangeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label5 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
@@ -54,6 +49,12 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PasswordChangeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonExpertMenuClose = new System.Windows.Forms.Button();
+            this.buttonExpertMenuTurn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -73,22 +74,6 @@
             this.panel1.TabIndex = 46;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
-            // buttonExpertMenuClose
-            // 
-            this.buttonExpertMenuClose.BackColor = System.Drawing.Color.Transparent;
-            this.buttonExpertMenuClose.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonExpertMenuClose.BackgroundImage")));
-            this.buttonExpertMenuClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonExpertMenuClose.FlatAppearance.BorderSize = 0;
-            this.buttonExpertMenuClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.buttonExpertMenuClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExpertMenuClose.Location = new System.Drawing.Point(722, 0);
-            this.buttonExpertMenuClose.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.buttonExpertMenuClose.Name = "buttonExpertMenuClose";
-            this.buttonExpertMenuClose.Size = new System.Drawing.Size(47, 30);
-            this.buttonExpertMenuClose.TabIndex = 45;
-            this.buttonExpertMenuClose.UseVisualStyleBackColor = false;
-            this.buttonExpertMenuClose.Click += new System.EventHandler(this.buttonExpertProblemClose_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -99,22 +84,6 @@
             this.label1.Size = new System.Drawing.Size(20, 22);
             this.label1.TabIndex = 47;
             this.label1.Text = "S";
-            // 
-            // buttonExpertMenuTurn
-            // 
-            this.buttonExpertMenuTurn.BackColor = System.Drawing.Color.Transparent;
-            this.buttonExpertMenuTurn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonExpertMenuTurn.BackgroundImage")));
-            this.buttonExpertMenuTurn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonExpertMenuTurn.FlatAppearance.BorderSize = 0;
-            this.buttonExpertMenuTurn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.buttonExpertMenuTurn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExpertMenuTurn.Location = new System.Drawing.Point(669, 0);
-            this.buttonExpertMenuTurn.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.buttonExpertMenuTurn.Name = "buttonExpertMenuTurn";
-            this.buttonExpertMenuTurn.Size = new System.Drawing.Size(47, 30);
-            this.buttonExpertMenuTurn.TabIndex = 48;
-            this.buttonExpertMenuTurn.UseVisualStyleBackColor = false;
-            this.buttonExpertMenuTurn.Click += new System.EventHandler(this.buttonExpertProblemTurn_Click);
             // 
             // label24
             // 
@@ -129,6 +98,8 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(131, 156);
@@ -179,32 +150,6 @@
             this.menuStrip1.TabIndex = 100;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // ToolStripMenuItem
-            // 
-            this.ToolStripMenuItem.BackgroundImage = global::MyProject1.Properties.Resources.icons8_menu_20;
-            this.ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.PasswordChangeToolStripMenuItem1,
-            this.ExitToolStripMenuItem});
-            this.ToolStripMenuItem.Margin = new System.Windows.Forms.Padding(3, 4, 0, 0);
-            this.ToolStripMenuItem.Name = "ToolStripMenuItem";
-            this.ToolStripMenuItem.Padding = new System.Windows.Forms.Padding(4);
-            this.ToolStripMenuItem.Size = new System.Drawing.Size(28, 22);
-            this.ToolStripMenuItem.Text = "  ";
-            // 
-            // PasswordChangeToolStripMenuItem1
-            // 
-            this.PasswordChangeToolStripMenuItem1.BackColor = System.Drawing.Color.White;
-            this.PasswordChangeToolStripMenuItem1.Name = "PasswordChangeToolStripMenuItem1";
-            this.PasswordChangeToolStripMenuItem1.Size = new System.Drawing.Size(182, 22);
-            this.PasswordChangeToolStripMenuItem1.Text = "Изменить пароль";
-            // 
-            // ExitToolStripMenuItem
-            // 
-            this.ExitToolStripMenuItem.BackColor = System.Drawing.Color.White;
-            this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.ExitToolStripMenuItem.Text = "Выход";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -218,60 +163,70 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
             this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox1.Location = new System.Drawing.Point(189, 219);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(163, 24);
             this.checkBox1.TabIndex = 104;
+            this.checkBox1.TabStop = false;
             this.checkBox1.Text = "Парных сравнений";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
+            this.checkBox2.Enabled = false;
             this.checkBox2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox2.Location = new System.Drawing.Point(189, 265);
             this.checkBox2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(255, 24);
             this.checkBox2.TabIndex = 105;
+            this.checkBox2.TabStop = false;
             this.checkBox2.Text = "Взвешенных экспертных оценок";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
+            this.checkBox3.Enabled = false;
             this.checkBox3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox3.Location = new System.Drawing.Point(189, 308);
             this.checkBox3.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(130, 24);
             this.checkBox3.TabIndex = 106;
+            this.checkBox3.TabStop = false;
             this.checkBox3.Text = "Предпочтения";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
+            this.checkBox4.Enabled = false;
             this.checkBox4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox4.Location = new System.Drawing.Point(189, 351);
             this.checkBox4.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(67, 24);
             this.checkBox4.TabIndex = 107;
+            this.checkBox4.TabStop = false;
             this.checkBox4.Text = "Ранга";
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
+            this.checkBox5.Enabled = false;
             this.checkBox5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox5.Location = new System.Drawing.Point(189, 394);
             this.checkBox5.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(249, 24);
             this.checkBox5.TabIndex = 108;
+            this.checkBox5.TabStop = false;
             this.checkBox5.Text = "Полного попарного сравнения";
             this.checkBox5.UseVisualStyleBackColor = true;
             // 
@@ -290,6 +245,7 @@
             this.button2.TabIndex = 109;
             this.button2.Text = "Пройти";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -361,9 +317,78 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(257, 117);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(165, 21);
+            this.label2.Size = new System.Drawing.Size(0, 21);
             this.label2.TabIndex = 114;
-            this.label2.Text = "Есть доступные тесты";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.ForeColor = System.Drawing.Color.Red;
+            this.label7.Location = new System.Drawing.Point(127, 157);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(377, 20);
+            this.label7.TabIndex = 140;
+            this.label7.Text = "Аналитик еще не назначил вам ни одной проблемы";
+            this.label7.Visible = false;
+            // 
+            // ToolStripMenuItem
+            // 
+            this.ToolStripMenuItem.BackgroundImage = global::MyProject1.Properties.Resources.icons8_menu_20;
+            this.ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.PasswordChangeToolStripMenuItem1,
+            this.ExitToolStripMenuItem});
+            this.ToolStripMenuItem.Margin = new System.Windows.Forms.Padding(3, 4, 0, 0);
+            this.ToolStripMenuItem.Name = "ToolStripMenuItem";
+            this.ToolStripMenuItem.Padding = new System.Windows.Forms.Padding(4);
+            this.ToolStripMenuItem.Size = new System.Drawing.Size(28, 22);
+            this.ToolStripMenuItem.Text = "  ";
+            // 
+            // PasswordChangeToolStripMenuItem1
+            // 
+            this.PasswordChangeToolStripMenuItem1.BackColor = System.Drawing.Color.White;
+            this.PasswordChangeToolStripMenuItem1.Name = "PasswordChangeToolStripMenuItem1";
+            this.PasswordChangeToolStripMenuItem1.Size = new System.Drawing.Size(182, 22);
+            this.PasswordChangeToolStripMenuItem1.Text = "Изменить пароль";
+            // 
+            // ExitToolStripMenuItem
+            // 
+            this.ExitToolStripMenuItem.BackColor = System.Drawing.Color.White;
+            this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.ExitToolStripMenuItem.Text = "Выход";
+            // 
+            // buttonExpertMenuClose
+            // 
+            this.buttonExpertMenuClose.BackColor = System.Drawing.Color.Transparent;
+            this.buttonExpertMenuClose.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonExpertMenuClose.BackgroundImage")));
+            this.buttonExpertMenuClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonExpertMenuClose.FlatAppearance.BorderSize = 0;
+            this.buttonExpertMenuClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.buttonExpertMenuClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExpertMenuClose.Location = new System.Drawing.Point(722, 0);
+            this.buttonExpertMenuClose.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.buttonExpertMenuClose.Name = "buttonExpertMenuClose";
+            this.buttonExpertMenuClose.Size = new System.Drawing.Size(47, 30);
+            this.buttonExpertMenuClose.TabIndex = 45;
+            this.buttonExpertMenuClose.UseVisualStyleBackColor = false;
+            this.buttonExpertMenuClose.Click += new System.EventHandler(this.buttonExpertProblemClose_Click);
+            // 
+            // buttonExpertMenuTurn
+            // 
+            this.buttonExpertMenuTurn.BackColor = System.Drawing.Color.Transparent;
+            this.buttonExpertMenuTurn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonExpertMenuTurn.BackgroundImage")));
+            this.buttonExpertMenuTurn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonExpertMenuTurn.FlatAppearance.BorderSize = 0;
+            this.buttonExpertMenuTurn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.buttonExpertMenuTurn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExpertMenuTurn.Location = new System.Drawing.Point(669, 0);
+            this.buttonExpertMenuTurn.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.buttonExpertMenuTurn.Name = "buttonExpertMenuTurn";
+            this.buttonExpertMenuTurn.Size = new System.Drawing.Size(47, 30);
+            this.buttonExpertMenuTurn.TabIndex = 48;
+            this.buttonExpertMenuTurn.UseVisualStyleBackColor = false;
+            this.buttonExpertMenuTurn.Click += new System.EventHandler(this.buttonExpertProblemTurn_Click);
             // 
             // ExpertMenu
             // 
@@ -371,6 +396,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(769, 464);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
@@ -433,5 +459,6 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label7;
     }
 }

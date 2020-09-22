@@ -37,15 +37,17 @@ namespace MyProject1
             {
                 try
                 {
-                    // Для назначения новой проблемы, показываем только те, которые еще не были назначены конкретному эксперту 
+                    // Для назначения новой проблемы, показываем только те, которые еще не были назначены конкретному эксперту
+                    // и для которых flag=true, то есть у них есть как минимум 2 альтернативы, с которыми можно работать
                     await connection.OpenAsync();
                     SqlCommand command = new SqlCommand("SELECT Problems.ProblemName FROM Problems" +
                         " left join(select ExpertProblems.IdProblem from ExpertProblems" +
                         " where ExpertProblems.IdExpert = " + Data.IdExpert.ToString() + ")pr on pr.IdProblem = Problems.Id" +
+                        " where Problems.flag = 1" +
                         " except" +
                         " SELECT Problems.ProblemName FROM Problems" +
                         " join ExpertProblems on ExpertProblems.IdProblem = Problems.Id" +
-                        " where ExpertProblems.IdExpert = " + Data.IdExpert.ToString() + ";", connection);
+                        " where ExpertProblems.IdExpert = " + Data.IdExpert.ToString() + " and Problems.flag = 1;", connection);
                     SqlDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {

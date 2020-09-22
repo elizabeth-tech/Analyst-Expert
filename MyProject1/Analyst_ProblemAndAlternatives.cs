@@ -77,6 +77,10 @@ namespace MyProject1
                         label6.Visible = true;
                     }
                     reader.Close();
+                    if (dataGridViewAlternatives.RowCount == 1)
+                        label7.Visible = true;
+                    else
+                        label7.Visible = false;
                 }
                 catch (Exception ex)
                 {
@@ -202,6 +206,18 @@ namespace MyProject1
                         {
                             SqlCommand command3 = new SqlCommand("insert into Alternatives values(" + IdProblem + ", N'" + textBoxAlternativeAdd.Text + "');", connection);
                             command3.ExecuteNonQuery();
+                            
+                            // Проверяем, сколько альтернатив у текущей проблемы
+                            SqlCommand command4 = new SqlCommand("select count(*) from Alternatives where IdProblem=" + IdProblem.ToString() + ";", connection);
+                            int countAlter = (int)command4.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
+                            // Если у проблемы появляется 2 или более альтернатив, то ее можно назначать эксперту
+                            if (countAlter >= 2)
+                            {
+                                SqlCommand command5 = new SqlCommand("Update Problems set flag = 1 where ProblemName = N'" + comboBoxProblem.Text + "';", connection);
+                                command5.ExecuteNonQuery();
+                            }
+
                             textBoxAlternativeAdd.Clear();
                             LoadProblems();
                             LoadAlternatives();
@@ -244,15 +260,31 @@ namespace MyProject1
                         // Удаляем альтернативу
                         SqlCommand command2 = new SqlCommand("delete from Alternatives where AlternativeName=N'" + dataGridViewAlternatives.CurrentCell.Value.ToString() + "' and IdProblem=" + IdProblem.ToString() + ";", connection);
                         command2.ExecuteNonQuery();
+
+                        // Проверяем, сколько альтернатив у текущей проблемы
+                        SqlCommand command3 = new SqlCommand("select count(*) from Alternatives where IdProblem=" + IdProblem.ToString() + ";", connection);
+                        int countAlter = (int)command3.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
+                        // Если удаляем столько альтернатив, что их становится меньше двух, то текущая проблема не может быть назначена эксперту
+                        if (countAlter < 2)
+                        {  
+                            SqlCommand command4 = new SqlCommand("Update Problems set flag=0 where ProblemName=N'" + comboBoxProblem.Text + "';", connection);
+                            command4.ExecuteNonQuery();
+
+                            // Также удаляем проблему из таблицы назначенных
+                            SqlCommand command5 = new SqlCommand("delete from ExpertProblems where IdProblem=" + IdProblem.ToString() + ";", connection);
+                            command5.ExecuteNonQuery();
+                        }
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                     }
+
+                    this.Activate();
+                    LoadProblems(); // Загрузка списка проблем
+                    LoadAlternatives(); // Заполнение таблицы альтернативами
                 }
-                this.Activate();
-                LoadProblems(); // Загрузка списка проблем
-                LoadAlternatives(); // Заполнение таблицы альтернативами
             }
             else
                 this.Activate();

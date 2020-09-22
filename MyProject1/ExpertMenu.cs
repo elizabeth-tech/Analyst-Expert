@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace MyProject1
@@ -37,19 +38,49 @@ namespace MyProject1
         private async void ExpertMenu_Load(object sender, EventArgs e)
         {
             label3.Text = Data.nameExpert.ToString(); // Вывод ФИО эксперта
+
             using (SqlConnection connection = new SqlConnection(Data.connectionString))
             {
-                await connection.OpenAsync();
-                SqlCommand command = new SqlCommand("SELECT ProblemName FROM Problems", connection);
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+                try
                 {
-                    while (reader.Read())
-                        comboBox1.Items.Add(reader.GetString(0));
+                    await connection.OpenAsync();
+                    SqlCommand command = new SqlCommand("Select Problems.ProblemName from ExpertProblems " +
+                        "join Problems on Problems.Id = ExpertProblems.IdProblem " +
+                        "where IdExpert = (Select Id from Experts where FIOExpert = N'" + label3.Text + "');", connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        label7.Visible = false;
+                        label2.Text = "Есть доступные тесты";
+                        label2.ForeColor = Color.Green;
+                        comboBox1.Visible = true;
+
+                        while (reader.Read())
+                            comboBox1.Items.Add(reader.GetString(0));
+                        comboBox1.Text = comboBox1.Items[0].ToString();
+                    }
+                    else
+                    {
+                        label7.Visible = true;
+                        label2.Text = "Нет доступных тестов";
+                        label2.ForeColor = Color.Red;
+                        comboBox1.Visible = false;
+                    }
+                    reader.Close();
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-            comboBox1.Text = comboBox1.Items[0].ToString();
+        }
+
+        // Открытие окна метода парных сравнений
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Data.selectedProblem = comboBox1.Text;
+            Expert_Method_PairwiseComparison f = new Expert_Method_PairwiseComparison();
+            f.ShowDialog();
         }
     }
 }

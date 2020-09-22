@@ -32,9 +32,10 @@ namespace MyProject1
                             textBoxPositionExpert.Text = reader.GetString(1);
                             textBoxCompetence.Text = reader.GetInt32(2).ToString();
                         }
+                        comboBoxExpert.Text = comboBoxExpert.Items[0].ToString();
                     }
                     reader.Close();
-                    comboBoxExpert.Text = comboBoxExpert.Items[0].ToString();
+                    
                 }
                 catch (Exception ex)
                 {

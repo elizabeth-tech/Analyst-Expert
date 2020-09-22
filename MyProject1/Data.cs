@@ -10,7 +10,11 @@
         public static string nameExpert;
         public static string positionExpert;
         public static int competenceExpert;
-        public static string passwordExpert;
+
+
+        public static string selectedProblem;
+        public static double[,] matrix; // Возможно не нужна, т.е можно создать локально
+
 
         // Данные для окон Аналитика
         public static string nameProblem;

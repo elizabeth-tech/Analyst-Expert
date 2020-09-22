@@ -169,6 +169,9 @@
             // 
             // comboBoxFIO
             // 
+            this.comboBoxFIO.BackColor = System.Drawing.Color.White;
+            this.comboBoxFIO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFIO.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBoxFIO.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBoxFIO.FormattingEnabled = true;
             this.comboBoxFIO.Location = new System.Drawing.Point(165, 103);

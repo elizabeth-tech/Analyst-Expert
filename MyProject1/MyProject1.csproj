@@ -140,6 +140,12 @@
     <Compile Include="ExpertMenu.Designer.cs">
       <DependentUpon>ExpertMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Expert_Method_PairwiseComparison.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Expert_Method_PairwiseComparison.Designer.cs">
+      <DependentUpon>Expert_Method_PairwiseComparison.cs</DependentUpon>
+    </Compile>
     <Compile Include="GeneralLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ExpertAuthorization.resx">
       <DependentUpon>ExpertAuthorization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Expert_Method_PairwiseComparison.resx">
+      <DependentUpon>Expert_Method_PairwiseComparison.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GeneralLogin.resx">
       <DependentUpon>GeneralLogin.cs</DependentUpon>
@@ -236,6 +245,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\icons8-arrow-right-30.png" />
+    <None Include="Resources\icons8-arrow-left-30.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

@@ -141,6 +141,8 @@
             // 
             // comboBoxProblems
             // 
+            this.comboBoxProblems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxProblems.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBoxProblems.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBoxProblems.FormattingEnabled = true;
             this.comboBoxProblems.Location = new System.Drawing.Point(128, 99);
