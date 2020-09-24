@@ -211,6 +211,51 @@ namespace MyProject1
                     button3.Text = "Пройти";
                     checkBox2.Checked = false;
                 }
+
+                // 3) Метод предпочтения
+                // Если есть файл, то значит тест ранее уже проходился кем то
+                fileInfo = new FileInfo(@"Data\MethodPreference\" + IdProblem.ToString() + ".txt");
+                if (fileInfo.Exists) // Если есть файл проблемы
+                {
+                    // Проверяем статус теста
+                    bool status = false;
+                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    {
+                        try
+                        {
+                            await connection.OpenAsync();
+                            SqlCommand command = new SqlCommand("Select StatusTest3 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
+                            status = (bool)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+
+                    if (!status) // Если false, значит эксперт не проходил тест по этой проблеме
+                    {
+                        // Красим кнопку Пройти в зеленый и изменяем текст
+                        button4.BackColor = Color.FromArgb(224, 237, 218);
+                        button4.Text = "Пройти";
+                        checkBox3.Checked = false;
+                    }
+                    else // Если true, то значит оценивание полностью завершено и результаты отправлены Аналитику
+                    {
+                        // Красим кнопку Пройти в желтый и изменяем текст
+                        button4.BackColor = Color.LemonChiffon;
+                        button4.Text = "Изменить ответы";
+                        checkBox3.Checked = true;
+                    }
+                }
+                else // Если нет файла, значит оценивание еще не проводилось
+                {
+                    // Красим кнопку Пройти в зеленый и изменяем текст
+                    button4.BackColor = Color.FromArgb(224, 237, 218);
+                    button4.Text = "Пройти";
+                    checkBox3.Checked = false;
+                }
+
             }
         }
 
@@ -231,6 +276,14 @@ namespace MyProject1
         {
             Data.selectedProblem = comboBox1.Text;
             Expert_Method_WeightedExpertAssessments f = new Expert_Method_WeightedExpertAssessments();
+            f.ShowDialog();
+        }
+
+        // Открытие окна метода Предпочтения
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Data.selectedProblem = comboBox1.Text;
+            Expert_Method_Preference f = new Expert_Method_Preference();
             f.ShowDialog();
         }
     }

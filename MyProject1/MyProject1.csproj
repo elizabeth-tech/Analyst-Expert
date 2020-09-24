@@ -147,6 +147,12 @@
     <Compile Include="Expert_Method_PairwiseComparison.Designer.cs">
       <DependentUpon>Expert_Method_PairwiseComparison.cs</DependentUpon>
     </Compile>
+    <Compile Include="Expert_Method_Preference.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Expert_Method_Preference.Designer.cs">
+      <DependentUpon>Expert_Method_Preference.cs</DependentUpon>
+    </Compile>
     <Compile Include="Expert_Method_WeightedExpertAssessments.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Expert_Method_PairwiseComparison.resx">
       <DependentUpon>Expert_Method_PairwiseComparison.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Expert_Method_Preference.resx">
+      <DependentUpon>Expert_Method_Preference.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Expert_Method_WeightedExpertAssessments.resx">
       <DependentUpon>Expert_Method_WeightedExpertAssessments.cs</DependentUpon>
