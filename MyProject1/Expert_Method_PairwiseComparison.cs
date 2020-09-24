@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace MyProject1
 {
     public partial class Expert_Method_PairwiseComparison : Form
     {
-        Dictionary<int, List<string>> combinations = new Dictionary<int, List<string>>(); // Структура для комбинаций альтернатив
-        Dictionary<int, double> choices = new Dictionary<int, double>(); // Структура для хранения выбора radiobutton для каждого вопроса
+        private Dictionary<int, List<string>> combinations = new Dictionary<int, List<string>>(); // Структура для комбинаций альтернатив
+        private Dictionary<int, double> choices = new Dictionary<int, double>(); // Структура для хранения выбора radiobutton для каждого вопроса
+        private bool flag = false; // флаг изменения ответов, true если были изменены
 
         public Expert_Method_PairwiseComparison()
         {
@@ -43,7 +45,16 @@ namespace MyProject1
         // Закрытие окна
         private void buttonExpertLoginClose_Click(object sender, EventArgs e)
         {
-            Close();
+            if (choices.Count < 1 || !flag) // Если изменения не были внесены (отметок radiobutton нет), то просто закрываем
+                Close();
+            if(flag)
+            {
+                DialogResult result = MessageBox.Show("Все несохраненные изменения будут потеряны!\nВы уверены, что хотите закрыть оценивание?", "Выход", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                if (result == DialogResult.Yes)
+                    Close();
+                else
+                    this.Activate();
+            }
         }
 
         // Сворачивание окна
@@ -122,11 +133,44 @@ namespace MyProject1
                 c += 2;
             }
 
-            // Выводим первое сочетание альтернатив в поля
-            textBoxAlter1.Text = combinations[Convert.ToInt16(comboBox1.Text)][0];
-            textBoxAlter2.Text = combinations[Convert.ToInt16(comboBox1.Text)][1];
+            /* Если данный тест был пройден ранее, то загружаем отметки radiobutton */
+            // Получаем id эксперта и проблемы, чтобы найти данные
+            int IdExpert = 001, IdProblem = 001;
+            using (SqlConnection connection = new SqlConnection(Data.connectionString))
+            {
+                try
+                {
+                    await connection.OpenAsync();
+                    SqlCommand command = new SqlCommand("Select Id from Experts where FIOExpert = N'" + Data.nameExpert.ToString() + "';", connection);
+                    IdExpert = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
 
-            
+                    SqlCommand command2 = new SqlCommand("Select Id from Problems where ProblemName = N'" + Data.selectedProblem.ToString() + "';", connection);
+                    IdProblem = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            // Если нет папки, то значит эксперт никогда ранее не проходил этот тест и загружать данные не нужно
+            string path = @"Data\MethodComparison\" + IdExpert.ToString();
+            DirectoryInfo dirInfo = new DirectoryInfo(path);
+            FileInfo fileInfo = new FileInfo(path + @"\" + IdProblem.ToString() + ".txt");
+            if (dirInfo.Exists && fileInfo.Exists)// Если папка и файл есть, то загружаем отметки в choices      
+            {
+                using (StreamReader SR = new StreamReader(path + @"\" + IdProblem.ToString() + ".txt", Encoding.Default))
+                {
+                    string line;
+                    while ((line = SR.ReadLine()) != null)
+                    {
+                        string[] Columns = line.Split(' ');
+                        choices.Add(Convert.ToInt16(Columns[0]), Convert.ToDouble(Columns[1]));
+                    }
+                    SR.Close();
+                }  
+            }
+            SelectRadioButton(); // Отображаем отметки в radiobutton
         }
 
         // Сохранение в память выбранных значений Radiobutton
@@ -164,8 +208,8 @@ namespace MyProject1
         // Переход на следующий вопрос
         private void buttonRight_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex <= comboBox1.MaxDropDownItems)
-            {                
+            if (comboBox1.SelectedIndex < comboBox1.Items.Count - 1)
+            {
                 int index = comboBox1.SelectedIndex + 1;
                 comboBox1.SelectedIndex = index;
                 SelectRadioButton();
@@ -178,24 +222,67 @@ namespace MyProject1
             SelectRadioButton();
         }
 
-        // Сохранение теста
-        private void buttonSaveTest_Click(object sender, EventArgs e)
+        // Сохранить и отправить результаты
+        private async void buttonSaveTest_Click(object sender, EventArgs e)
         {
             int countAlter = dataGridViewAlternatives.RowCount;
             // Формула числа сочетаний, определяющая количество вопросов в тесте
             int QuestionLength = Fact(countAlter) / (Fact(countAlter - 2) * 2);
 
-            if (choices.Count != QuestionLength)
-                MessageBox.Show("Невозможно сохранить результаты! Необходимо пройти все вопросы теста!\nВы вправе исправить ответы позже, но сохранение пустых ответов запрещено.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
-            // Если пользователь заполнил все ответы, то можно сохранить их в файл
+            if (choices.Count != QuestionLength) // Если эксперт оценил не все альтернативы
+            {
+                DialogResult result = MessageBox.Show("Вы не прошли тест до конца. Желаете закончить его позже?\n'Да' - Сохранить прогресс и выйти\n'Нет' - Выйти", "Выход", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                if (result == DialogResult.No)
+                    Close();
+                else // Сохраняем прогресс эксперта в файл и выходим
+                {
+                    // Получаем id эксперта и проблемы, чтобы создать папку и файл (либо записать результаты в уже имеющуюся)
+                    int IdExpert = 001, IdProblem = 001;
+                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    {
+                        try
+                        {
+                            await connection.OpenAsync();
+                            SqlCommand command = new SqlCommand("Select Id from Experts where FIOExpert = N'" + Data.nameExpert.ToString() + "';", connection);
+                            IdExpert = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
+                            SqlCommand command2 = new SqlCommand("Select Id from Problems where ProblemName = N'" + Data.selectedProblem.ToString() + "';", connection);
+                            IdProblem = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
+                            // Ставим статус false, то есть тест еще не закончен
+                            SqlCommand command3 = new SqlCommand("Update ExpertProblems SET StatusTest1=0 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
+                            command3.ExecuteNonQuery();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+
+                    // Если нет папки, то создаем ее
+                    DirectoryInfo dirInfo = new DirectoryInfo(@"Data\MethodComparison\" + IdExpert.ToString());
+                    if (!dirInfo.Exists)
+                        dirInfo.Create();
+
+                    // Сохранение в файл данных об отметках radiobutton (чтобы загружать их) 
+                    using (StreamWriter sw = new StreamWriter("Data/MethodComparison/" + IdExpert.ToString() + "/" + IdProblem.ToString() + ".txt"))
+                    {
+                        foreach (KeyValuePair<int, double> keyValue in choices)
+                            sw.Write("{0} {1}\n", keyValue.Key.ToString(), keyValue.Value.ToString());
+                        sw.Close();
+                    }
+                    Close();
+                }
+            }
+            // Если эксперт заполнил все ответы, то можно сохранить их в файл
             else
             {
                 // Заполняем матрицу нулями
-                Data.matrix = new double[countAlter, countAlter];
+                double[,] matrix = new double[countAlter, countAlter];
                 for (int i = 0; i < countAlter; i++)
                 {
                     for (int k = 0; k < countAlter; k++)
-                        Data.matrix[i, k] = 0;
+                        matrix[i, k] = 0;
                 }
 
                 // Заполняем значениями из тестов
@@ -205,25 +292,13 @@ namespace MyProject1
                     d++;
                     for (int j = d; j < countAlter; j++)
                     {
-                        Data.matrix[i, j] = choices[t];
+                        matrix[i, j] = choices[t];
                         if (choices[t] == 0.5)
-                            Data.matrix[j, i] = 0.5;
+                            matrix[j, i] = 0.5;
                         if (choices[t] == 0)
-                            Data.matrix[j, i] = 1;
+                            matrix[j, i] = 1;
                         t++;
                     }
-                }
-
-                // Вывод матрицы в файл
-                using (StreamWriter sw = new StreamWriter("Data/Matrix.txt"))
-                {
-                    for (int i = 0; i < countAlter; i++)
-                    {
-                        for (int j = 0; j < countAlter; j++)
-                            sw.Write("{0}\t", Data.matrix[i, j]);
-                        sw.WriteLine();
-                    }
-                    sw.Close();
                 }
 
                 /* Алгоритм парных сравнений по матрице предпочтений */
@@ -232,8 +307,8 @@ namespace MyProject1
                 double[] C = new double[countAlter]; // Цена, которая обозначает важность каждой альтернативы
                 for (int i = 0; i < countAlter; i++)
                     for (int j = 0; j < countAlter; j++)
-                        C[i] += Data.matrix[i, j];
-                
+                        C[i] += matrix[i, j];
+
                 // Находим R - сумму всех цен
                 double R = 0;
                 for (int i = 0; i < countAlter; i++)
@@ -242,19 +317,67 @@ namespace MyProject1
                 // Нормирование полученных цен
                 double[] V = new double[countAlter];
                 for (int i = 0; i < countAlter; i++)
-                {
                     V[i] = C[i] / R;
-                    //MessageBox.Show(V[i].ToString());
+
+                // Получаем id эксперта и проблемы, чтобы создать папку и файл (либо записать результаты в уже имеющуюся)
+                int IdExpert = 001, IdProblem = 001;
+                using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                {
+                    try
+                    {
+                        await connection.OpenAsync();
+                        SqlCommand command = new SqlCommand("Select Id from Experts where FIOExpert = N'" + Data.nameExpert.ToString() + "';", connection);
+                        IdExpert = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
+                        SqlCommand command2 = new SqlCommand("Select Id from Problems where ProblemName = N'" + Data.selectedProblem.ToString() + "';", connection);
+                        IdProblem = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
+                        // Ставим статус true, то есть тест полностью завершен
+                        SqlCommand command3 = new SqlCommand("Update ExpertProblems SET StatusTest1=1 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
+                        command3.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
+
+                // Если нет папки, то создаем ее
+                DirectoryInfo dirInfo = new DirectoryInfo(@"Data\Result1_MethodComparison\" + IdExpert.ToString());
+                if (!dirInfo.Exists)
+                    dirInfo.Create();
+
+                // Вывод матрицы в файл где папка - id эксперта, а номер файла txt - номер проблемы 
+                using (StreamWriter sw = new StreamWriter("Data/Result1_MethodComparison/" + IdExpert.ToString() + "/" + IdProblem.ToString() + ".txt"))
+                {
+                    for (int i = 0; i < countAlter; i++)
+                        sw.Write("{0}\n", V[i]);
+                    sw.Close();
+                }
+
+                // Если нет папки, то создаем ее
+                DirectoryInfo dirInfo2 = new DirectoryInfo(@"Data\MethodComparison\" + IdExpert.ToString());
+                if (!dirInfo2.Exists)
+                    dirInfo2.Create();
+
+                // Сохранение в файл данных об отметках radiobutton (чтобы загружать их) 
+                using (StreamWriter sw = new StreamWriter("Data/MethodComparison/" + IdExpert.ToString() + "/" + IdProblem.ToString() + ".txt"))
+                {
+                    for (int i = 0; i < QuestionLength; i++)
+                        sw.Write("{0} {1}\n", i, choices[i]);
+                    sw.Close();
+                }
+                Close();
             }
         }
 
         // Первый вариант
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void radioButton1_Click(object sender, EventArgs e)
         {
             // Сохранение в словарь значений
             if (radioButton1.Checked == true)
             {
+                flag = true;
                 if (choices.TryGetValue(comboBox1.SelectedIndex, out _))
                     choices[comboBox1.SelectedIndex] = 1;
                 else
@@ -263,11 +386,12 @@ namespace MyProject1
         }
 
         // Второй вариант
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        private void radioButton2_Click(object sender, EventArgs e)
         {
             // Сохранение в словарь значений
             if (radioButton2.Checked == true)
             {
+                flag = true;
                 if (choices.TryGetValue(comboBox1.SelectedIndex, out _))
                     choices[comboBox1.SelectedIndex] = 0.5;
                 else
@@ -276,13 +400,14 @@ namespace MyProject1
         }
 
         // Третий вариант
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        private void radioButton3_Click(object sender, EventArgs e)
         {
             // Сохранение в словарь значений
             if (radioButton3.Checked == true)
             {
+                flag = true;
                 if (choices.TryGetValue(comboBox1.SelectedIndex, out _))
-                    choices[comboBox1.SelectedIndex] = 0;
+                    choices[comboBox1.SelectedIndex] = 0;   
                 else
                     choices.Add(comboBox1.SelectedIndex, 0);
             }

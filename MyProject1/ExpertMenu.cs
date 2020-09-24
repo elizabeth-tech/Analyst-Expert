@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace MyProject1
 {
     public partial class ExpertMenu : Form
     {
+        private bool flag = false; // флаг наличия назначенных проблем у эксперта, true - если есть
+
         public ExpertMenu()
         {
             InitializeComponent();
@@ -50,21 +53,32 @@ namespace MyProject1
                     SqlDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {
-                        label7.Visible = false;
-                        label2.Text = "Есть доступные тесты";
+                        flag = true;
+                        label7.Visible = false; // Убираем текст "Аналитик еще не назначил вам ни одной проблемы"
+                        label2.Text = "Есть доступные тесты"; // Статус прохождения теста
                         label2.ForeColor = Color.Green;
-                        comboBox1.Visible = true;
+                        comboBox1.Visible = true; // Вкладка с проблемами
 
+                        // Красим кнопки Пройти в зеленый и открываем доступ
+                        button2.Enabled = button3.Enabled = button4.Enabled = button5.Enabled = button6.Enabled = true;
+                        button2.BackColor = button3.BackColor = button4.BackColor = button5.BackColor = button6.BackColor = Color.FromArgb(224, 237, 218);
+
+                        // Вносим проблемы
                         while (reader.Read())
                             comboBox1.Items.Add(reader.GetString(0));
-                        comboBox1.Text = comboBox1.Items[0].ToString();
+                        comboBox1.Text = comboBox1.Items[0].ToString();      
                     }
                     else
                     {
-                        label7.Visible = true;
-                        label2.Text = "Нет доступных тестов";
+                        flag = false;
+                        label7.Visible = true; // Вывод текста "Аналитик еще не назначил вам ни одной проблемы"
+                        label2.Text = "Нет доступных тестов"; // Статус прохождения теста
                         label2.ForeColor = Color.Red;
-                        comboBox1.Visible = false;
+                        comboBox1.Visible = false; // Вкладка с проблемами
+
+                        // Красим кнопки Пройти в красный и закрываем доступ
+                        button2.BackColor = button3.BackColor = button4.BackColor = button5.BackColor = button6.BackColor = Color.DarkSalmon;
+                        button2.Enabled = button3.Enabled = button4.Enabled = button5.Enabled = button6.Enabled = false;
                     }
                     reader.Close();
                 }
@@ -80,6 +94,143 @@ namespace MyProject1
         {
             Data.selectedProblem = comboBox1.Text;
             Expert_Method_PairwiseComparison f = new Expert_Method_PairwiseComparison();
+            f.ShowDialog();
+        }
+
+        // Определение статуса теста
+        private async void StatusTests()
+        {
+            if (flag) // Чтобы изменять только при имеющихся проблемах
+            {
+                // Получаем id эксперта и проблемы, чтобы найти данные
+                int IdExpert = 001, IdProblem = 001;
+                using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                {
+                    try
+                    {
+                        await connection.OpenAsync();
+                        SqlCommand command = new SqlCommand("Select Id from Experts where FIOExpert = N'" + Data.nameExpert.ToString() + "';", connection);
+                        IdExpert = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
+                        SqlCommand command2 = new SqlCommand("Select Id from Problems where ProblemName = N'" + comboBox1.Text + "';", connection);
+                        IdProblem = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
+                // 1) Метод парных сравнений
+                // Если есть папка эксперта и выбранная проблема, то значит тест ранее уже проходился этим экспертом
+                string path = @"Data\MethodComparison\" + IdExpert.ToString();
+                DirectoryInfo dirInfo = new DirectoryInfo(path);
+                FileInfo fileInfo = new FileInfo(path + @"\" + IdProblem.ToString() + ".txt");
+                if (dirInfo.Exists && fileInfo.Exists) // Если папка есть и есть файл проблемы
+                {
+                    // Проверяем статус теста
+                    bool status = false;
+                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    {
+                        try
+                        {
+                            await connection.OpenAsync();
+                            SqlCommand command = new SqlCommand("Select StatusTest1 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
+                            status = (bool)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+
+                    if(!status) // Если false, но при этом папка и файл есть, то значит эксперт проходил его ранее, но не закончил
+                    {
+                        // Красим кнопку Пройти в оранжевый и изменяем текст
+                        button2.BackColor = Color.PeachPuff;
+                        button2.Text = "Закончить оценивание";
+                        checkBox1.Checked = false;
+                    }
+                    else // Если true, то значит оценивание полностью завершено и результаты отправлены Аналитику
+                    {
+                        // Красим кнопку Пройти в желтый и изменяем текст
+                        button2.BackColor = Color.LemonChiffon;
+                        button2.Text = "Изменить ответы";
+                        checkBox1.Checked = true;
+                    }  
+                }
+                else // Если нет файла или папки, значит оценивание еще не проводилось
+                {
+                    // Красим кнопку Пройти в зеленый и изменяем текст
+                    button2.BackColor = Color.FromArgb(224, 237, 218);
+                    button2.Text = "Пройти";
+                    checkBox1.Checked = false;
+                }
+
+
+                // 2) Метод взвешенных экспертных оценок
+                // Если есть файл, то значит тест ранее уже проходился кем то
+                fileInfo = new FileInfo(@"Data\MethodWeightedAssessments\" + IdProblem.ToString() + ".txt");
+                if (fileInfo.Exists) // Если есть файл проблемы
+                {
+                    // Проверяем статус теста
+                    bool status = false;
+                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    {
+                        try
+                        {
+                            await connection.OpenAsync();
+                            SqlCommand command = new SqlCommand("Select StatusTest2 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
+                            status = (bool)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+
+                    if (!status) // Если false, значит эксперт не проходил тест по этой проблеме
+                    {
+                        // Красим кнопку Пройти в зеленый и изменяем текст
+                        button3.BackColor = Color.FromArgb(224, 237, 218);
+                        button3.Text = "Пройти";
+                        checkBox2.Checked = false;
+                    }
+                    else // Если true, то значит оценивание полностью завершено и результаты отправлены Аналитику
+                    {
+                        // Красим кнопку Пройти в желтый и изменяем текст
+                        button3.BackColor = Color.LemonChiffon;
+                        button3.Text = "Изменить ответы";
+                        checkBox2.Checked = true;
+                    }
+                }
+                else // Если нет файла, значит оценивание еще не проводилось
+                {
+                    // Красим кнопку Пройти в зеленый и изменяем текст
+                    button3.BackColor = Color.FromArgb(224, 237, 218);
+                    button3.Text = "Пройти";
+                    checkBox2.Checked = false;
+                }
+            }
+        }
+
+        // При выборе другой проблемы
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            StatusTests();
+        }
+
+        // При активации формы, обновляем состояние
+        private void ExpertMenu_Activated(object sender, EventArgs e)
+        {
+            StatusTests();
+        }
+
+        // Открытие окна метода Взвешенных экспертных оценок
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Data.selectedProblem = comboBox1.Text;
+            Expert_Method_WeightedExpertAssessments f = new Expert_Method_WeightedExpertAssessments();
             f.ShowDialog();
         }
     }

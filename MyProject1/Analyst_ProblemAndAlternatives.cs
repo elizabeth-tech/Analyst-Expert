@@ -52,13 +52,13 @@ namespace MyProject1
                         " where Problems.ProblemName = N'" + comboBoxProblem.Text + "')", connection);
                     SqlDataReader reader = command.ExecuteReader();
                     dataGridViewAlternatives.Rows.Clear();
-                    if (reader.HasRows)
+                    if (reader.HasRows) // Если у проблемы есть альтернативы
                     {
                         buttonDeleteAlternative.Visible = true;
                         buttonEditAlternative.Visible = true;
-                        label5.Visible = true;
+                        label5.Visible = true; // Подсказка
                         dataGridViewAlternatives.Visible = true;
-                        label6.Visible = false;
+                        labelError.Visible = false;
                         int i = 0;
                         while (reader.Read())
                         {
@@ -68,19 +68,26 @@ namespace MyProject1
                         }
 
                     }
-                    else
+                    else // Если у проблемы нет альтернатив
                     {
                         buttonDeleteAlternative.Visible = false;
                         buttonEditAlternative.Visible = false;
                         label5.Visible = false;
                         dataGridViewAlternatives.Visible = false;
-                        label6.Visible = true;
+                        labelError.Text = "Для данной проблемы еще не добавлены альтернативы.\n" +
+                            "Необходимо внести как минимум две альтернативы, чтобы проблема\n" +
+                            " стала доступна для назначения экспертов.\n";
+                        labelError.Visible = true;
                     }
                     reader.Close();
                     if (dataGridViewAlternatives.RowCount == 1)
-                        label7.Visible = true;
+                    {
+                        labelError.Text = "Необходимо внести как минимум две альтернативы, чтобы проблема\n" +
+                            " стала доступна для назначения экспертов.\n";
+                        labelError.Visible = true;
+                    }
                     else
-                        label7.Visible = false;
+                        labelError.Visible = false;
                 }
                 catch (Exception ex)
                 {
