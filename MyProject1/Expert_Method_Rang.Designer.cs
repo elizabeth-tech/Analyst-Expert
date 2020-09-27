@@ -1,6 +1,6 @@
 ﻿namespace MyProject1
 {
-    partial class Expert_Method_Preference
+    partial class Expert_Method_Rang
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Expert_Method_Preference));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Expert_Method_Rang));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -49,7 +49,6 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.labelInfo = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAlternatives)).BeginInit();
             this.SuspendLayout();
@@ -65,7 +64,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(680, 32);
-            this.panel1.TabIndex = 46;
+            this.panel1.TabIndex = 47;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
             // buttonExpertLoginClose
@@ -116,15 +115,15 @@
             this.label24.ForeColor = System.Drawing.Color.White;
             this.label24.Location = new System.Drawing.Point(32, 9);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(212, 17);
+            this.label24.Size = new System.Drawing.Size(161, 17);
             this.label24.TabIndex = 0;
-            this.label24.Text = "Эксперт - Метод предпочтения";
+            this.label24.Text = "Эксперт - Метод ранга";
             // 
             // labelError
             // 
             this.labelError.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelError.ForeColor = System.Drawing.Color.Red;
-            this.labelError.Location = new System.Drawing.Point(63, 439);
+            this.labelError.Location = new System.Drawing.Point(65, 414);
             this.labelError.Name = "labelError";
             this.labelError.Size = new System.Drawing.Size(541, 20);
             this.labelError.TabIndex = 145;
@@ -136,12 +135,12 @@
             // 
             this.labelHelp.BackColor = System.Drawing.Color.WhiteSmoke;
             this.labelHelp.Image = global::MyProject1.Properties.Resources.icons8_question_mark_20;
-            this.labelHelp.Location = new System.Drawing.Point(370, 124);
+            this.labelHelp.Location = new System.Drawing.Point(379, 108);
             this.labelHelp.Name = "labelHelp";
             this.labelHelp.Size = new System.Drawing.Size(34, 34);
             this.labelHelp.TabIndex = 144;
-            this.toolTip1.SetToolTip(this.labelHelp, "Оценки характеризуются натуральными числами от 1 до\r\nколичества доступных альтерн" +
-        "атив.\r\n1 - для самой важной альтернативы,\r\n2 - для менее важной, и т.д.");
+            this.toolTip1.SetToolTip(this.labelHelp, "Оценки характеризуются 10-бальной шкалой (от 0 до 10). При этом\r\nвозможно дублиро" +
+        "вание оценок. Например альтернатива 1 и 2 будет\r\nиметь оценку 7.");
             // 
             // buttonSaveTest
             // 
@@ -151,7 +150,7 @@
             this.buttonSaveTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSaveTest.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonSaveTest.ForeColor = System.Drawing.Color.Black;
-            this.buttonSaveTest.Location = new System.Drawing.Point(151, 467);
+            this.buttonSaveTest.Location = new System.Drawing.Point(164, 453);
             this.buttonSaveTest.Name = "buttonSaveTest";
             this.buttonSaveTest.Size = new System.Drawing.Size(335, 33);
             this.buttonSaveTest.TabIndex = 143;
@@ -165,7 +164,7 @@
             this.textBoxProblem.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxProblem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxProblem.ForeColor = System.Drawing.Color.Black;
-            this.textBoxProblem.Location = new System.Drawing.Point(63, 81);
+            this.textBoxProblem.Location = new System.Drawing.Point(65, 80);
             this.textBoxProblem.MaxLength = 20;
             this.textBoxProblem.Name = "textBoxProblem";
             this.textBoxProblem.ReadOnly = true;
@@ -177,7 +176,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(267, 131);
+            this.label2.Location = new System.Drawing.Point(276, 115);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 20);
             this.label2.TabIndex = 141;
@@ -211,7 +210,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewAlternatives.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewAlternatives.EnableHeadersVisualStyles = false;
-            this.dataGridViewAlternatives.Location = new System.Drawing.Point(85, 168);
+            this.dataGridViewAlternatives.Location = new System.Drawing.Point(105, 152);
             this.dataGridViewAlternatives.Name = "dataGridViewAlternatives";
             this.dataGridViewAlternatives.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -224,10 +223,9 @@
             dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(8, 4, 0, 0);
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
             this.dataGridViewAlternatives.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridViewAlternatives.Size = new System.Drawing.Size(551, 247);
+            this.dataGridViewAlternatives.Size = new System.Drawing.Size(541, 247);
             this.dataGridViewAlternatives.TabIndex = 140;
             this.dataGridViewAlternatives.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAlternatives_CellEndEdit);
-            this.dataGridViewAlternatives.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridViewAlternatives_EditingControlShowing);
             // 
             // Column1
             // 
@@ -248,7 +246,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(277, 58);
+            this.label3.Location = new System.Drawing.Point(283, 57);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(82, 20);
             this.label3.TabIndex = 139;
@@ -259,23 +257,12 @@
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
-            // labelInfo
-            // 
-            this.labelInfo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelInfo.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.labelInfo.Location = new System.Drawing.Point(63, 419);
-            this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(541, 20);
-            this.labelInfo.TabIndex = 146;
-            this.labelInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Expert_Method_Preference
+            // Expert_Method_Rang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(680, 535);
-            this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.labelError);
             this.Controls.Add(this.labelHelp);
             this.Controls.Add(this.buttonSaveTest);
@@ -288,10 +275,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Expert_Method_Preference";
+            this.Name = "Expert_Method_Rang";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Эксперт- Метод предпочтения";
-            this.Load += new System.EventHandler(this.Expert_Method_Preference_Load);
+            this.Text = "Эксперт - Метод ранга";
+            this.Load += new System.EventHandler(this.Expert_Method_Rang_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAlternatives)).EndInit();
@@ -314,9 +301,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridViewAlternatives;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

@@ -65,6 +65,8 @@ namespace MyProject1
                             await connection.OpenAsync();
                             SqlCommand command = new SqlCommand("Update Experts SET Position=N'" + textBoxNewPositionExpert.Text + "', Competence=" + textBoxNewCompetence.Text + " where FIOExpert=N'" + textBoxFIO.Text + "';", connection);
                             command.ExecuteNonQuery();
+                            this.DialogResult = DialogResult.OK;
+                            Data.newExpert = textBoxFIO.Text;
                             Close();
                         }
                         catch (Exception ex)
@@ -91,8 +93,7 @@ namespace MyProject1
                     this.Activate();
                     this.ActiveControl = textBoxNewPositionExpert;
                 }
-            }
-            
+            }     
         }
 
         // Загрузка формы, заполнение старых значений

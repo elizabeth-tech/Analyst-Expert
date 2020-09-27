@@ -36,12 +36,8 @@
             this.buttonCloseAnalystProblem = new System.Windows.Forms.Button();
             this.buttonAnalystProblemsAlternatives = new System.Windows.Forms.Button();
             this.buttonExperts = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.системаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.изменитьПарольToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonInterrogation = new System.Windows.Forms.Button();
+            this.buttonResults = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -118,11 +114,11 @@
             this.buttonAnalystProblemsAlternatives.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkOrange;
             this.buttonAnalystProblemsAlternatives.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Orange;
             this.buttonAnalystProblemsAlternatives.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAnalystProblemsAlternatives.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonAnalystProblemsAlternatives.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonAnalystProblemsAlternatives.ForeColor = System.Drawing.Color.Black;
-            this.buttonAnalystProblemsAlternatives.Location = new System.Drawing.Point(68, 98);
+            this.buttonAnalystProblemsAlternatives.Location = new System.Drawing.Point(69, 79);
             this.buttonAnalystProblemsAlternatives.Name = "buttonAnalystProblemsAlternatives";
-            this.buttonAnalystProblemsAlternatives.Size = new System.Drawing.Size(311, 30);
+            this.buttonAnalystProblemsAlternatives.Size = new System.Drawing.Size(311, 35);
             this.buttonAnalystProblemsAlternatives.TabIndex = 91;
             this.buttonAnalystProblemsAlternatives.Text = "Проблемы и их альтернативы";
             this.buttonAnalystProblemsAlternatives.UseVisualStyleBackColor = false;
@@ -136,62 +132,33 @@
             this.buttonExperts.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkOrange;
             this.buttonExperts.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Orange;
             this.buttonExperts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExperts.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonExperts.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonExperts.ForeColor = System.Drawing.Color.Black;
-            this.buttonExperts.Location = new System.Drawing.Point(68, 148);
+            this.buttonExperts.Location = new System.Drawing.Point(69, 133);
             this.buttonExperts.Name = "buttonExperts";
-            this.buttonExperts.Size = new System.Drawing.Size(311, 30);
+            this.buttonExperts.Size = new System.Drawing.Size(311, 35);
             this.buttonExperts.TabIndex = 92;
             this.buttonExperts.Text = "Эксперты и назначенные проблемы";
             this.buttonExperts.UseVisualStyleBackColor = false;
             this.buttonExperts.Click += new System.EventHandler(this.buttonExperts_Click);
             // 
-            // menuStrip1
+            // buttonResults
             // 
-            this.menuStrip1.AutoSize = false;
-            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.системаToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 32);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 4, 0, 4);
-            this.menuStrip1.Size = new System.Drawing.Size(447, 34);
-            this.menuStrip1.TabIndex = 101;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // системаToolStripMenuItem
-            // 
-            this.системаToolStripMenuItem.BackgroundImage = global::MyProject1.Properties.Resources.icons8_menu_20;
-            this.системаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.изменитьПарольToolStripMenuItem});
-            this.системаToolStripMenuItem.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.системаToolStripMenuItem.Name = "системаToolStripMenuItem";
-            this.системаToolStripMenuItem.Size = new System.Drawing.Size(24, 21);
-            this.системаToolStripMenuItem.Text = " ";
-            // 
-            // изменитьПарольToolStripMenuItem
-            // 
-            this.изменитьПарольToolStripMenuItem.Name = "изменитьПарольToolStripMenuItem";
-            this.изменитьПарольToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.изменитьПарольToolStripMenuItem.Text = "Изменить пароль";
-            // 
-            // buttonInterrogation
-            // 
-            this.buttonInterrogation.BackColor = System.Drawing.Color.NavajoWhite;
-            this.buttonInterrogation.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
-            this.buttonInterrogation.FlatAppearance.BorderSize = 0;
-            this.buttonInterrogation.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkOrange;
-            this.buttonInterrogation.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Orange;
-            this.buttonInterrogation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonInterrogation.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonInterrogation.ForeColor = System.Drawing.Color.Black;
-            this.buttonInterrogation.Location = new System.Drawing.Point(68, 202);
-            this.buttonInterrogation.Name = "buttonInterrogation";
-            this.buttonInterrogation.Size = new System.Drawing.Size(311, 30);
-            this.buttonInterrogation.TabIndex = 102;
-            this.buttonInterrogation.Text = "К результатам опросов";
-            this.buttonInterrogation.UseVisualStyleBackColor = false;
-            this.buttonInterrogation.Click += new System.EventHandler(this.buttonInterrogation_Click);
+            this.buttonResults.BackColor = System.Drawing.Color.NavajoWhite;
+            this.buttonResults.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
+            this.buttonResults.FlatAppearance.BorderSize = 0;
+            this.buttonResults.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkOrange;
+            this.buttonResults.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Orange;
+            this.buttonResults.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonResults.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonResults.ForeColor = System.Drawing.Color.Black;
+            this.buttonResults.Location = new System.Drawing.Point(69, 188);
+            this.buttonResults.Name = "buttonResults";
+            this.buttonResults.Size = new System.Drawing.Size(311, 35);
+            this.buttonResults.TabIndex = 102;
+            this.buttonResults.Text = "К результатам опросов";
+            this.buttonResults.UseVisualStyleBackColor = false;
+            this.buttonResults.Click += new System.EventHandler(this.buttonResults_Click);
             // 
             // AnalystMenu
             // 
@@ -199,8 +166,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(447, 277);
-            this.Controls.Add(this.buttonInterrogation);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.buttonResults);
             this.Controls.Add(this.buttonExperts);
             this.Controls.Add(this.buttonAnalystProblemsAlternatives);
             this.Controls.Add(this.panel1);
@@ -211,8 +177,6 @@
             this.Text = "Аналитик - Основное меню";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -226,9 +190,6 @@
         private System.Windows.Forms.Button buttonCloseAnalystProblem;
         private System.Windows.Forms.Button buttonAnalystProblemsAlternatives;
         private System.Windows.Forms.Button buttonExperts;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem системаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem изменитьПарольToolStripMenuItem;
-        private System.Windows.Forms.Button buttonInterrogation;
+        private System.Windows.Forms.Button buttonResults;
     }
 }

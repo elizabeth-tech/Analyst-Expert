@@ -68,12 +68,12 @@ namespace MyProject1
                         else
                         {
                             Data.nameExpert = comboBoxFIO.Text; // Сохраняем логин (ФИО) эксперта, для дальнейшего использования
-                            // Переход на окно основного меню для прохождения тестов
-                            Close();
                             ExpertMenu f = new ExpertMenu();
                             f.Show();
                             Form form = Application.OpenForms[0]; 
                             form.Hide(); // Прячем форму выбора эксперта или аналитика
+                            // Переход на окно основного меню для прохождения тестов
+                            Close();
                         }
                     }
                     catch (Exception ex)

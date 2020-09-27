@@ -70,6 +70,7 @@ namespace MyProject1
                             // Вносим измененную альтернативу
                             SqlCommand command3 = new SqlCommand("UPDATE Alternatives SET AlternativeName=N'" + textBoxNewAlternativeName.Text + "' WHERE IdProblem=" + IdProblem.ToString() + " and AlternativeName=N'" + textBoxAlternativeName.Text + "';", connection);
                             command3.ExecuteNonQuery();
+                            this.DialogResult = DialogResult.OK;
                             Close();
                         }
                     }

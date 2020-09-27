@@ -9,11 +9,12 @@ using System.Windows.Forms;
 
 namespace MyProject1
 {
-    public partial class Expert_Method_WeightedExpertAssessments : Form
+    public partial class Expert_Method_Rang : Form
     {
-        private bool change = false; // Флаг изменений ячейки оценок
+        private bool change = false; // Флаг изменений в ячейке оценок
+        private bool error_range = false; // Флаг ошибки выхода за границы оценок
 
-        public Expert_Method_WeightedExpertAssessments()
+        public Expert_Method_Rang()
         {
             InitializeComponent();
         }
@@ -38,7 +39,7 @@ namespace MyProject1
                 }
                 else
                     this.Activate();
-            } 
+            }
         }
 
         // Сворачивание окна
@@ -56,7 +57,7 @@ namespace MyProject1
         }
 
         // Загрузка формы
-        private async void Expert_Method_WeightedExpertAssessments_Load(object sender, EventArgs e)
+        private async void Expert_Method_Rang_Load(object sender, EventArgs e)
         {
             textBoxProblem.Text = Data.selectedProblem; // Выводим название проблемы, по которой проходим тест
 
@@ -111,12 +112,12 @@ namespace MyProject1
                 }
             }
 
-            FileInfo fileInfo = new FileInfo(@"Data\MethodWeightedAssessments\" + IdProblem.ToString() + ".txt");
+            FileInfo fileInfo = new FileInfo(@"Data\MethodRang\" + IdProblem.ToString() + ".txt");
             if (fileInfo.Exists) // Если файл существует, значит по этой проблеме какой то эксперт уже проводил оценивание
             {
                 // Находим старую строку-оценивание
                 Dictionary<int, List<string>> estimates = new Dictionary<int, List<string>>(); // Словарь, где ключ - IdExpert, а значение - оценки
-                var lines = File.ReadAllLines(@"Data\MethodWeightedAssessments\" + IdProblem.ToString() + ".txt").ToList();
+                var lines = File.ReadAllLines(@"Data\MethodRang\" + IdProblem.ToString() + ".txt").ToList();
                 foreach (string s in lines) // Строка из файла
                 {
                     String[] elements = Regex.Split(s, " ");
@@ -130,7 +131,7 @@ namespace MyProject1
                     foreach (KeyValuePair<int, List<string>> keyValue in estimates)
                     {
                         for (int i = 0; i < keyValue.Value.Count; i++)
-                            dataGridViewAlternatives.Rows[i].Cells[1].Value = (Convert.ToDouble(keyValue.Value[i]) * 100).ToString();
+                            dataGridViewAlternatives.Rows[i].Cells[1].Value = keyValue.Value[i];
                     }
                 }
             }
@@ -140,7 +141,7 @@ namespace MyProject1
             dataGridViewAlternatives.CurrentCell = dataGridViewAlternatives[1, 0];
         }
 
-        // Сохранить и отправить результаты теста
+        // Сохранить и отправить результаты
         private async void buttonSaveTest_Click(object sender, EventArgs e)
         {
             // Проверка на пустоту столбца Оценок
@@ -150,7 +151,7 @@ namespace MyProject1
                 if (row.Cells[1].Value == null)
                     error = true;
             }
-            
+
             if (error) // Если есть пустые строки
             {
                 labelError.Text = "Необходимо заполнить оценки для каждой альтернативы!";
@@ -158,19 +159,15 @@ namespace MyProject1
             }
             else // Если пустых строк нет
             {
-                labelError.Visible = false;
-                // Суммируем оценки
-                double sum = 0;
-                for (int i = 0; i < dataGridViewAlternatives.Rows.Count; i++)
-                    sum += Convert.ToDouble(dataGridViewAlternatives.Rows[i].Cells[1].Value);
-                if (sum != 100)
+                if (error_range) // Если эксперт ввел оценку меньше 0 или больше 10
                 {
-                    labelError.Text = "Сумма оценок не равна 100!";
+                    labelError.Text = "Оценка не может быть меньше 0 или превышать 10!";
                     labelError.Visible = true;
                 }
-                // Если эксперт все верно заполнил, то можем сохранить его оценки к остальным оценкам по этой проблеме
-                else
+                else // Если эксперт все верно заполнил
                 {
+                    labelError.Visible = false;
+
                     // Получаем id проблемы, чтобы создать файл (либо записать результаты в уже имеющийся)
                     // Получаем id эксперта для записи в строку
                     int IdProblem = 001, IdExpert = 001;
@@ -186,7 +183,7 @@ namespace MyProject1
                             IdExpert = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
 
                             // Ставим статус true, то есть тест полностью завершен
-                            SqlCommand command3 = new SqlCommand("Update ExpertProblems SET StatusTest2=1 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
+                            SqlCommand command3 = new SqlCommand("Update ExpertProblems SET StatusTest4=1 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
                             command3.ExecuteNonQuery();
                         }
                         catch (Exception ex)
@@ -194,13 +191,13 @@ namespace MyProject1
                             MessageBox.Show(ex.Message);
                         }
                     }
-                    
-                    FileInfo fileInfo = new FileInfo(@"Data\MethodWeightedAssessments\" + IdProblem.ToString() + ".txt");                   
+
+                    FileInfo fileInfo = new FileInfo(@"Data\MethodRang\" + IdProblem.ToString() + ".txt");
                     if (fileInfo.Exists) // Если файл существует, значит по этой проблеме какой то эксперт уже проводил оценивание
                     {
                         // Находим старую строку-оценивание
                         Dictionary<int, List<string>> estimates = new Dictionary<int, List<string>>(); // Словарь, где ключ - IdExpert, а значение - оценки
-                        var lines = File.ReadAllLines(@"Data\MethodWeightedAssessments\" + IdProblem.ToString() + ".txt").ToList();
+                        var lines = File.ReadAllLines(@"Data\MethodRang\" + IdProblem.ToString() + ".txt").ToList();
                         foreach (string s in lines) // Строка из файла
                         {
                             String[] elements = Regex.Split(s, " ");
@@ -212,13 +209,12 @@ namespace MyProject1
                             estimates.Remove(IdExpert); // Удаляем старую строку
 
                         // Сохранение в файл старых данных (false - перезапись файла)
-                        using (StreamWriter sw = new StreamWriter("Data/MethodWeightedAssessments/" + IdProblem.ToString() + ".txt", false, System.Text.Encoding.Default))
+                        using (StreamWriter sw = new StreamWriter("Data/MethodRang/" + IdProblem.ToString() + ".txt", false, System.Text.Encoding.Default))
                         {
-                            // На самом деле каждая оценка должна быть < 1, но для удобства эксперта разрешено заполнять от 0 до 100
                             foreach (KeyValuePair<int, List<string>> keyValue in estimates)
                             {
                                 sw.Write(keyValue.Key.ToString() + " ");
-                                for(int i = 0; i < keyValue.Value.Count; i++)
+                                for (int i = 0; i < keyValue.Value.Count; i++)
                                 {
                                     sw.Write(keyValue.Value[i].ToString());
                                     if (i != keyValue.Value.Count - 1)
@@ -230,7 +226,7 @@ namespace MyProject1
                             // Дописываем новую (свежую) строку с оцениванием
                             for (int i = 0; i < dataGridViewAlternatives.Rows.Count; i++)
                             {
-                                sw.Write((Convert.ToDouble(dataGridViewAlternatives.Rows[i].Cells[1].Value) / 100.0).ToString());
+                                sw.Write(dataGridViewAlternatives.Rows[i].Cells[1].Value.ToString());
                                 if (i != dataGridViewAlternatives.Rows.Count - 1)
                                     sw.Write(" ");
                             }
@@ -242,16 +238,16 @@ namespace MyProject1
                     }
                     else // Если файла (проблемы) нет, то нужно просто создать и записать в него
                     {
-                        using (StreamWriter sw = new StreamWriter("Data/MethodWeightedAssessments/" + IdProblem.ToString() + ".txt"))
+                        using (StreamWriter sw = new StreamWriter("Data/MethodRang/" + IdProblem.ToString() + ".txt"))
                         {
-                            // На самом деле каждая оценка должна быть < 1, но для удобства эксперта разрешено заполнять от 0 до 100
                             sw.Write(IdExpert.ToString() + " ");
                             for (int i = 0; i < dataGridViewAlternatives.Rows.Count; i++)
                             {
-                                sw.Write((Convert.ToDouble(dataGridViewAlternatives.Rows[i].Cells[1].Value) / 100.0).ToString());
+                                sw.Write(dataGridViewAlternatives.Rows[i].Cells[1].Value.ToString());
                                 if (i != dataGridViewAlternatives.Rows.Count - 1)
                                     sw.Write(" ");
                             }
+                            sw.WriteLine();
                             sw.Close();
                         }
                         Form form = Application.OpenForms["ExpertMenu"]; // Вызываем форму меню эксперта
@@ -262,26 +258,21 @@ namespace MyProject1
             }
         }
 
-        // Запрет на ввод любых символов, кроме цифр в столбец Оценка
-        private void dataGridViewAlternatives_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            e.Control.KeyPress += new KeyPressEventHandler(Cell_KeyPress);
-        }
-        private void Cell_KeyPress(object Sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8)
-                e.Handled = true;
-        }
-
         // После окончания редактирования ячейки
         private void dataGridViewAlternatives_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             change = true; // Изменения в ячейке
-            // Если введенное значение не попадает в интервал [0;100]
-            if (Convert.ToInt16(dataGridViewAlternatives.CurrentCell.Value) > 100 || Convert.ToInt16(dataGridViewAlternatives.CurrentCell.Value) < 0)
+            // Если введенное значение не попадает в интервал [0; 10]
+            if (Convert.ToInt16(dataGridViewAlternatives.CurrentCell.Value) > 10 || Convert.ToInt16(dataGridViewAlternatives.CurrentCell.Value) < 0)
+            {
+                error_range = true;
                 dataGridViewAlternatives.CurrentCell.Style.BackColor = Color.Tomato;
+            }
             else
+            {
+                error_range = false;
                 dataGridViewAlternatives.CurrentCell.Style.BackColor = Color.White;
+            }
         }
     }
 }

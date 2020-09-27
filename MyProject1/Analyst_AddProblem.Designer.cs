@@ -159,6 +159,7 @@
             // 
             // Analyst_AddProblem
             // 
+            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
@@ -184,11 +185,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxProblemName;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonTurnAnalystProblem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Button buttonCloseAnalystProblem;
+        private System.Windows.Forms.Button buttonOk;
     }
 }

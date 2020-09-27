@@ -88,6 +88,7 @@ namespace MyProject1
                     // Добавляем в базу информацию о назначенной проблеме
                     SqlCommand command2 = new SqlCommand("insert into ExpertProblems values(" + Data.IdExpert.ToString() + "," + IdProblem.ToString() + ", 0, 0, 0, 0, 0);", connection);
                     command2.ExecuteNonQuery();
+                    this.DialogResult = DialogResult.OK;
                     Close();
                 }
                 catch (Exception ex)

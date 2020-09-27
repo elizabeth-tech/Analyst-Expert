@@ -28,14 +28,14 @@ namespace MyProject1
         private void buttonAnalystProblemsAlternatives_Click(object sender, EventArgs e)
         {
             Analyst_ProblemAndAlternatives f = new Analyst_ProblemAndAlternatives();
-            f.Show();
+            f.ShowDialog();
         }
 
         // Переход к окну экспертов и их компетентности
         private void buttonExperts_Click(object sender, EventArgs e)
         {
             Analyst_Experts f = new Analyst_Experts();
-            f.Show();
+            f.ShowDialog();
         }
 
         // Перетаскивание окна
@@ -46,10 +46,11 @@ namespace MyProject1
             WndProc(ref m);
         }
 
-        private void buttonInterrogation_Click(object sender, EventArgs e)
+        // Переход к окну результатов опроса
+        private void buttonResults_Click(object sender, EventArgs e)
         {
             AnalystResults f = new AnalystResults();
-            f.Show();
+            f.ShowDialog();
         }
     }
 }

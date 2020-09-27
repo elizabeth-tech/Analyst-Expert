@@ -20,9 +20,9 @@ namespace MyProject1
         // Закрытие окна входа аналитика
         private void buttonAnalystLoginClose_Click(object sender, EventArgs e)
         {
-            Close();
             Form form = Application.OpenForms[0]; // Вызываем форму выбора эксперта или аналитика
             form.Show();
+            Close();
         }
 
         // Вход. Переключение на основное меню
@@ -52,11 +52,11 @@ namespace MyProject1
                 }
                 else
                 {
-                    Close();
                     Form form = Application.OpenForms[0];
                     form.Hide(); // Прячем форму выбора эксперта или аналитика
                     AnalystMenu f = new AnalystMenu();
                     f.Show();
+                    Close();
                 }
             }
         }

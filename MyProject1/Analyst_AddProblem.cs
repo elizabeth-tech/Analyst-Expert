@@ -65,6 +65,8 @@ namespace MyProject1
                         {
                             SqlCommand command2 = new SqlCommand("insert into Problems values(N'" + textBoxProblemName.Text + "', 0);", connection);
                             command2.ExecuteNonQuery();
+                            this.DialogResult = DialogResult.OK;
+                            Data.newProblem = textBoxProblemName.Text;
                             Close();
                         }
                     }
@@ -86,5 +88,7 @@ namespace MyProject1
                 }
             }
         }
+
+
     }
 }

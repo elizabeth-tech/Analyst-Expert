@@ -66,7 +66,10 @@ namespace MyProject1
                             dataGridViewExpertProblems.Rows[i].Cells[0].Value = reader.GetString(0);
                             i++;
                         }
-
+                        label7.Visible = false;
+                        dataGridViewExpertProblems.Visible = true;
+                        buttonDeleteAssignProblem.Visible = true;
+                        label6.Visible = true;
                     }
                     else
                     {
@@ -108,24 +111,51 @@ namespace MyProject1
         private void buttonAddExpert_Click(object sender, EventArgs e)
         {
             Analyst_AddExpert f = new Analyst_AddExpert();
-            f.ShowDialog();
+            if (f.ShowDialog() == DialogResult.OK) // вызов диалогового окна формы добавления эксперта
+            {
+                LoadExperts(); // Загрузка списка экспертов
+                comboBoxExpert.Text = Data.newExpert;
+                LoadExpertProblems(); // Заполнение соответствующих назначенных проблем
+            }
         }
 
         // Открытие окна по редактированию эксперта
-        private void buttonEditExpert_Click(object sender, EventArgs e)
+        private async void buttonEditExpert_Click(object sender, EventArgs e)
         {
             Data.nameExpert = comboBoxExpert.Text;
             Data.positionExpert = textBoxPositionExpert.Text;
             Data.competenceExpert = Convert.ToInt32(textBoxCompetence.Text);
             Analyst_EditExpert f = new Analyst_EditExpert();
-            f.ShowDialog();
-        }
+            if (f.ShowDialog() == DialogResult.OK) // вызов диалогового окна формы редактирования эксперта
+            {
+                comboBoxExpert.Text = Data.newExpert;
+                using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                {
+                    try
+                    {
+                        await connection.OpenAsync();
+                        SqlCommand command = new SqlCommand("Select Position, Competence from Experts where FIOExpert=N'" + comboBoxExpert.Text + "'", connection);
+                        SqlDataReader reader = command.ExecuteReader();
+                        textBoxPositionExpert.Clear();
+                        textBoxCompetence.Clear();
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                textBoxPositionExpert.Text = reader.GetString(0);
+                                textBoxCompetence.Text = reader.GetInt32(1).ToString();
+                            }
+                        }
+                        reader.Close();
 
-        // При активации фокуса загружаем экспертов
-        private void Analyst_Experts_Activated(object sender, EventArgs e)
-        {
-            LoadExperts();
-            LoadExpertProblems();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                LoadExpertProblems(); // Заполнение соответствующих назначенных проблем
+            }
         }
 
         // При изменении эксперта - меняется информация в полях
@@ -218,6 +248,7 @@ namespace MyProject1
         private async void buttonAddAssignProblem_Click(object sender, EventArgs e)
         {
             int IdExpert = 0;
+            // Получаем Id эксперта, которому хотим назначить проблемы
             using (SqlConnection connection = new SqlConnection(Data.connectionString))
             {
                 try
@@ -233,7 +264,8 @@ namespace MyProject1
             }
             Data.IdExpert = IdExpert;
             Analyst_AddAssignProblem f = new Analyst_AddAssignProblem();
-            f.ShowDialog();
+            if (f.ShowDialog() == DialogResult.OK) // вызов диалогового окна формы назначения проблемы эксперту
+                LoadExpertProblems(); // Заполнение соответствующих назначенных проблем
         }
 
         // Удаление назначенной проблемы
@@ -266,11 +298,17 @@ namespace MyProject1
                     }
                 }
                 this.Activate();
-                LoadExperts();
                 LoadExpertProblems();
             }
             else
                 this.Activate();
+        }
+
+        // Загрузка формы
+        private void Analyst_Experts_Load(object sender, EventArgs e)
+        {
+            LoadExperts();
+            LoadExpertProblems();
         }
     }
 }

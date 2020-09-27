@@ -71,6 +71,8 @@ namespace MyProject1
                                     {
                                         SqlCommand command2 = new SqlCommand("insert into Experts values(N'" + textBoxFio.Text + "', N'" + textBoxPositionExpert.Text + "', " + textBoxCompetence.Text + ", N'" + textBoxPassword.Text + "');", connection);
                                         command2.ExecuteNonQuery();
+                                        this.DialogResult = DialogResult.OK;
+                                        Data.newExpert = textBoxFio.Text;
                                         Close();
                                     }
                                 }

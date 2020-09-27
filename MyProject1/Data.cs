@@ -16,5 +16,8 @@
         // Данные для окон Аналитика
         public static string nameProblem;
         public static string nameAlternative;
+
+        public static string newProblem; // Добавленная проблема
+        public static string newExpert; // Добавленный эксперт
     }
 }

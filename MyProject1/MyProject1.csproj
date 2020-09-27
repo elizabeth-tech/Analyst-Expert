@@ -141,6 +141,12 @@
     <Compile Include="ExpertMenu.Designer.cs">
       <DependentUpon>ExpertMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Expert_Method_CompletePairs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Expert_Method_CompletePairs.Designer.cs">
+      <DependentUpon>Expert_Method_CompletePairs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Expert_Method_PairwiseComparison.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +158,12 @@
     </Compile>
     <Compile Include="Expert_Method_Preference.Designer.cs">
       <DependentUpon>Expert_Method_Preference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Expert_Method_Rang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Expert_Method_Rang.Designer.cs">
+      <DependentUpon>Expert_Method_Rang.cs</DependentUpon>
     </Compile>
     <Compile Include="Expert_Method_WeightedExpertAssessments.cs">
       <SubType>Form</SubType>
@@ -203,11 +215,17 @@
     <EmbeddedResource Include="ExpertAuthorization.resx">
       <DependentUpon>ExpertAuthorization.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Expert_Method_CompletePairs.resx">
+      <DependentUpon>Expert_Method_CompletePairs.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Expert_Method_PairwiseComparison.resx">
       <DependentUpon>Expert_Method_PairwiseComparison.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Expert_Method_Preference.resx">
       <DependentUpon>Expert_Method_Preference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Expert_Method_Rang.resx">
+      <DependentUpon>Expert_Method_Rang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Expert_Method_WeightedExpertAssessments.resx">
       <DependentUpon>Expert_Method_WeightedExpertAssessments.cs</DependentUpon>

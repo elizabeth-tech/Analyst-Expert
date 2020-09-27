@@ -12,7 +12,7 @@ namespace MyProject1
         }
 
         // Загрузка списка проблем
-        public async void LoadProblems()
+        private async void LoadProblems()
         {   
             using (SqlConnection connection = new SqlConnection(Data.connectionString))
             {
@@ -66,7 +66,16 @@ namespace MyProject1
                             dataGridViewAlternatives.Rows[i].Cells[0].Value = reader.GetString(0);
                             i++;
                         }
-
+                        reader.Close();
+                        
+                        if (dataGridViewAlternatives.RowCount == 1) // Если у проблемы только одна альтернатива
+                        {
+                            labelError.Text = "Необходимо внести как минимум две альтернативы, чтобы проблема\n" +
+                                "стала доступна для назначения экспертов.\n";
+                            labelError.Visible = true;
+                        }
+                        else
+                            labelError.Visible = false;
                     }
                     else // Если у проблемы нет альтернатив
                     {
@@ -76,18 +85,9 @@ namespace MyProject1
                         dataGridViewAlternatives.Visible = false;
                         labelError.Text = "Для данной проблемы еще не добавлены альтернативы.\n" +
                             "Необходимо внести как минимум две альтернативы, чтобы проблема\n" +
-                            " стала доступна для назначения экспертов.\n";
+                            "стала доступна для назначения экспертов.\n";
                         labelError.Visible = true;
-                    }
-                    reader.Close();
-                    if (dataGridViewAlternatives.RowCount == 1)
-                    {
-                        labelError.Text = "Необходимо внести как минимум две альтернативы, чтобы проблема\n" +
-                            " стала доступна для назначения экспертов.\n";
-                        labelError.Visible = true;
-                    }
-                    else
-                        labelError.Visible = false;
+                    }                    
                 }
                 catch (Exception ex)
                 {
@@ -108,7 +108,12 @@ namespace MyProject1
         private void buttonAddProblem_Click(object sender, EventArgs e)
         {
             Analyst_AddProblem f = new Analyst_AddProblem();
-            f.ShowDialog();
+            if (f.ShowDialog() == DialogResult.OK) // вызов диалогового окна формы добавления проблемы
+            {
+                LoadProblems(); // Загрузка списка проблем
+                comboBoxProblem.Text = Data.newProblem;
+                LoadAlternatives(); // Заполнение таблицы альтернативами
+            }
         }
 
         // Открытие окна по редактированию проблемы
@@ -116,7 +121,12 @@ namespace MyProject1
         {
             Analyst_EditProblem f = new Analyst_EditProblem();
             Data.nameProblem = comboBoxProblem.Text;
-            f.ShowDialog();   
+            if (f.ShowDialog() == DialogResult.OK) // вызов диалогового окна формы редактирования проблемы
+            {
+                LoadProblems(); // Загрузка списка проблем
+                comboBoxProblem.Text = Data.newProblem;
+                LoadAlternatives(); // Заполнение таблицы альтернативами
+            }
         }
 
         // Закрыть окно
@@ -174,13 +184,6 @@ namespace MyProject1
                 this.Activate();
         }
 
-        // При активации фокуса - обновляем данные формы
-        private void Analyst_ProblemAndAlternatives_Activated(object sender, EventArgs e)
-        {
-            LoadProblems(); // Загрузка списка проблем
-            LoadAlternatives(); // Заполнение таблицы альтенативами
-        }
-
         // Добавление альтернативы
         private async void buttonAddAlternative_Click(object sender, EventArgs e)
         {
@@ -226,7 +229,6 @@ namespace MyProject1
                             }
 
                             textBoxAlternativeAdd.Clear();
-                            LoadProblems();
                             LoadAlternatives();
                         } 
                     }
@@ -289,7 +291,6 @@ namespace MyProject1
                     }
 
                     this.Activate();
-                    LoadProblems(); // Загрузка списка проблем
                     LoadAlternatives(); // Заполнение таблицы альтернативами
                 }
             }
@@ -304,7 +305,15 @@ namespace MyProject1
             Data.nameAlternative = dataGridViewAlternatives.CurrentCell.Value.ToString();
             Data.nameProblem = comboBoxProblem.Text;
             Analyst_EditAlternative f = new Analyst_EditAlternative();
-            f.ShowDialog();
+            if (f.ShowDialog() == DialogResult.OK) // вызов диалогового окна формы редактирования проблемы
+                LoadAlternatives(); // Заполнение таблицы альтернативами
+        }
+
+        // Загрузка формы
+        private void Analyst_ProblemAndAlternatives_Load(object sender, EventArgs e)
+        {
+            LoadProblems(); // Загрузка списка проблем
+            LoadAlternatives(); // Заполнение таблицы альтенативами
         }
     }
 }

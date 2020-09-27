@@ -144,6 +144,7 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewExpertProblems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewExpertProblems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewExpertProblems.ColumnHeadersVisible = false;
             this.dataGridViewExpertProblems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -151,7 +152,7 @@
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LightCyan;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewExpertProblems.DefaultCellStyle = dataGridViewCellStyle2;
@@ -177,6 +178,7 @@
             this.Column1.HeaderText = "Назначенные проблемы";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Column1.Width = 500;
             // 
             // panel1
@@ -387,7 +389,7 @@
             this.Name = "Analyst_Experts";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Аналитик - Компентность экспертов";
-            this.Activated += new System.EventHandler(this.Analyst_Experts_Activated);
+            this.Load += new System.EventHandler(this.Analyst_Experts_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExpertProblems)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -413,11 +415,11 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Button buttonCloseAnalystProblem;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonAddAssignProblem;
         private System.Windows.Forms.Button buttonDeleteAssignProblem;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
     }
 }

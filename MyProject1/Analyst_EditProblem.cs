@@ -64,6 +64,8 @@ namespace MyProject1
                         {
                             SqlCommand command2 = new SqlCommand("Update Problems set ProblemName=N'" + textBoxNewProblemName.Text + "' where ProblemName=N'" + textBoxProblemName.Text + "';", connection);
                             command2.ExecuteNonQuery();
+                            this.DialogResult = DialogResult.OK;
+                            Data.newProblem = textBoxNewProblemName.Text;
                             Close();
                         }
                     }

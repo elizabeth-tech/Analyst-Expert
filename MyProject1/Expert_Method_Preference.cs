@@ -12,6 +12,7 @@ namespace MyProject1
     public partial class Expert_Method_Preference : Form
     {
         private bool change = false; // Флаг изменений в ячейке оценок
+        private bool error_range = false; // Флаг ошибки выхода за границы оценок
 
         public Expert_Method_Preference()
         {
@@ -22,12 +23,20 @@ namespace MyProject1
         private void buttonExpertLoginClose_Click(object sender, EventArgs e)
         {
             if (!change) // Если изменений в ячейке нет
+            {
+                Form form = Application.OpenForms["ExpertMenu"]; // Вызываем форму меню эксперта
+                form.Activate();
                 Close();
+            }
             else
             {
                 DialogResult result = MessageBox.Show("Все несохраненные изменения будут потеряны!\nВы уверены, что хотите закрыть оценивание?", "Выход", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
                 if (result == DialogResult.Yes)
+                {
+                    Form form = Application.OpenForms["ExpertMenu"]; // Вызываем форму меню эксперта
+                    form.Activate();
                     Close();
+                }
                 else
                     this.Activate();
             }
@@ -123,7 +132,7 @@ namespace MyProject1
                     foreach (KeyValuePair<int, List<string>> keyValue in estimates)
                     {
                         for (int i = 0; i < keyValue.Value.Count; i++)
-                            dataGridViewAlternatives.Rows[i].Cells[1].Value = (Convert.ToInt16(keyValue.Value[i])).ToString();
+                            dataGridViewAlternatives.Rows[i].Cells[1].Value = keyValue.Value[i];
                     }
                 }
             }
@@ -139,9 +148,15 @@ namespace MyProject1
             change = true; // Изменения в ячейке
             // Если введенное значение не попадает в интервал [1; кол-во альтернатив]
             if (Convert.ToInt16(dataGridViewAlternatives.CurrentCell.Value) > dataGridViewAlternatives.RowCount || Convert.ToInt16(dataGridViewAlternatives.CurrentCell.Value) < 1)
+            {
+                error_range = true;
                 dataGridViewAlternatives.CurrentCell.Style.BackColor = Color.Tomato;
+            }
             else
+            {
+                error_range = false;
                 dataGridViewAlternatives.CurrentCell.Style.BackColor = Color.White;
+            }
         }
 
         // Запрет на ввод любых символов, кроме цифр в столбец Оценка
@@ -196,101 +211,110 @@ namespace MyProject1
             else // Если пустых строк нет
             {
                 labelError.Visible = false;
-                if (IsDuplicate()) // Если есть дубликаты
+                if (error_range) // Если эксперт ввел оценку меньше 1 или больше кол-ва альтернатив
                 {
-                    labelError.Text = "Для разных альтернатив нельзя задать одинаковые оценки!";
+                    labelError.Text = "Оценка не может быть меньше 1 или превышать " + dataGridViewAlternatives.RowCount.ToString() + "!";
                     labelError.Visible = true;
                 }
-                else // Если дубликатов нет и эксперт все верно заполнил
+                else // Если оценки верные
                 {
-                    labelError.Visible = false;
-                    
-                    // Получаем id проблемы, чтобы создать файл (либо записать результаты в уже имеющийся)
-                    // Получаем id эксперта для записи в строку
-                    int IdProblem = 001, IdExpert = 001;
-                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    if (IsDuplicate()) // Если есть дубликаты
                     {
-                        try
-                        {
-                            await connection.OpenAsync();
-                            SqlCommand command = new SqlCommand("Select Id from Problems where ProblemName = N'" + Data.selectedProblem.ToString() + "';", connection);
-                            IdProblem = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-
-                            SqlCommand command2 = new SqlCommand("Select Id from Experts where FIOExpert = N'" + Data.nameExpert.ToString() + "';", connection);
-                            IdExpert = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-
-                            // Ставим статус true, то есть тест полностью завершен
-                            SqlCommand command3 = new SqlCommand("Update ExpertProblems SET StatusTest3=1 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
-                            command3.ExecuteNonQuery();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        labelError.Text = "Для разных альтернатив нельзя задать одинаковые оценки!";
+                        labelError.Visible = true;
                     }
-
-                    FileInfo fileInfo = new FileInfo(@"Data\MethodPreference\" + IdProblem.ToString() + ".txt");
-                    if (fileInfo.Exists) // Если файл существует, значит по этой проблеме какой то эксперт уже проводил оценивание
+                    else // Если дубликатов нет и эксперт все верно заполнил
                     {
-                        // Находим старую строку-оценивание
-                        Dictionary<int, List<string>> estimates = new Dictionary<int, List<string>>(); // Словарь, где ключ - IdExpert, а значение - оценки
-                        var lines = File.ReadAllLines(@"Data\MethodPreference\" + IdProblem.ToString() + ".txt").ToList();
-                        foreach (string s in lines) // Строка из файла
-                        {
-                            String[] elements = Regex.Split(s, " ");
-                            estimates.Add(Convert.ToInt16(elements[0]), new List<string>());
-                            for (int i = 1; i < elements.Length; i++) // Строку превращаем в словарь
-                                estimates[Convert.ToInt16(elements[0])].Add(elements[i]);
-                        }
-                        if (estimates.ContainsKey(IdExpert)) // Если наш эксперт уже оценивал текущую проблему
-                            estimates.Remove(IdExpert); // Удаляем старую строку
+                        labelError.Visible = false;
 
-                        // Сохранение в файл старых данных (false - перезапись файла)
-                        using (StreamWriter sw = new StreamWriter("Data/MethodPreference/" + IdProblem.ToString() + ".txt", false, System.Text.Encoding.Default))
+                        // Получаем id проблемы, чтобы создать файл (либо записать результаты в уже имеющийся)
+                        // Получаем id эксперта для записи в строку
+                        int IdProblem = 001, IdExpert = 001;
+                        using (SqlConnection connection = new SqlConnection(Data.connectionString))
                         {
-                            // На самом деле каждая оценка должна быть < 1, но для удобства эксперта разрешено заполнять от 0 до 100
-                            foreach (KeyValuePair<int, List<string>> keyValue in estimates)
+                            try
                             {
-                                sw.Write(keyValue.Key.ToString() + " ");
-                                for (int i = 0; i < keyValue.Value.Count; i++)
+                                await connection.OpenAsync();
+                                SqlCommand command = new SqlCommand("Select Id from Problems where ProblemName = N'" + Data.selectedProblem.ToString() + "';", connection);
+                                IdProblem = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
+                                SqlCommand command2 = new SqlCommand("Select Id from Experts where FIOExpert = N'" + Data.nameExpert.ToString() + "';", connection);
+                                IdExpert = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
+                                // Ставим статус true, то есть тест полностью завершен
+                                SqlCommand command3 = new SqlCommand("Update ExpertProblems SET StatusTest3=1 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
+                                command3.ExecuteNonQuery();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                        }
+
+                        FileInfo fileInfo = new FileInfo(@"Data\MethodPreference\" + IdProblem.ToString() + ".txt");
+                        if (fileInfo.Exists) // Если файл существует, значит по этой проблеме какой то эксперт уже проводил оценивание
+                        {
+                            // Находим старую строку-оценивание
+                            Dictionary<int, List<string>> estimates = new Dictionary<int, List<string>>(); // Словарь, где ключ - IdExpert, а значение - оценки
+                            var lines = File.ReadAllLines(@"Data\MethodPreference\" + IdProblem.ToString() + ".txt").ToList();
+                            foreach (string s in lines) // Строка из файла
+                            {
+                                String[] elements = Regex.Split(s, " ");
+                                estimates.Add(Convert.ToInt16(elements[0]), new List<string>());
+                                for (int i = 1; i < elements.Length; i++) // Строку превращаем в словарь
+                                    estimates[Convert.ToInt16(elements[0])].Add(elements[i]);
+                            }
+                            if (estimates.ContainsKey(IdExpert)) // Если наш эксперт уже оценивал текущую проблему
+                                estimates.Remove(IdExpert); // Удаляем старую строку
+
+                            // Сохранение в файл старых данных (false - перезапись файла)
+                            using (StreamWriter sw = new StreamWriter("Data/MethodPreference/" + IdProblem.ToString() + ".txt", false, System.Text.Encoding.Default))
+                            {
+                                foreach (KeyValuePair<int, List<string>> keyValue in estimates)
                                 {
-                                    sw.Write(keyValue.Value[i].ToString());
-                                    if (i != keyValue.Value.Count - 1)
+                                    sw.Write(keyValue.Key.ToString() + " ");
+                                    for (int i = 0; i < keyValue.Value.Count; i++)
+                                    {
+                                        sw.Write(keyValue.Value[i].ToString());
+                                        if (i != keyValue.Value.Count - 1)
+                                            sw.Write(" ");
+                                    }
+                                    sw.WriteLine();
+                                }
+                                sw.Write(IdExpert.ToString() + " ");
+                                // Дописываем новую (свежую) строку с оцениванием
+                                for (int i = 0; i < dataGridViewAlternatives.Rows.Count; i++)
+                                {
+                                    sw.Write(dataGridViewAlternatives.Rows[i].Cells[1].Value.ToString());
+                                    if (i != dataGridViewAlternatives.Rows.Count - 1)
+                                        sw.Write(" ");
+                                }
+                                sw.Close();
+                            }
+                            Form form = Application.OpenForms["ExpertMenu"]; // Вызываем форму меню эксперта
+                            form.Activate();
+                            Close();
+                        }
+                        else // Если файла (проблемы) нет, то нужно просто создать и записать в него
+                        {
+                            using (StreamWriter sw = new StreamWriter("Data/MethodPreference/" + IdProblem.ToString() + ".txt"))
+                            {
+                                sw.Write(IdExpert.ToString() + " ");
+                                for (int i = 0; i < dataGridViewAlternatives.Rows.Count; i++)
+                                {
+                                    sw.Write(dataGridViewAlternatives.Rows[i].Cells[1].Value.ToString());
+                                    if (i != dataGridViewAlternatives.Rows.Count - 1)
                                         sw.Write(" ");
                                 }
                                 sw.WriteLine();
+                                sw.Close();
                             }
-                            sw.Write(IdExpert.ToString() + " ");
-                            // Дописываем новую (свежую) строку с оцениванием
-                            for (int i = 0; i < dataGridViewAlternatives.Rows.Count; i++)
-                            {
-                                sw.Write((Convert.ToInt16(dataGridViewAlternatives.Rows[i].Cells[1].Value)).ToString());
-                                if (i != dataGridViewAlternatives.Rows.Count - 1)
-                                    sw.Write(" ");
-                            }
-                            sw.Close();
+                            Form form = Application.OpenForms["ExpertMenu"]; // Вызываем форму меню эксперта
+                            form.Activate();
+                            Close();
                         }
-                        Close();
-                    }
-                    else // Если файла (проблемы) нет, то нужно просто создать и записать в него
-                    {
-                        using (StreamWriter sw = new StreamWriter("Data/MethodPreference/" + IdProblem.ToString() + ".txt"))
-                        {
-                            // На самом деле каждая оценка должна быть < 1, но для удобства эксперта разрешено заполнять от 0 до 100
-                            sw.Write(IdExpert.ToString() + " ");
-                            for (int i = 0; i < dataGridViewAlternatives.Rows.Count; i++)
-                            {
-                                sw.Write((Convert.ToInt16(dataGridViewAlternatives.Rows[i].Cells[1].Value)).ToString());
-                                if (i != dataGridViewAlternatives.Rows.Count - 1)
-                                    sw.Write(" ");
-                            }
-                            sw.WriteLine();
-                            sw.Close();
-                        }
-                        Close();
                     }
                 }
-              
             }
         }
     }
