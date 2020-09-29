@@ -9,11 +9,11 @@ using System.Windows.Forms;
 
 namespace MyProject1
 {
-    public partial class Expert_Method_WeightedExpertAssessments : Form
+    public partial class Expert_Method2_WeightedExpertAssessments : Form
     {
         private bool change = false; // Флаг изменений ячейки оценок
 
-        public Expert_Method_WeightedExpertAssessments()
+        public Expert_Method2_WeightedExpertAssessments()
         {
             InitializeComponent();
         }
@@ -182,12 +182,12 @@ namespace MyProject1
                             SqlCommand command = new SqlCommand("Select Id from Problems where ProblemName = N'" + Data.selectedProblem.ToString() + "';", connection);
                             IdProblem = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
 
-                            SqlCommand command2 = new SqlCommand("Select Id from Experts where FIOExpert = N'" + Data.nameExpert.ToString() + "';", connection);
-                            IdExpert = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                            command= new SqlCommand("Select Id from Experts where FIOExpert = N'" + Data.nameExpert.ToString() + "';", connection);
+                            IdExpert = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
 
-                            // Ставим статус true, то есть тест полностью завершен
-                            SqlCommand command3 = new SqlCommand("Update ExpertProblems SET StatusTest2=1 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
-                            command3.ExecuteNonQuery();
+                            // Ставим статус 1, то есть тест полностью завершен
+                            command = new SqlCommand("Update ExpertProblems SET StatusTest2=1 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
+                            command.ExecuteNonQuery();
                         }
                         catch (Exception ex)
                         {
@@ -245,7 +245,7 @@ namespace MyProject1
                         using (StreamWriter sw = new StreamWriter("Data/MethodWeightedAssessments/" + IdProblem.ToString() + ".txt"))
                         {
                             // На самом деле каждая оценка должна быть < 1, но для удобства эксперта разрешено заполнять от 0 до 100
-                            sw.Write(IdExpert.ToString() + " ");
+                            sw.Write(IdExpert.ToString() + " " );
                             for (int i = 0; i < dataGridViewAlternatives.Rows.Count; i++)
                             {
                                 sw.Write((Convert.ToDouble(dataGridViewAlternatives.Rows[i].Cells[1].Value) / 100.0).ToString());

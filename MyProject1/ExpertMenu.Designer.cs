@@ -38,10 +38,6 @@
             this.labelFIO = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.PasswordChangeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label5 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
@@ -56,7 +52,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -131,7 +126,7 @@
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(131, 156);
+            this.comboBox1.Location = new System.Drawing.Point(132, 138);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(596, 25);
@@ -142,7 +137,7 @@
             // 
             this.labelFIO.AutoSize = true;
             this.labelFIO.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFIO.Location = new System.Drawing.Point(39, 84);
+            this.labelFIO.Location = new System.Drawing.Point(40, 66);
             this.labelFIO.Name = "labelFIO";
             this.labelFIO.Size = new System.Drawing.Size(71, 21);
             this.labelFIO.TabIndex = 96;
@@ -152,7 +147,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(116, 84);
+            this.label3.Location = new System.Drawing.Point(117, 66);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(0, 21);
             this.label3.TabIndex = 98;
@@ -161,56 +156,17 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(39, 156);
+            this.label4.Location = new System.Drawing.Point(40, 138);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(86, 21);
             this.label4.TabIndex = 99;
             this.label4.Text = "Проблема:";
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.AutoSize = false;
-            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 32);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 4, 0, 4);
-            this.menuStrip1.Size = new System.Drawing.Size(769, 34);
-            this.menuStrip1.TabIndex = 100;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // ToolStripMenuItem
-            // 
-            this.ToolStripMenuItem.BackgroundImage = global::MyProject1.Properties.Resources.icons8_menu_20;
-            this.ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.PasswordChangeToolStripMenuItem1,
-            this.ExitToolStripMenuItem});
-            this.ToolStripMenuItem.Margin = new System.Windows.Forms.Padding(3, 4, 0, 0);
-            this.ToolStripMenuItem.Name = "ToolStripMenuItem";
-            this.ToolStripMenuItem.Padding = new System.Windows.Forms.Padding(4);
-            this.ToolStripMenuItem.Size = new System.Drawing.Size(28, 22);
-            this.ToolStripMenuItem.Text = "  ";
-            // 
-            // PasswordChangeToolStripMenuItem1
-            // 
-            this.PasswordChangeToolStripMenuItem1.BackColor = System.Drawing.Color.White;
-            this.PasswordChangeToolStripMenuItem1.Name = "PasswordChangeToolStripMenuItem1";
-            this.PasswordChangeToolStripMenuItem1.Size = new System.Drawing.Size(182, 22);
-            this.PasswordChangeToolStripMenuItem1.Text = "Изменить пароль";
-            // 
-            // ExitToolStripMenuItem
-            // 
-            this.ExitToolStripMenuItem.BackColor = System.Drawing.Color.White;
-            this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.ExitToolStripMenuItem.Text = "Выход";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(39, 117);
+            this.label5.Location = new System.Drawing.Point(40, 99);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(212, 21);
             this.label5.TabIndex = 102;
@@ -221,7 +177,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Enabled = false;
             this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox1.Location = new System.Drawing.Point(321, 219);
+            this.checkBox1.Location = new System.Drawing.Point(322, 201);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(163, 24);
@@ -235,7 +191,7 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Enabled = false;
             this.checkBox2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox2.Location = new System.Drawing.Point(321, 265);
+            this.checkBox2.Location = new System.Drawing.Point(322, 247);
             this.checkBox2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(255, 24);
@@ -249,7 +205,7 @@
             this.checkBox3.AutoSize = true;
             this.checkBox3.Enabled = false;
             this.checkBox3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox3.Location = new System.Drawing.Point(321, 308);
+            this.checkBox3.Location = new System.Drawing.Point(322, 290);
             this.checkBox3.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(130, 24);
@@ -263,7 +219,7 @@
             this.checkBox4.AutoSize = true;
             this.checkBox4.Enabled = false;
             this.checkBox4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox4.Location = new System.Drawing.Point(321, 351);
+            this.checkBox4.Location = new System.Drawing.Point(322, 333);
             this.checkBox4.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(67, 24);
@@ -277,7 +233,7 @@
             this.checkBox5.AutoSize = true;
             this.checkBox5.Enabled = false;
             this.checkBox5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox5.Location = new System.Drawing.Point(321, 394);
+            this.checkBox5.Location = new System.Drawing.Point(322, 376);
             this.checkBox5.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(249, 24);
@@ -294,7 +250,7 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(43, 214);
+            this.button2.Location = new System.Drawing.Point(44, 196);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(240, 33);
@@ -312,7 +268,7 @@
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button3.ForeColor = System.Drawing.Color.Black;
-            this.button3.Location = new System.Drawing.Point(43, 260);
+            this.button3.Location = new System.Drawing.Point(44, 242);
             this.button3.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(240, 33);
@@ -331,7 +287,7 @@
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button4.ForeColor = System.Drawing.Color.Black;
-            this.button4.Location = new System.Drawing.Point(43, 303);
+            this.button4.Location = new System.Drawing.Point(44, 285);
             this.button4.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(240, 33);
@@ -349,7 +305,7 @@
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button5.ForeColor = System.Drawing.Color.Black;
-            this.button5.Location = new System.Drawing.Point(43, 346);
+            this.button5.Location = new System.Drawing.Point(44, 328);
             this.button5.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(240, 33);
@@ -367,7 +323,7 @@
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button6.ForeColor = System.Drawing.Color.Black;
-            this.button6.Location = new System.Drawing.Point(43, 389);
+            this.button6.Location = new System.Drawing.Point(44, 371);
             this.button6.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(240, 33);
@@ -381,7 +337,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(257, 117);
+            this.label2.Location = new System.Drawing.Point(258, 99);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 21);
             this.label2.TabIndex = 114;
@@ -391,7 +347,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(127, 157);
+            this.label7.Location = new System.Drawing.Point(128, 139);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(377, 20);
             this.label7.TabIndex = 140;
@@ -417,7 +373,6 @@
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.labelFIO);
@@ -434,8 +389,6 @@
             this.Load += new System.EventHandler(this.ExpertMenu_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -450,10 +403,6 @@
         private System.Windows.Forms.Label labelFIO;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem PasswordChangeToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;

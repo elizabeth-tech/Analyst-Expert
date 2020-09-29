@@ -93,7 +93,7 @@ namespace MyProject1
         private void button2_Click(object sender, EventArgs e)
         {
             Data.selectedProblem = comboBox1.Text;
-            Expert_Method_PairwiseComparison f = new Expert_Method_PairwiseComparison();
+            Expert_Method1_PairwiseComparison f = new Expert_Method1_PairwiseComparison();
             f.ShowDialog();
         }
 
@@ -123,80 +123,73 @@ namespace MyProject1
 
                 // 1) Метод парных сравнений
                 // Если есть папка эксперта и выбранная проблема, то значит тест ранее уже проходился этим экспертом
-                string path = @"Data\MethodComparison\" + IdExpert.ToString();
+                /*string path = @"Data\MethodComparison\" + IdExpert.ToString();
                 DirectoryInfo dirInfo = new DirectoryInfo(path);
                 FileInfo fileInfo = new FileInfo(path + @"\" + IdProblem.ToString() + ".txt");
-                if (dirInfo.Exists && fileInfo.Exists) // Если папка есть и есть файл проблемы
+                if (dirInfo.Exists && fileInfo.Exists) // Если папка есть и есть файл проблемы*/
+                // Проверяем статус теста
+                int status = 0;
+                using (SqlConnection connection = new SqlConnection(Data.connectionString))
                 {
-                    // Проверяем статус теста
-                    bool status = false;
-                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    try
                     {
-                        try
-                        {
-                            await connection.OpenAsync();
-                            SqlCommand command = new SqlCommand("Select StatusTest1 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                            status = (bool)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        await connection.OpenAsync();
+                        SqlCommand command = new SqlCommand("Select StatusTest1 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
+                        status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
                     }
-
-                    if(!status) // Если false, но при этом папка и файл есть, то значит эксперт проходил его ранее, но не закончил
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    if (status == 2) // Эксперт проходил тест ранее, но не закончил
                     {
                         // Красим кнопку Пройти в оранжевый и изменяем текст
                         button2.BackColor = Color.PeachPuff;
                         button2.Text = "Закончить оценивание";
                         checkBox1.Checked = false;
                     }
-                    else // Если true, то значит оценивание полностью завершено и результаты отправлены Аналитику
+                    if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
                     {
                         // Красим кнопку Пройти в желтый и изменяем текст
                         button2.BackColor = Color.LemonChiffon;
                         button2.Text = "Изменить ответы";
                         checkBox1.Checked = true;
-                    }  
-                }
-                else // Если нет файла или папки, значит оценивание еще не проводилось
-                {
-                    // Красим кнопку Пройти в зеленый и изменяем текст
-                    button2.BackColor = Color.FromArgb(224, 237, 218);
-                    button2.Text = "Пройти";
-                    checkBox1.Checked = false;
-                }
 
+                    }
+                    if (status == 0) // Оценивание еще не проводилось
+                    {
+                        // Красим кнопку Пройти в зеленый и изменяем текст
+                        button2.BackColor = Color.FromArgb(224, 237, 218);
+                        button2.Text = "Пройти";
+                        checkBox1.Checked = false;
+                    }
+                }
 
                 // 2) Метод взвешенных экспертных оценок
                 // Если есть файл, то значит тест ранее уже проходился кем то
-                fileInfo = new FileInfo(@"Data\MethodWeightedAssessments\" + IdProblem.ToString() + ".txt");
-                if (fileInfo.Exists) // Если есть файл проблемы
+                // fileInfo = new FileInfo(@"Data\MethodWeightedAssessments\" + IdProblem.ToString() + ".txt");
+                //if (fileInfo.Exists) // Если есть файл проблемы
+                // Проверяем статус теста
+                using (SqlConnection connection = new SqlConnection(Data.connectionString))
                 {
-                    // Проверяем статус теста
-                    bool status = false;
-                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    try
                     {
-                        try
-                        {
-                            await connection.OpenAsync();
-                            SqlCommand command = new SqlCommand("Select StatusTest2 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                            status = (bool)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        await connection.OpenAsync();
+                        SqlCommand command = new SqlCommand("Select StatusTest2 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
+                        status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
                     }
-
-                    if (!status) // Если false, значит эксперт не проходил тест по этой проблеме
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    if (status == 0) // Эксперт не проходил тест по этой проблеме
                     {
                         // Красим кнопку Пройти в зеленый и изменяем текст
                         button3.BackColor = Color.FromArgb(224, 237, 218);
                         button3.Text = "Пройти";
                         checkBox2.Checked = false;
                     }
-                    else // Если true, то значит оценивание полностью завершено и результаты отправлены Аналитику
+                    if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
                     {
                         // Красим кнопку Пройти в желтый и изменяем текст
                         button3.BackColor = Color.LemonChiffon;
@@ -204,43 +197,32 @@ namespace MyProject1
                         checkBox2.Checked = true;
                     }
                 }
-                else // Если нет файла, значит оценивание еще не проводилось
-                {
-                    // Красим кнопку Пройти в зеленый и изменяем текст
-                    button3.BackColor = Color.FromArgb(224, 237, 218);
-                    button3.Text = "Пройти";
-                    checkBox2.Checked = false;
-                }
 
                 // 3) Метод предпочтения
                 // Если есть файл, то значит тест ранее уже проходился кем то
-                fileInfo = new FileInfo(@"Data\MethodPreference\" + IdProblem.ToString() + ".txt");
-                if (fileInfo.Exists) // Если есть файл проблемы
+                //fileInfo = new FileInfo(@"Data\MethodPreference\" + IdProblem.ToString() + ".txt");
+                //if (fileInfo.Exists) // Если есть файл проблемы
+                // Проверяем статус теста
+                using (SqlConnection connection = new SqlConnection(Data.connectionString))
                 {
-                    // Проверяем статус теста
-                    bool status = false;
-                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    try
                     {
-                        try
-                        {
-                            await connection.OpenAsync();
-                            SqlCommand command = new SqlCommand("Select StatusTest3 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                            status = (bool)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        await connection.OpenAsync();
+                        SqlCommand command = new SqlCommand("Select StatusTest3 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
+                        status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
                     }
-
-                    if (!status) // Если false, значит эксперт не проходил тест по этой проблеме
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    if (status == 0) // Эксперт не проходил тест по этой проблеме
                     {
                         // Красим кнопку Пройти в зеленый и изменяем текст
                         button4.BackColor = Color.FromArgb(224, 237, 218);
                         button4.Text = "Пройти";
                         checkBox3.Checked = false;
                     }
-                    else // Если true, то значит оценивание полностью завершено и результаты отправлены Аналитику
+                    if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
                     {
                         // Красим кнопку Пройти в желтый и изменяем текст
                         button4.BackColor = Color.LemonChiffon;
@@ -248,43 +230,32 @@ namespace MyProject1
                         checkBox3.Checked = true;
                     }
                 }
-                else // Если нет файла, значит оценивание еще не проводилось
-                {
-                    // Красим кнопку Пройти в зеленый и изменяем текст
-                    button4.BackColor = Color.FromArgb(224, 237, 218);
-                    button4.Text = "Пройти";
-                    checkBox3.Checked = false;
-                }
 
                 // 4) Метод ранга
                 // Если есть файл, то значит тест ранее уже проходился кем то
-                fileInfo = new FileInfo(@"Data\MethodRang\" + IdProblem.ToString() + ".txt");
-                if (fileInfo.Exists) // Если есть файл проблемы
+                //fileInfo = new FileInfo(@"Data\MethodRang\" + IdProblem.ToString() + ".txt");
+                //if (fileInfo.Exists) // Если есть файл проблемы
+                // Проверяем статус теста
+                using (SqlConnection connection = new SqlConnection(Data.connectionString))
                 {
-                    // Проверяем статус теста
-                    bool status = false;
-                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    try
                     {
-                        try
-                        {
-                            await connection.OpenAsync();
-                            SqlCommand command = new SqlCommand("Select StatusTest4 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                            status = (bool)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        await connection.OpenAsync();
+                        SqlCommand command = new SqlCommand("Select StatusTest4 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
+                        status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
                     }
-
-                    if (!status) // Если false, значит эксперт не проходил тест по этой проблеме
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    if (status == 0) // Эксперт не проходил тест по этой проблеме
                     {
                         // Красим кнопку Пройти в зеленый и изменяем текст
                         button5.BackColor = Color.FromArgb(224, 237, 218);
                         button5.Text = "Пройти";
                         checkBox4.Checked = false;
                     }
-                    else // Если true, то значит оценивание полностью завершено и результаты отправлены Аналитику
+                    if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
                     {
                         // Красим кнопку Пройти в желтый и изменяем текст
                         button5.BackColor = Color.LemonChiffon;
@@ -292,61 +263,48 @@ namespace MyProject1
                         checkBox4.Checked = true;
                     }
                 }
-                else // Если нет файла, значит оценивание еще не проводилось
-                {
-                    // Красим кнопку Пройти в зеленый и изменяем текст
-                    button5.BackColor = Color.FromArgb(224, 237, 218);
-                    button5.Text = "Пройти";
-                    checkBox4.Checked = false;
-                }
-
 
                 // 5) Метод полного попарного сравнения
                 // Если есть файл, то значит тест ранее уже проходился кем то
-                path = @"Data\MethodCompletePairs\" + IdExpert.ToString();
-                dirInfo = new DirectoryInfo(path);
-                fileInfo = new FileInfo(path + @"\" + IdProblem.ToString() + ".txt");
-                if (dirInfo.Exists && fileInfo.Exists) // Если папка есть и есть файл проблемы
+                //path = @"Data\MethodCompletePairs\" + IdExpert.ToString();
+                //dirInfo = new DirectoryInfo(path);
+                //fileInfo = new FileInfo(path + @"\" + IdProblem.ToString() + ".txt");
+                //if (dirInfo.Exists && fileInfo.Exists) // Если папка есть и есть файл проблемы
+                // Проверяем статус теста
+                using (SqlConnection connection = new SqlConnection(Data.connectionString))
                 {
-                    // Проверяем статус теста
-                    bool status = false;
-                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    try
                     {
-                        try
-                        {
-                            await connection.OpenAsync();
-                            SqlCommand command = new SqlCommand("Select StatusTest5 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                            status = (bool)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        await connection.OpenAsync();
+                        SqlCommand command = new SqlCommand("Select StatusTest5 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
+                        status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
                     }
-
-                    if (!status) // Если false, но при этом папка и файл есть, то значит эксперт проходил его ранее, но не закончил
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    if (status == 2) // Эксперт проходил тест ранее, но не закончил
                     {
                         // Красим кнопку Пройти в оранжевый и изменяем текст
                         button6.BackColor = Color.PeachPuff;
                         button6.Text = "Закончить оценивание";
                         checkBox5.Checked = false;
                     }
-                    else // Если true, то значит оценивание полностью завершено и результаты отправлены Аналитику
+                    if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
                     {
                         // Красим кнопку Пройти в желтый и изменяем текст
                         button6.BackColor = Color.LemonChiffon;
                         button6.Text = "Изменить ответы";
                         checkBox5.Checked = true;
                     }
+                    if (status == 0) // Оценивание еще не проводилось
+                    {
+                        // Красим кнопку Пройти в зеленый и изменяем текст
+                        button6.BackColor = Color.FromArgb(224, 237, 218);
+                        button6.Text = "Пройти";
+                        checkBox5.Checked = false;
+                    }
                 }
-                else // Если нет файла или папки, значит оценивание еще не проводилось
-                {
-                    // Красим кнопку Пройти в зеленый и изменяем текст
-                    button6.BackColor = Color.FromArgb(224, 237, 218);
-                    button6.Text = "Пройти";
-                    checkBox5.Checked = false;
-                }
-
             }
         }
 
@@ -366,7 +324,7 @@ namespace MyProject1
         private void button3_Click(object sender, EventArgs e)
         {
             Data.selectedProblem = comboBox1.Text;
-            Expert_Method_WeightedExpertAssessments f = new Expert_Method_WeightedExpertAssessments();
+            Expert_Method2_WeightedExpertAssessments f = new Expert_Method2_WeightedExpertAssessments();
             f.ShowDialog();
         }
 
@@ -374,7 +332,7 @@ namespace MyProject1
         private void button4_Click(object sender, EventArgs e)
         {
             Data.selectedProblem = comboBox1.Text;
-            Expert_Method_Preference f = new Expert_Method_Preference();
+            Expert_Method3_Preference f = new Expert_Method3_Preference();
             f.ShowDialog();
         }
 
@@ -382,7 +340,7 @@ namespace MyProject1
         private void button5_Click(object sender, EventArgs e)
         {
             Data.selectedProblem = comboBox1.Text;
-            Expert_Method_Rang f = new Expert_Method_Rang();
+            Expert_Method4_Rang f = new Expert_Method4_Rang();
             f.ShowDialog();
         }
 
@@ -390,7 +348,7 @@ namespace MyProject1
         private void button6_Click(object sender, EventArgs e)
         {
             Data.selectedProblem = comboBox1.Text;
-            Expert_Method_CompletePairs f = new Expert_Method_CompletePairs();
+            Expert_Method5_CompletePairs f = new Expert_Method5_CompletePairs();
             f.ShowDialog();
         }
     }

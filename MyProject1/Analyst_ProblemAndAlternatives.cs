@@ -29,12 +29,34 @@ namespace MyProject1
                     }
                     reader.Close();
                     comboBoxProblem.Text = comboBoxProblem.Items[0].ToString();
+
+                    // Если выведенная первая проблема проходится каким то экспертом, то изменять ее и ее альтернативы нельзя
+                    SqlCommand command2 = new SqlCommand("SELECT Id from Problems where ProblemName=N'" + comboBoxProblem.Text + "'", connection);
+                    int IdProblem = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов                  
+                    SqlCommand command3 = new SqlCommand("SELECT count(*) FROM ExpertProblems where IdProblem = " + IdProblem.ToString() + " and (StatusTest1 = 2 or StatusTest2 = 2 or StatusTest3 = 2 or StatusTest4 = 2 or StatusTest5 = 2);", connection);
+                    int status = (int)command3.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                    
+                    // Если в таблице у проблемы в каком-либо тесте есть статус 2 (то есть запрос вернул несколько строк)
+                    if (status >= 1)
+                    {
+                        buttonEditProblem.Enabled = false;
+                        buttonDeleteProblem.Enabled = false;
+                        buttonEditAlternative.Enabled = false;
+                        buttonDeleteAlternative.Enabled = false;
+                        buttonAddAlternative.Enabled = false;
+                        textBoxAlternativeAdd.Enabled = false;
+                        label5.Visible = false;
+                        labelAccess.Visible = true;
+                        labelAccess.Text = "В данный момент по этой проблеме ведется оценивание экспертом. " +
+                            "Вы не можете взаимодействовать с данной проблемой. Чтобы проблема стала доступна к взаимодействию," +
+                            "дождитесь выполнения экспертом оценивания, либо удалите проблему из назначенных в меню 'Эксперты и назначенные проблемы'";
+                    }                  
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
-            }    
+            }
         }
 
         // Заполнение таблицы альтернативами
@@ -150,10 +172,53 @@ namespace MyProject1
         }
 
         // Смена проблемы - смена альтернатив к ней
-        private void comboBoxProblem_SelectedIndexChanged(object sender, EventArgs e)
+        private async void comboBoxProblem_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Заполнение таблицы альтенативами
+            // Заполнение таблицы альтернативами
             LoadAlternatives();
+
+            // Проверяем, доступна ли проблема к редактированию\удалению
+            using (SqlConnection connection = new SqlConnection(Data.connectionString))
+            {
+                try
+                {
+                    await connection.OpenAsync();
+                    SqlCommand command2 = new SqlCommand("SELECT Id from Problems where ProblemName=N'" + comboBoxProblem.Text + "'", connection);
+                    int IdProblem = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов                  
+                    SqlCommand command3 = new SqlCommand("SELECT count(*) FROM ExpertProblems where IdProblem = " + IdProblem.ToString() + " and (StatusTest1 = 2 or StatusTest2 = 2 or StatusTest3 = 2 or StatusTest4 = 2 or StatusTest5 = 2);", connection);
+                    int status = (int)command3.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                    if (status >= 1) // Если есть тесты по статусом 2, то редактирование и удаление невозможно
+                    {
+                        buttonEditProblem.Enabled = false;
+                        buttonDeleteProblem.Enabled = false;
+                        buttonEditAlternative.Enabled = false;
+                        buttonDeleteAlternative.Enabled = false;
+                        buttonAddAlternative.Enabled = false;
+                        textBoxAlternativeAdd.Enabled = false;
+                        label5.Visible = false;
+                        labelAccess.Visible = true;
+                        labelAccess.Text = "В данный момент по этой проблеме ведется оценивание экспертом. " +
+                            "Вы не можете взаимодействовать с данной проблемой.\nЧтобы проблема стала доступна к взаимодействию," +
+                            "дождитесь выполнения экспертом оценивания, либо удалите\nпроблему из назначенных в меню 'Эксперты и назначенные проблемы'";
+                    }
+                    else
+                    {
+                        buttonEditProblem.Enabled = true;
+                        buttonDeleteProblem.Enabled = true;
+                        buttonEditAlternative.Enabled = true;
+                        buttonDeleteAlternative.Enabled = true;
+                        buttonAddAlternative.Enabled = true;
+                        textBoxAlternativeAdd.Enabled = true;
+                        label5.Visible = true;
+                        labelAccess.Text = "";
+                        labelAccess.Visible = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
 
         // Удаление выбранной проблемы

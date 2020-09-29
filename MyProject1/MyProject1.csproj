@@ -141,35 +141,35 @@
     <Compile Include="ExpertMenu.Designer.cs">
       <DependentUpon>ExpertMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Expert_Method_CompletePairs.cs">
+    <Compile Include="Expert_Method5_CompletePairs.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Expert_Method_CompletePairs.Designer.cs">
-      <DependentUpon>Expert_Method_CompletePairs.cs</DependentUpon>
+    <Compile Include="Expert_Method5_CompletePairs.Designer.cs">
+      <DependentUpon>Expert_Method5_CompletePairs.cs</DependentUpon>
     </Compile>
-    <Compile Include="Expert_Method_PairwiseComparison.cs">
+    <Compile Include="Expert_Method1_PairwiseComparison.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Expert_Method_PairwiseComparison.Designer.cs">
-      <DependentUpon>Expert_Method_PairwiseComparison.cs</DependentUpon>
+    <Compile Include="Expert_Method1_PairwiseComparison.Designer.cs">
+      <DependentUpon>Expert_Method1_PairwiseComparison.cs</DependentUpon>
     </Compile>
-    <Compile Include="Expert_Method_Preference.cs">
+    <Compile Include="Expert_Method3_Preference.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Expert_Method_Preference.Designer.cs">
-      <DependentUpon>Expert_Method_Preference.cs</DependentUpon>
+    <Compile Include="Expert_Method3_Preference.Designer.cs">
+      <DependentUpon>Expert_Method3_Preference.cs</DependentUpon>
     </Compile>
-    <Compile Include="Expert_Method_Rang.cs">
+    <Compile Include="Expert_Method4_Rang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Expert_Method_Rang.Designer.cs">
-      <DependentUpon>Expert_Method_Rang.cs</DependentUpon>
+    <Compile Include="Expert_Method4_Rang.Designer.cs">
+      <DependentUpon>Expert_Method4_Rang.cs</DependentUpon>
     </Compile>
-    <Compile Include="Expert_Method_WeightedExpertAssessments.cs">
+    <Compile Include="Expert_Method2_WeightedExpertAssessments.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Expert_Method_WeightedExpertAssessments.Designer.cs">
-      <DependentUpon>Expert_Method_WeightedExpertAssessments.cs</DependentUpon>
+    <Compile Include="Expert_Method2_WeightedExpertAssessments.Designer.cs">
+      <DependentUpon>Expert_Method2_WeightedExpertAssessments.cs</DependentUpon>
     </Compile>
     <Compile Include="GeneralLogin.cs">
       <SubType>Form</SubType>
@@ -215,20 +215,20 @@
     <EmbeddedResource Include="ExpertAuthorization.resx">
       <DependentUpon>ExpertAuthorization.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Expert_Method_CompletePairs.resx">
-      <DependentUpon>Expert_Method_CompletePairs.cs</DependentUpon>
+    <EmbeddedResource Include="Expert_Method5_CompletePairs.resx">
+      <DependentUpon>Expert_Method5_CompletePairs.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Expert_Method_PairwiseComparison.resx">
-      <DependentUpon>Expert_Method_PairwiseComparison.cs</DependentUpon>
+    <EmbeddedResource Include="Expert_Method1_PairwiseComparison.resx">
+      <DependentUpon>Expert_Method1_PairwiseComparison.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Expert_Method_Preference.resx">
-      <DependentUpon>Expert_Method_Preference.cs</DependentUpon>
+    <EmbeddedResource Include="Expert_Method3_Preference.resx">
+      <DependentUpon>Expert_Method3_Preference.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Expert_Method_Rang.resx">
-      <DependentUpon>Expert_Method_Rang.cs</DependentUpon>
+    <EmbeddedResource Include="Expert_Method4_Rang.resx">
+      <DependentUpon>Expert_Method4_Rang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Expert_Method_WeightedExpertAssessments.resx">
-      <DependentUpon>Expert_Method_WeightedExpertAssessments.cs</DependentUpon>
+    <EmbeddedResource Include="Expert_Method2_WeightedExpertAssessments.resx">
+      <DependentUpon>Expert_Method2_WeightedExpertAssessments.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GeneralLogin.resx">
       <DependentUpon>GeneralLogin.cs</DependentUpon>
@@ -282,6 +282,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\icons8-list-30.png" />
+    <None Include="Resources\icons8-list-50.png" />
+    <None Include="Resources\icons8-list-20.png" />
     <None Include="Resources\icons8-question-mark-20.png" />
     <None Include="Resources\icons8-arrow-right-30.png" />
     <None Include="Resources\icons8-arrow-left-30.png" />

@@ -103,9 +103,9 @@ namespace MyProject1.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_menu_20 {
+        internal static System.Drawing.Bitmap icons8_list_30 {
             get {
-                object obj = ResourceManager.GetObject("icons8-menu-20", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8-list-30", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

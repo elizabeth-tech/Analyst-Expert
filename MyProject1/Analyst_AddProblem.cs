@@ -63,7 +63,7 @@ namespace MyProject1
                         }
                         else // Если дубликата нет, то вносим в базу
                         {
-                            SqlCommand command2 = new SqlCommand("insert into Problems values(N'" + textBoxProblemName.Text + "', 0);", connection);
+                            SqlCommand command2 = new SqlCommand("insert into Problems values(N'" + textBoxProblemName.Text + "', 0, 0);", connection);
                             command2.ExecuteNonQuery();
                             this.DialogResult = DialogResult.OK;
                             Data.newProblem = textBoxProblemName.Text;

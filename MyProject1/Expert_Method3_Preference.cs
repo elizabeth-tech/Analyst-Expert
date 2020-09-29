@@ -9,12 +9,12 @@ using System.Windows.Forms;
 
 namespace MyProject1
 {
-    public partial class Expert_Method_Preference : Form
+    public partial class Expert_Method3_Preference : Form
     {
         private bool change = false; // Флаг изменений в ячейке оценок
         private bool error_range = false; // Флаг ошибки выхода за границы оценок
 
-        public Expert_Method_Preference()
+        public Expert_Method3_Preference()
         {
             InitializeComponent();
         }
@@ -241,7 +241,7 @@ namespace MyProject1
                                 SqlCommand command2 = new SqlCommand("Select Id from Experts where FIOExpert = N'" + Data.nameExpert.ToString() + "';", connection);
                                 IdExpert = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
 
-                                // Ставим статус true, то есть тест полностью завершен
+                                // Ставим статус 1, то есть тест полностью завершен
                                 SqlCommand command3 = new SqlCommand("Update ExpertProblems SET StatusTest3=1 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
                                 command3.ExecuteNonQuery();
                             }

@@ -8,13 +8,13 @@ using System.Windows.Forms;
 
 namespace MyProject1
 {
-    public partial class Expert_Method_PairwiseComparison : Form
+    public partial class Expert_Method1_PairwiseComparison : Form
     {
         private Dictionary<int, List<string>> combinations = new Dictionary<int, List<string>>(); // Структура для комбинаций альтернатив
         private Dictionary<int, double> choices = new Dictionary<int, double>(); // Структура для хранения выбора radiobutton для каждого вопроса
         private bool flag = false; // флаг изменения ответов, true если были изменены
 
-        public Expert_Method_PairwiseComparison()
+        public Expert_Method1_PairwiseComparison()
         {
             InitializeComponent();
         }
@@ -261,8 +261,8 @@ namespace MyProject1
                             SqlCommand command2 = new SqlCommand("Select Id from Problems where ProblemName = N'" + Data.selectedProblem.ToString() + "';", connection);
                             IdProblem = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
 
-                            // Ставим статус false, то есть тест еще не закончен
-                            SqlCommand command3 = new SqlCommand("Update ExpertProblems SET StatusTest1=0 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
+                            // Ставим статус 2, то есть тест еще не закончен
+                            SqlCommand command3 = new SqlCommand("Update ExpertProblems SET StatusTest1=2 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
                             command3.ExecuteNonQuery();
                         }
                         catch (Exception ex)
@@ -346,7 +346,7 @@ namespace MyProject1
                         SqlCommand command2 = new SqlCommand("Select Id from Problems where ProblemName = N'" + Data.selectedProblem.ToString() + "';", connection);
                         IdProblem = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
 
-                        // Ставим статус true, то есть тест полностью завершен
+                        // Ставим статус 1, то есть тест полностью завершен
                         SqlCommand command3 = new SqlCommand("Update ExpertProblems SET StatusTest1=1 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
                         command3.ExecuteNonQuery();
                     }
@@ -361,7 +361,7 @@ namespace MyProject1
                 if (!dirInfo.Exists)
                     dirInfo.Create();
 
-                // Вывод матрицы в файл где папка - id эксперта, а номер файла txt - номер проблемы 
+                // Вывод результата в файл где папка - id эксперта, а номер файла txt - номер проблемы 
                 using (StreamWriter sw = new StreamWriter("Data/Result1_MethodComparison/" + IdExpert.ToString() + "/" + IdProblem.ToString() + ".txt"))
                 {
                     for (int i = 0; i < countAlter; i++)

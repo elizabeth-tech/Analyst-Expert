@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace MyProject1
 {
-    public partial class Expert_Method_CompletePairs : Form
+    public partial class Expert_Method5_CompletePairs : Form
     {
         private Dictionary<int, List<string>> combinations = new Dictionary<int, List<string>>(); // Структура для комбинаций альтернатив
         private bool change = false; // Флаг изменений ячейки оценок
 
-        public Expert_Method_CompletePairs()
+        public Expert_Method5_CompletePairs()
         {
             InitializeComponent();
         }
@@ -241,8 +241,8 @@ namespace MyProject1
                             SqlCommand command2 = new SqlCommand("Select Id from Problems where ProblemName = N'" + Data.selectedProblem.ToString() + "';", connection);
                             IdProblem = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
 
-                            // Ставим статус false, то есть тест еще не закончен
-                            SqlCommand command3 = new SqlCommand("Update ExpertProblems SET StatusTest5=0 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
+                            // Ставим статус 2, то есть тест еще не закончен
+                            SqlCommand command3 = new SqlCommand("Update ExpertProblems SET StatusTest5=2 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
                             command3.ExecuteNonQuery();
                         }
                         catch (Exception ex)
@@ -308,7 +308,7 @@ namespace MyProject1
                         SqlCommand command2 = new SqlCommand("Select Id from Problems where ProblemName = N'" + Data.selectedProblem.ToString() + "';", connection);
                         IdProblem = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
 
-                        // Ставим статус false, то есть тест еще не закончен
+                        // Ставим статус 1, то есть тест полностью завершен
                         SqlCommand command3 = new SqlCommand("Update ExpertProblems SET StatusTest5=1 where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString(), connection);
                         command3.ExecuteNonQuery();
                     }
