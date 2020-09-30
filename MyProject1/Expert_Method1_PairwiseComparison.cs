@@ -204,7 +204,7 @@ namespace MyProject1
 
         // Переход на предыдущий вопрос
         private void buttonLeft_Click(object sender, EventArgs e)
-        {
+        {           
             if (comboBox1.SelectedIndex >= 1)
             {
                 int index = comboBox1.SelectedIndex - 1;
@@ -215,7 +215,7 @@ namespace MyProject1
 
         // Переход на следующий вопрос
         private void buttonRight_Click(object sender, EventArgs e)
-        {
+        {            
             if (comboBox1.SelectedIndex < comboBox1.Items.Count - 1)
             {
                 int index = comboBox1.SelectedIndex + 1;

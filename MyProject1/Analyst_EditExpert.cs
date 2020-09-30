@@ -58,20 +58,32 @@ namespace MyProject1
             {
                 if (textBoxNewCompetence.Text != String.Empty) // Если поле компетентности не пустое
                 {
-                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    if (Convert.ToInt16(textBoxNewCompetence.Text) >= 1 && Convert.ToInt16(textBoxNewCompetence.Text) <= 10) // Если компетентность [1;10]
                     {
-                        try
+                        using (SqlConnection connection = new SqlConnection(Data.connectionString))
                         {
-                            await connection.OpenAsync();
-                            SqlCommand command = new SqlCommand("Update Experts SET Position=N'" + textBoxNewPositionExpert.Text + "', Competence=" + textBoxNewCompetence.Text + " where FIOExpert=N'" + textBoxFIO.Text + "';", connection);
-                            command.ExecuteNonQuery();
-                            this.DialogResult = DialogResult.OK;
-                            Data.newExpert = textBoxFIO.Text;
-                            Close();
+                            try
+                            {
+                                await connection.OpenAsync();
+                                SqlCommand command = new SqlCommand("Update Experts SET Position=N'" + textBoxNewPositionExpert.Text + "', Competence=" + textBoxNewCompetence.Text + " where FIOExpert=N'" + textBoxFIO.Text + "';", connection);
+                                command.ExecuteNonQuery();
+                                this.DialogResult = DialogResult.OK;
+                                Data.newExpert = textBoxFIO.Text;
+                                Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
                         }
-                        catch (Exception ex)
+                    }
+                    else
+                    {
+                        DialogResult result = MessageBox.Show("Компетентность должна быть числом от 1 до 10!", "Ошибка изменения", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                        if (result == DialogResult.OK)
                         {
-                            MessageBox.Show(ex.Message);
+                            this.Activate();
+                            this.ActiveControl = textBoxNewCompetence;
                         }
                     }
                 }

@@ -49,36 +49,48 @@ namespace MyProject1
                     {
                         if (textBoxPassword.Text != String.Empty) // Если ввели не пустой пароль
                         {
-                            // Проверка на дубликат в базе
-                            using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                            if (Convert.ToInt16(textBoxCompetence.Text) >= 1 && Convert.ToInt16(textBoxCompetence.Text) <= 10) // Если компетентность [1;10]
                             {
-                                SqlCommand command = new SqlCommand("select count(*) from Experts where FIOExpert=N'" + textBoxFio.Text + "';", connection);
-                                try
+                                // Проверка на дубликат в базе
+                                using (SqlConnection connection = new SqlConnection(Data.connectionString))
                                 {
-                                    await connection.OpenAsync();
-                                    int count = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                                    if (count > 0) // Если есть дубликат
+                                    SqlCommand command = new SqlCommand("select count(*) from Experts where FIOExpert=N'" + textBoxFio.Text + "';", connection);
+                                    try
                                     {
-                                        DialogResult result = MessageBox.Show("Такой эксперт уже существует!", "Ошибка добавления", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
-                                        if (result == DialogResult.OK)
+                                        await connection.OpenAsync();
+                                        int count = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                                        if (count > 0) // Если есть дубликат
                                         {
-                                            this.Activate();
-                                            textBoxFio.Clear();
-                                            this.ActiveControl = textBoxFio;
+                                            DialogResult result = MessageBox.Show("Такой эксперт уже существует!", "Ошибка добавления", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                                            if (result == DialogResult.OK)
+                                            {
+                                                this.Activate();
+                                                textBoxFio.Clear();
+                                                this.ActiveControl = textBoxFio;
+                                            }
+                                        }
+                                        else // Если дубликата нет, то вносим в базу
+                                        {
+                                            SqlCommand command2 = new SqlCommand("insert into Experts values(N'" + textBoxFio.Text + "', N'" + textBoxPositionExpert.Text + "', " + textBoxCompetence.Text + ", N'" + textBoxPassword.Text + "');", connection);
+                                            command2.ExecuteNonQuery();
+                                            this.DialogResult = DialogResult.OK;
+                                            Data.newExpert = textBoxFio.Text;
+                                            Close();
                                         }
                                     }
-                                    else // Если дубликата нет, то вносим в базу
+                                    catch (Exception ex)
                                     {
-                                        SqlCommand command2 = new SqlCommand("insert into Experts values(N'" + textBoxFio.Text + "', N'" + textBoxPositionExpert.Text + "', " + textBoxCompetence.Text + ", N'" + textBoxPassword.Text + "');", connection);
-                                        command2.ExecuteNonQuery();
-                                        this.DialogResult = DialogResult.OK;
-                                        Data.newExpert = textBoxFio.Text;
-                                        Close();
+                                        MessageBox.Show(ex.Message);
                                     }
                                 }
-                                catch (Exception ex)
+                            }
+                            else // Если компетентность не входит в [1;10]
+                            {
+                                DialogResult result = MessageBox.Show("Компетентность должна быть числом от 1 до 10!", "Ошибка добавления", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                                if (result == DialogResult.OK)
                                 {
-                                    MessageBox.Show(ex.Message);
+                                    this.Activate();
+                                    this.ActiveControl = textBoxCompetence;
                                 }
                             }
                         }

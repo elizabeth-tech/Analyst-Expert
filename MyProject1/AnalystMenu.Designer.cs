@@ -116,9 +116,9 @@
             this.buttonAnalystProblemsAlternatives.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAnalystProblemsAlternatives.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonAnalystProblemsAlternatives.ForeColor = System.Drawing.Color.Black;
-            this.buttonAnalystProblemsAlternatives.Location = new System.Drawing.Point(69, 79);
+            this.buttonAnalystProblemsAlternatives.Location = new System.Drawing.Point(40, 81);
             this.buttonAnalystProblemsAlternatives.Name = "buttonAnalystProblemsAlternatives";
-            this.buttonAnalystProblemsAlternatives.Size = new System.Drawing.Size(311, 35);
+            this.buttonAnalystProblemsAlternatives.Size = new System.Drawing.Size(366, 35);
             this.buttonAnalystProblemsAlternatives.TabIndex = 91;
             this.buttonAnalystProblemsAlternatives.Text = "Проблемы и их альтернативы";
             this.buttonAnalystProblemsAlternatives.UseVisualStyleBackColor = false;
@@ -134,9 +134,9 @@
             this.buttonExperts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonExperts.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonExperts.ForeColor = System.Drawing.Color.Black;
-            this.buttonExperts.Location = new System.Drawing.Point(69, 133);
+            this.buttonExperts.Location = new System.Drawing.Point(40, 135);
             this.buttonExperts.Name = "buttonExperts";
-            this.buttonExperts.Size = new System.Drawing.Size(311, 35);
+            this.buttonExperts.Size = new System.Drawing.Size(366, 35);
             this.buttonExperts.TabIndex = 92;
             this.buttonExperts.Text = "Эксперты и назначенные проблемы";
             this.buttonExperts.UseVisualStyleBackColor = false;
@@ -152,9 +152,9 @@
             this.buttonResults.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonResults.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonResults.ForeColor = System.Drawing.Color.Black;
-            this.buttonResults.Location = new System.Drawing.Point(69, 188);
+            this.buttonResults.Location = new System.Drawing.Point(40, 190);
             this.buttonResults.Name = "buttonResults";
-            this.buttonResults.Size = new System.Drawing.Size(311, 35);
+            this.buttonResults.Size = new System.Drawing.Size(366, 35);
             this.buttonResults.TabIndex = 102;
             this.buttonResults.Text = "К результатам опросов";
             this.buttonResults.UseVisualStyleBackColor = false;
