@@ -1,4 +1,4 @@
-﻿namespace MyProject1
+﻿namespace Expert_assessment_methods
 {
     partial class Analyst_Experts
     {
@@ -320,7 +320,7 @@
             // buttonEditExpert
             // 
             this.buttonEditExpert.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonEditExpert.BackgroundImage = global::MyProject1.Properties.Resources.icons8_edit_20;
+            this.buttonEditExpert.BackgroundImage = global::Expert_assessment_methods.Properties.Resources.icons8_edit_20;
             this.buttonEditExpert.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonEditExpert.FlatAppearance.BorderSize = 0;
             this.buttonEditExpert.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -336,7 +336,7 @@
             // buttonAddExpert
             // 
             this.buttonAddExpert.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonAddExpert.BackgroundImage = global::MyProject1.Properties.Resources.icons8_plus_20;
+            this.buttonAddExpert.BackgroundImage = global::Expert_assessment_methods.Properties.Resources.icons8_plus_20;
             this.buttonAddExpert.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonAddExpert.FlatAppearance.BorderSize = 0;
             this.buttonAddExpert.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -352,7 +352,7 @@
             // buttonDeleteExpert
             // 
             this.buttonDeleteExpert.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonDeleteExpert.BackgroundImage = global::MyProject1.Properties.Resources.icons8_delete_20;
+            this.buttonDeleteExpert.BackgroundImage = global::Expert_assessment_methods.Properties.Resources.icons8_delete_20;
             this.buttonDeleteExpert.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonDeleteExpert.FlatAppearance.BorderSize = 0;
             this.buttonDeleteExpert.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -368,7 +368,7 @@
             // buttonAddAssignProblem
             // 
             this.buttonAddAssignProblem.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonAddAssignProblem.BackgroundImage = global::MyProject1.Properties.Resources.icons8_plus_20;
+            this.buttonAddAssignProblem.BackgroundImage = global::Expert_assessment_methods.Properties.Resources.icons8_plus_20;
             this.buttonAddAssignProblem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonAddAssignProblem.FlatAppearance.BorderSize = 0;
             this.buttonAddAssignProblem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -384,7 +384,7 @@
             // buttonDeleteAssignProblem
             // 
             this.buttonDeleteAssignProblem.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonDeleteAssignProblem.BackgroundImage = global::MyProject1.Properties.Resources.icons8_delete_20;
+            this.buttonDeleteAssignProblem.BackgroundImage = global::Expert_assessment_methods.Properties.Resources.icons8_delete_20;
             this.buttonDeleteAssignProblem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonDeleteAssignProblem.FlatAppearance.BorderSize = 0;
             this.buttonDeleteAssignProblem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

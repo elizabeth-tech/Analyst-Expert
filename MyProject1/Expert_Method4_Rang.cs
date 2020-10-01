@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace MyProject1
+namespace Expert_assessment_methods
 {
     public partial class Expert_Method4_Rang : Form
     {

@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace MyProject1
+namespace Expert_assessment_methods
 {
     public partial class ExpertMenu : Form
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyProject1.Properties {
+namespace Expert_assessment_methods.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

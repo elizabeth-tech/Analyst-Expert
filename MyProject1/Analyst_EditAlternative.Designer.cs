@@ -1,4 +1,4 @@
-﻿namespace MyProject1
+﻿namespace Expert_assessment_methods
 {
     partial class Analyst_EditAlternative
     {
