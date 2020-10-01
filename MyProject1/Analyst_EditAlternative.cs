@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MyProject1
@@ -9,6 +11,34 @@ namespace MyProject1
         public Analyst_EditAlternative()
         {
             InitializeComponent();
+        }
+
+        // Функция удаления файлов
+        private void DeleteFile(DirectoryInfo dirInfo, string fileName)
+        {
+            try
+            {
+                var files = dirInfo.GetFiles(fileName).ToArray();
+                foreach (var file in files)
+                {
+                    try
+                    {
+                        file.Delete();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                foreach (var directory in dirInfo.GetDirectories())
+                {
+                    DeleteFile(directory, fileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         // Перетаскивание окна
@@ -63,13 +93,22 @@ namespace MyProject1
                         else // Если дубликата нет, то вносим в базу
                         {
                             // Получаем id проблемы, у которой нужно редактировать альтернативу
-                            SqlCommand command2 = new SqlCommand("select Id from Problems where ProblemName=N'" + Data.nameProblem + "';", connection);
+                            command = new SqlCommand("select Id from Problems where ProblemName=N'" + Data.nameProblem + "';", connection);
                             int IdProblem;
-                            IdProblem = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                           
+                            IdProblem = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
+                            // Так как была альтернатива была изменена, то нужно удалить все старые результаты методов по этой проблеме (если они есть)
+                            DirectoryInfo dirInfo = new DirectoryInfo(@"Data");
+                            DeleteFile(dirInfo, IdProblem.ToString() + ".txt");
+
                             // Вносим измененную альтернативу
-                            SqlCommand command3 = new SqlCommand("UPDATE Alternatives SET AlternativeName=N'" + textBoxNewAlternativeName.Text + "' WHERE IdProblem=" + IdProblem.ToString() + " and AlternativeName=N'" + textBoxAlternativeName.Text + "';", connection);
-                            command3.ExecuteNonQuery();
+                            command = new SqlCommand("UPDATE Alternatives SET AlternativeName=N'" + textBoxNewAlternativeName.Text + "' WHERE IdProblem=" + IdProblem.ToString() + " and AlternativeName=N'" + textBoxAlternativeName.Text + "';", connection);
+                            command.ExecuteNonQuery();
+
+                            // Изменяем значения статусов тестов на 0
+                            command = new SqlCommand("UPDATE ExpertProblems SET StatusTest1=0, StatusTest2=0, StatusTest3=0, StatusTest4=0, StatusTest5=0 where IdProblem=" + IdProblem.ToString(), connection);
+                            command.ExecuteNonQuery();
+
                             this.DialogResult = DialogResult.OK;
                             Close();
                         }

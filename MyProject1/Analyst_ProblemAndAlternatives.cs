@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MyProject1
@@ -9,6 +11,34 @@ namespace MyProject1
         public Analyst_ProblemAndAlternatives()
         {
             InitializeComponent();
+        }
+
+        // Функция удаления файлов
+        private void DeleteFile(DirectoryInfo dirInfo, string fileName)
+        {
+            try
+            {
+                var files = dirInfo.GetFiles(fileName).ToArray();
+                foreach (var file in files)
+                {
+                    try
+                    {
+                        file.Delete();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                foreach (var directory in dirInfo.GetDirectories())
+                {
+                    DeleteFile(directory, fileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         // Загрузка списка проблем
@@ -232,9 +262,17 @@ namespace MyProject1
                     try
                     {
                         await connection.OpenAsync();
+
+                        SqlCommand command = new SqlCommand("select Id from Problems where ProblemName=N'" + comboBoxProblem.Text + "';", connection);
+                        int IdProblem = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
                         // Удаляем саму проблему (включено каскадное удаление в базе, все альтернативы с id этой проблемы также удаляются)
                         SqlCommand command3 = new SqlCommand("delete from Problems where Problems.ProblemName=N'" + comboBoxProblem.Text + "';", connection);
                         command3.ExecuteNonQuery();
+
+                        // Так как проблема была удалена, то нужно удалить все старые результаты методов по этой проблеме (если они есть)
+                        DirectoryInfo dirInfo = new DirectoryInfo(@"Data");
+                        DeleteFile(dirInfo, IdProblem.ToString() + ".txt");
                     }
                     catch (Exception ex)
                     {
@@ -243,7 +281,7 @@ namespace MyProject1
                 }
                 this.Activate();
                 LoadProblems(); // Загрузка списка проблем
-                LoadAlternatives(); // Заполнение таблицы альтенативами
+                LoadAlternatives(); // Заполнение таблицы альтернативами
             }
             else
                 this.Activate();
@@ -254,7 +292,7 @@ namespace MyProject1
         {
             if (textBoxAlternativeAdd.Text != String.Empty) // Если ввели не пустое
             {
-                // Пролучаем id проблемы, к которой нужно добавить альтернативу
+                // Получаем id проблемы, к которой нужно добавить альтернативу
                 using (SqlConnection connection = new SqlConnection(Data.connectionString))
                 {
                     SqlCommand command = new SqlCommand("select Id from Problems where ProblemName=N'" + comboBoxProblem.Text + "';", connection);
@@ -285,6 +323,14 @@ namespace MyProject1
                             // Проверяем, сколько альтернатив у текущей проблемы
                             SqlCommand command4 = new SqlCommand("select count(*) from Alternatives where IdProblem=" + IdProblem.ToString() + ";", connection);
                             int countAlter = (int)command4.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
+                            // Так как была добавлена новая альтернатива, то нужно удалить все старые результаты методов по этой проблеме (если они есть)
+                            DirectoryInfo dirInfo = new DirectoryInfo(@"Data");
+                            DeleteFile(dirInfo, IdProblem.ToString() + ".txt");
+
+                            // Изменяем значения статусов тестов на 0
+                            command = new SqlCommand("UPDATE ExpertProblems SET StatusTest1=0, StatusTest2=0, StatusTest3=0, StatusTest4=0, StatusTest5=0 where IdProblem=" + IdProblem.ToString(), connection);
+                            command.ExecuteNonQuery();
 
                             // Если у проблемы появляется 2 или более альтернатив, то ее можно назначать эксперту
                             if (countAlter >= 2)
@@ -323,7 +369,7 @@ namespace MyProject1
             {
                 using (SqlConnection connection = new SqlConnection(Data.connectionString))
                 {
-                    // Пролучаем id проблемы, у которой нужно удалять альтернативу
+                    // Получаем id проблемы, у которой нужно удалять альтернативу
                     SqlCommand command = new SqlCommand("select Id from Problems where ProblemName=N'" + comboBoxProblem.Text + "';", connection);
                     int IdProblem;
                     try
@@ -334,6 +380,14 @@ namespace MyProject1
                         // Удаляем альтернативу
                         SqlCommand command2 = new SqlCommand("delete from Alternatives where AlternativeName=N'" + dataGridViewAlternatives.CurrentCell.Value.ToString() + "' and IdProblem=" + IdProblem.ToString() + ";", connection);
                         command2.ExecuteNonQuery();
+
+                        // Так как была удалена альтернатива, то нужно удалить все старые результаты методов по этой проблеме (если они есть)
+                        DirectoryInfo dirInfo = new DirectoryInfo(@"Data");
+                        DeleteFile(dirInfo, IdProblem.ToString() + ".txt");
+
+                        // Изменяем значения статусов тестов на 0
+                        command = new SqlCommand("UPDATE ExpertProblems SET StatusTest1=0, StatusTest2=0, StatusTest3=0, StatusTest4=0, StatusTest5=0 where IdProblem=" + IdProblem.ToString(), connection);
+                        command.ExecuteNonQuery();
 
                         // Проверяем, сколько альтернатив у текущей проблемы
                         SqlCommand command3 = new SqlCommand("select count(*) from Alternatives where IdProblem=" + IdProblem.ToString() + ";", connection);

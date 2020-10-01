@@ -187,6 +187,7 @@ namespace MyProject1
                 labelError3.ForeColor = Color.Black;
                 labelError3.Text = "Ранжирование альтернатив на основе\nоценок " + estimates.Count.ToString() + " из " + countExpert.ToString() + " эксперта(ов)";
                 dataGridViewMethod3.Visible = true;
+                
 
                 // Алгоритм метода предпочтений
                 // Модифицированная матрица предпочтений K
@@ -197,6 +198,7 @@ namespace MyProject1
                     for (int i = 0; i < keyValue.Value.Count; i++)
                         K[keyValue.Key].Add(dataGridViewAlternatives.RowCount - Convert.ToInt16(keyValue.Value[i]));
                 }
+
                 // Копируем в матрицу
                 double[,] temp = new double[K.Count, dataGridViewAlternatives.RowCount];
                 int t = 0;
@@ -546,7 +548,7 @@ namespace MyProject1
                         labelError1.Text = "Для данной проблемы ни один эксперт не прошел\nоценивание";
                     }
                     reader3.Close();
-                    
+
                     Load_Method2(connection, IdProblem); // Загрузка данных для метода 2) взвешенных оценок
                     Load_Method3(connection, IdProblem); // Загрузка данных для метода 3) предпочтения
                     Load_Method4(connection, IdProblem); // Загрузка данных для метода 4) ранга
