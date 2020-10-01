@@ -83,6 +83,7 @@ namespace MyProject1
         private async void Expert_Method_PairwiseComparison_Load(object sender, EventArgs e)
         {
             textBox2.Text = Data.selectedProblem; // Выводим название проблемы, по которой проходим тест
+            buttonLeft.Visible = false;
 
             // Заполнение таблицы альтернативами выбранной проблемы
             using (SqlConnection connection = new SqlConnection(Data.connectionString))
@@ -204,30 +205,54 @@ namespace MyProject1
 
         // Переход на предыдущий вопрос
         private void buttonLeft_Click(object sender, EventArgs e)
-        {           
+        {
+            buttonRight.Visible = true;
             if (comboBox1.SelectedIndex >= 1)
             {
                 int index = comboBox1.SelectedIndex - 1;
                 comboBox1.SelectedIndex = index;
                 SelectRadioButton();
             }
+            // Если первый вопрос, то убираем стрелку влево
+            if (comboBox1.SelectedIndex == 0)
+                buttonLeft.Visible = false;
+            else
+                buttonLeft.Visible = true;
         }
 
         // Переход на следующий вопрос
         private void buttonRight_Click(object sender, EventArgs e)
-        {            
+        {
+            buttonLeft.Visible = true;
             if (comboBox1.SelectedIndex < comboBox1.Items.Count - 1)
             {
                 int index = comboBox1.SelectedIndex + 1;
                 comboBox1.SelectedIndex = index;
                 SelectRadioButton();
             }
+            // Если последний вопрос, то убираем стрелку вправо
+            if (comboBox1.SelectedIndex == comboBox1.Items.Count - 1)
+                buttonRight.Visible = false;
+            else
+                buttonRight.Visible = true;
         }
 
         // При изменении номера вопроса, выводим нужное сочетание альтернатив
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            SelectRadioButton();
+            // Если первый вопрос, то убираем стрелку влево
+            if (comboBox1.SelectedIndex == 0)
+                buttonLeft.Visible = false;
+            else
+                buttonLeft.Visible = true;
+
+            // Если последний вопрос, то убираем стрелку вправо
+            if (comboBox1.SelectedIndex == comboBox1.Items.Count - 1)
+                buttonRight.Visible = false;
+            else
+                buttonRight.Visible = true;
+
+            SelectRadioButton(); // Сохранение в память выбранных значений Radiobutton
         }
 
         // Сохранить и отправить результаты
