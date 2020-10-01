@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Expert_Method5_CompletePairs));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -58,6 +59,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.labelQuestionsCount = new System.Windows.Forms.Label();
             this.labelCountAlter = new System.Windows.Forms.Label();
+            this.labelHelp = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAlternatives)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssessment)).BeginInit();
@@ -176,7 +179,7 @@
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LightCyan;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewAlternatives.DefaultCellStyle = dataGridViewCellStyle2;
@@ -247,6 +250,7 @@
             this.dataGridViewAssessment.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewAssessment.EnableHeadersVisualStyles = false;
             this.dataGridViewAssessment.Location = new System.Drawing.Point(62, 410);
+            this.dataGridViewAssessment.MultiSelect = false;
             this.dataGridViewAssessment.Name = "dataGridViewAssessment";
             this.dataGridViewAssessment.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -318,7 +322,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(390, 369);
+            this.label4.Location = new System.Drawing.Point(380, 353);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(97, 20);
             this.label4.TabIndex = 145;
@@ -344,12 +348,28 @@
             this.labelCountAlter.TabIndex = 147;
             this.labelCountAlter.Text = "Текст";
             // 
-            // Expert_Method_CompletePairs
+            // labelHelp
+            // 
+            this.labelHelp.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.labelHelp.Image = global::MyProject1.Properties.Resources.icons8_question_mark_20;
+            this.labelHelp.Location = new System.Drawing.Point(483, 348);
+            this.labelHelp.Name = "labelHelp";
+            this.labelHelp.Size = new System.Drawing.Size(34, 34);
+            this.labelHelp.TabIndex = 148;
+            this.toolTip1.SetToolTip(this.labelHelp, resources.GetString("labelHelp.ToolTip"));
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            // 
+            // Expert_Method5_CompletePairs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(894, 797);
+            this.Controls.Add(this.labelHelp);
             this.Controls.Add(this.labelCountAlter);
             this.Controls.Add(this.labelQuestionsCount);
             this.Controls.Add(this.label4);
@@ -364,7 +384,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Expert_Method_CompletePairs";
+            this.Name = "Expert_Method5_CompletePairs";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Эксперт - Метод полного попарного сопоставления ";
             this.Load += new System.EventHandler(this.Expert_Method_CompletePairs_Load);
@@ -398,5 +418,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.Label labelCountAlter;
+        private System.Windows.Forms.Label labelHelp;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace MyProject1
@@ -52,9 +53,9 @@ namespace MyProject1
                 try
                 {
                     await connection.OpenAsync();
-                    SqlCommand command = new SqlCommand("Select Problems.ProblemName from ExpertProblems " +
-                        "join Problems on Problems.Id = ExpertProblems.IdProblem " +
-                        "where IdExpert = (Select Id from Experts where FIOExpert = N'" + comboBoxExpert.Text + "');", connection);
+                    SqlCommand command = new SqlCommand("Select Problems.ProblemName, StatusTest1, StatusTest2, StatusTest3, StatusTest4, StatusTest5 from ExpertProblems" +
+                        " join Problems on Problems.Id = ExpertProblems.IdProblem" +
+                        " where IdExpert = (Select Id from Experts where FIOExpert = N'" + comboBoxExpert.Text + "');", connection);
                     SqlDataReader reader = command.ExecuteReader();
                     dataGridViewExpertProblems.Rows.Clear();
                     if (reader.HasRows)
@@ -64,8 +65,29 @@ namespace MyProject1
                         {
                             dataGridViewExpertProblems.Rows.Add();
                             dataGridViewExpertProblems.Rows[i].Cells[0].Value = reader.GetString(0);
+
+                            // Заполнение статусов тестов
+                            for (int j = 1; j <= 5; j++)
+                            {
+                                if (reader.GetInt32(j) == 0)
+                                    dataGridViewExpertProblems.Rows[i].Cells[j].Value = "Не проводилось";
+                                if (reader.GetInt32(j) == 1)
+                                {
+                                    dataGridViewExpertProblems.Rows[i].Cells[j].Value = "Завершено";
+                                    dataGridViewExpertProblems.Rows[i].Cells[j].Style.BackColor = Color.FromArgb(224, 237, 218);
+                                    dataGridViewExpertProblems.Rows[i].Cells[j].Style.SelectionBackColor = Color.FromArgb(224, 237, 218);
+                                }
+                                if (reader.GetInt32(j) == 2)
+                                {
+                                    dataGridViewExpertProblems.Rows[i].Cells[j].Value = "Не закончено";
+                                    dataGridViewExpertProblems.Rows[i].Cells[j].Style.BackColor = Color.PeachPuff;
+                                    dataGridViewExpertProblems.Rows[i].Cells[j].Style.SelectionBackColor = Color.PeachPuff;
+                                }
+                            }
+
                             i++;
                         }
+                        
                         label7.Visible = false;
                         dataGridViewExpertProblems.Visible = true;
                         buttonDeleteAssignProblem.Visible = true;
@@ -180,9 +202,9 @@ namespace MyProject1
                     }
                     reader.Close();
 
-                    SqlCommand command2 = new SqlCommand("Select Problems.ProblemName from ExpertProblems " +
-                       "join Problems on Problems.Id = ExpertProblems.IdProblem " +
-                       "where IdExpert = (Select Id from Experts where FIOExpert = N'" + comboBoxExpert.Text + "');", connection);
+                    SqlCommand command2 = new SqlCommand("Select Problems.ProblemName, StatusTest1, StatusTest2, StatusTest3, StatusTest4, StatusTest5 from ExpertProblems" +
+                       " join Problems on Problems.Id = ExpertProblems.IdProblem" +
+                       " where IdExpert = (Select Id from Experts where FIOExpert = N'" + comboBoxExpert.Text + "');", connection);
                     SqlDataReader reader2 = command2.ExecuteReader();
                     dataGridViewExpertProblems.Rows.Clear();
                     if (reader2.HasRows)
@@ -196,6 +218,26 @@ namespace MyProject1
                         {
                             dataGridViewExpertProblems.Rows.Add();
                             dataGridViewExpertProblems.Rows[i].Cells[0].Value = reader2.GetString(0);
+
+                            // Заполнение статусов тестов
+                            for (int j = 1; j <= 5; j++)
+                            {
+                                if (reader2.GetInt32(j) == 0)
+                                    dataGridViewExpertProblems.Rows[i].Cells[j].Value = "Не проводилось";
+                                if (reader2.GetInt32(j) == 1)
+                                {
+                                    dataGridViewExpertProblems.Rows[i].Cells[j].Value = "Завершено";
+                                    dataGridViewExpertProblems.Rows[i].Cells[j].Style.BackColor = Color.FromArgb(224, 237, 218);
+                                    dataGridViewExpertProblems.Rows[i].Cells[j].Style.SelectionBackColor = Color.FromArgb(224, 237, 218);
+                                }
+                                if (reader2.GetInt32(j) == 2)
+                                {
+                                    dataGridViewExpertProblems.Rows[i].Cells[j].Value = "Не закончено";
+                                    dataGridViewExpertProblems.Rows[i].Cells[j].Style.BackColor = Color.PeachPuff;
+                                    dataGridViewExpertProblems.Rows[i].Cells[j].Style.SelectionBackColor = Color.PeachPuff;
+                                }
+                            }
+
                             i++;
                         }
 
@@ -271,7 +313,7 @@ namespace MyProject1
         // Удаление назначенной проблемы
         private async void buttonDeleteAssignProblem_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Вы уверены, что хотите отменить назначенную проблему: \n'" + dataGridViewExpertProblems.CurrentCell.Value.ToString() + "'?", "Отмена назначенной проблемы", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+            DialogResult result = MessageBox.Show("Вы уверены, что хотите отменить назначенную проблему: \n'" + dataGridViewExpertProblems.Rows[dataGridViewExpertProblems.CurrentCell.RowIndex].Cells[0].Value.ToString() + "'?", "Отмена назначенной проблемы", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
             if (result == DialogResult.Yes)
             {
                 using (SqlConnection connection = new SqlConnection(Data.connectionString))
@@ -281,7 +323,7 @@ namespace MyProject1
                         await connection.OpenAsync();
 
                         // Получаем id проблемы
-                        SqlCommand command = new SqlCommand("Select Id from Problems where ProblemName=N'" + dataGridViewExpertProblems.CurrentCell.Value.ToString() + "'", connection);
+                        SqlCommand command = new SqlCommand("Select Id from Problems where ProblemName=N'" + dataGridViewExpertProblems.Rows[dataGridViewExpertProblems.CurrentCell.RowIndex].Cells[0].Value.ToString() + "'", connection);
                         int IdProblem = (int)command.ExecuteScalar();
 
                         // Получаем id эксперта

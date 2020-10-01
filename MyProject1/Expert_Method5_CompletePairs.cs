@@ -318,6 +318,11 @@ namespace MyProject1
                     }
                 }
 
+                // Если нет папки, то создаем ее
+                DirectoryInfo dirInfo = new DirectoryInfo(@"Data\MethodCompletePairs\" + IdExpert.ToString());
+                if (!dirInfo.Exists)
+                    dirInfo.Create();
+
                 // Записываем в файл номер строки таблицы и значения Оценок
                 using (StreamWriter sw = new StreamWriter("Data/MethodCompletePairs/" + IdExpert.ToString() + "/" + IdProblem.ToString() + ".txt"))
                 {

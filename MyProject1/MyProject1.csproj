@@ -263,9 +263,6 @@
     <None Include="Resources\icons8-minus-24.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8-menu-20.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icons8-delete-20.png" />
   </ItemGroup>
   <ItemGroup>
@@ -283,8 +280,6 @@
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
     <None Include="Resources\icons8-list-30.png" />
-    <None Include="Resources\icons8-list-50.png" />
-    <None Include="Resources\icons8-list-20.png" />
     <None Include="Resources\icons8-question-mark-20.png" />
     <None Include="Resources\icons8-arrow-right-30.png" />
     <None Include="Resources\icons8-arrow-left-30.png" />

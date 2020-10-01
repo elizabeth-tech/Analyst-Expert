@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace MyProject1
@@ -123,10 +122,6 @@ namespace MyProject1
 
                 // 1) Метод парных сравнений
                 // Если есть папка эксперта и выбранная проблема, то значит тест ранее уже проходился этим экспертом
-                /*string path = @"Data\MethodComparison\" + IdExpert.ToString();
-                DirectoryInfo dirInfo = new DirectoryInfo(path);
-                FileInfo fileInfo = new FileInfo(path + @"\" + IdProblem.ToString() + ".txt");
-                if (dirInfo.Exists && fileInfo.Exists) // Если папка есть и есть файл проблемы*/
                 // Проверяем статус теста
                 int status = 0;
                 using (SqlConnection connection = new SqlConnection(Data.connectionString))
@@ -166,9 +161,6 @@ namespace MyProject1
                 }
 
                 // 2) Метод взвешенных экспертных оценок
-                // Если есть файл, то значит тест ранее уже проходился кем то
-                // fileInfo = new FileInfo(@"Data\MethodWeightedAssessments\" + IdProblem.ToString() + ".txt");
-                //if (fileInfo.Exists) // Если есть файл проблемы
                 // Проверяем статус теста
                 using (SqlConnection connection = new SqlConnection(Data.connectionString))
                 {
@@ -199,9 +191,6 @@ namespace MyProject1
                 }
 
                 // 3) Метод предпочтения
-                // Если есть файл, то значит тест ранее уже проходился кем то
-                //fileInfo = new FileInfo(@"Data\MethodPreference\" + IdProblem.ToString() + ".txt");
-                //if (fileInfo.Exists) // Если есть файл проблемы
                 // Проверяем статус теста
                 using (SqlConnection connection = new SqlConnection(Data.connectionString))
                 {
@@ -232,9 +221,6 @@ namespace MyProject1
                 }
 
                 // 4) Метод ранга
-                // Если есть файл, то значит тест ранее уже проходился кем то
-                //fileInfo = new FileInfo(@"Data\MethodRang\" + IdProblem.ToString() + ".txt");
-                //if (fileInfo.Exists) // Если есть файл проблемы
                 // Проверяем статус теста
                 using (SqlConnection connection = new SqlConnection(Data.connectionString))
                 {
@@ -265,11 +251,6 @@ namespace MyProject1
                 }
 
                 // 5) Метод полного попарного сравнения
-                // Если есть файл, то значит тест ранее уже проходился кем то
-                //path = @"Data\MethodCompletePairs\" + IdExpert.ToString();
-                //dirInfo = new DirectoryInfo(path);
-                //fileInfo = new FileInfo(path + @"\" + IdProblem.ToString() + ".txt");
-                //if (dirInfo.Exists && fileInfo.Exists) // Если папка есть и есть файл проблемы
                 // Проверяем статус теста
                 using (SqlConnection connection = new SqlConnection(Data.connectionString))
                 {

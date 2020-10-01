@@ -217,6 +217,7 @@
             this.dataGridViewAlternatives.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewAlternatives.EnableHeadersVisualStyles = false;
             this.dataGridViewAlternatives.Location = new System.Drawing.Point(134, 339);
+            this.dataGridViewAlternatives.MultiSelect = false;
             this.dataGridViewAlternatives.Name = "dataGridViewAlternatives";
             this.dataGridViewAlternatives.ReadOnly = true;
             this.dataGridViewAlternatives.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;

@@ -335,10 +335,78 @@ namespace MyProject1
             }
         }
 
-        // Загрузка результатов для метода 5) ранга
+        // Загрузка результатов для метода 5) Полного попарного сопоставления
         private void Load_Method5(SqlConnection connection, int IdProblem)
         {
+            // Считываем результат в память
+            FileInfo fileInfo = new FileInfo(@"Data\Result5_MethodCompletePairs\" + IdProblem.ToString() + ".txt");
+            if (!fileInfo.Exists) // Если файл не существует
+            {
+                labelError5.ForeColor = Color.Red;
+                labelError5.Text = "Для данной проблемы ни один эксперт не прошел\nоценивание";
+                dataGridViewMethod5.Visible = false;
+            }
+            else
+            {
+                // Словарь, где ключ - IdExpert, а значение - оценки
+                Dictionary<int, List<double>> estimates = new Dictionary<int, List<double>>();
+                var lines = File.ReadAllLines(@"Data\Result5_MethodCompletePairs\" + IdProblem.ToString() + ".txt").ToList();
+                foreach (string s in lines) // Строка из файла
+                {
+                    String[] elements = Regex.Split(s, " ");
+                    estimates.Add(Convert.ToInt16(elements[0]), new List<double>());
+                    for (int i = 1; i < elements.Length; i++) // Строку превращаем в словарь
+                        estimates[Convert.ToInt16(elements[0])].Add(Convert.ToDouble(elements[i]));
+                }
 
+                int countExpert = 0;
+                try
+                {
+                    // Находим количество экспертов, которое должно пройти оценивание по этой проблеме 
+                    SqlCommand command = new SqlCommand("Select count(*) from ExpertProblems where IdProblem=" + IdProblem.ToString(), connection);
+                    countExpert = (int)command.ExecuteScalar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+                labelError5.ForeColor = Color.Black;
+                labelError5.Text = "Ранжирование альтернатив на основе\nоценок " + estimates.Count.ToString() + " из " + countExpert.ToString() + " эксперта(ов)";
+                dataGridViewMethod5.Visible = true;
+
+                // Алгоритм полного попарного сопоставления
+                // Копируем в матрицу
+                double[,] temp = new double[estimates.Count, dataGridViewAlternatives.RowCount];
+                int t = 0;
+                foreach (KeyValuePair<int, List<double>> keyValue in estimates)
+                {
+                    for (int i = 0; i < keyValue.Value.Count; i++)
+                        temp[t, i] = estimates[keyValue.Key][i];
+                    t++;
+                }
+
+                // Определяем искомые веса альтернатив
+                double[] result = new double[dataGridViewAlternatives.RowCount];
+                for (int i = 0; i < dataGridViewAlternatives.RowCount; i++)
+                {
+                    for (int j = 0; j < estimates.Count; j++)
+                        result[i] += temp[j, i];
+                }
+
+                // Выводим данные в таблицу
+                dataGridViewMethod5.Rows.Clear();
+                for (int j = 0; j < result.Length; j++)
+                {
+                    dataGridViewMethod5.Rows.Add();
+                    dataGridViewMethod5.Rows[j].Cells[0].Value = (j + 1).ToString(); // Номер
+                    dataGridViewMethod5.Rows[j].Cells[1].Value = dataGridViewAlternatives[1, j].Value; // Название альтернативы
+                    dataGridViewMethod5.Rows[j].Cells[2].Value = String.Format("{0:0.###}", Convert.ToDouble(result[j])); // Вес
+
+                }
+                // Сортируем по убыванию веса альтернатив
+                dataGridViewMethod5.Sort(dataGridViewMethod5.Columns[2], ListSortDirection.Descending);
+            }
         }
 
         // Загрузка формы
@@ -413,6 +481,7 @@ namespace MyProject1
                     Load_Method2(connection, IdProblem); // Загрузка данных для метода 2) взвешенных оценок
                     Load_Method3(connection, IdProblem); // Загрузка данных для метода 3) предпочтения
                     Load_Method4(connection, IdProblem); // Загрузка данных для метода 4) ранга
+                    Load_Method5(connection, IdProblem); // Загрузка данных для метода 5) полного попарного сопоставления
                 }
                 catch (Exception ex)
                 {
@@ -481,6 +550,7 @@ namespace MyProject1
                     Load_Method2(connection, IdProblem); // Загрузка данных для метода 2) взвешенных оценок
                     Load_Method3(connection, IdProblem); // Загрузка данных для метода 3) предпочтения
                     Load_Method4(connection, IdProblem); // Загрузка данных для метода 4) ранга
+                    Load_Method5(connection, IdProblem); // Загрузка данных для метода 5) полного попарного сопоставления
                 }
                 catch (Exception ex)
                 {
@@ -714,6 +784,66 @@ namespace MyProject1
         {
             richTextBoxExpertsMethod4.Visible = false;
             buttonExpertListMethod4.Visible = true;
+        }
+
+        // Метод 5) При наведении на кнопку - показываем список экспертов
+        private async void buttonExpertListMethod5_MouseEnter(object sender, EventArgs e)
+        {
+            buttonExpertListMethod5.Visible = false;
+            richTextBoxExpertsMethod5.Clear();
+
+            // Загружаем список экспертов и соответствующий значок в richTextBox
+            using (SqlConnection connection = new SqlConnection(Data.connectionString))
+            {
+                try
+                {
+                    // Получаем Id выведенной в Combobox проблемы
+                    await connection.OpenAsync();
+                    SqlCommand command = new SqlCommand("Select Id from Problems where ProblemName=N'" + comboBoxProblems.Text + "';", connection);
+                    int IdProblem = (int)command.ExecuteScalar();
+
+                    // Загрузка экспертов, которые прошли оценивание
+                    command = new SqlCommand("Select Experts.FIOExpert from Experts" +
+                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
+                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest5 = 1", connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                            richTextBoxExpertsMethod5.AppendText("  " + "✓ " + reader.GetString(0) + "\n");
+                    }
+                    reader.Close();
+
+                    // Загрузка экспертов, которые не прошли оценивание т.е статус 0, либо 2
+                    command = new SqlCommand("Select Experts.FIOExpert from Experts" +
+                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
+                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest5 = 0" +
+                        " or ExpertProblems.StatusTest5 = 2", connection);
+                    reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                            richTextBoxExpertsMethod5.AppendText("  " + "X " + reader.GetString(0) + "\n");
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            richTextBoxExpertsMethod5.Select(0, 0);
+            richTextBoxExpertsMethod5.ScrollToCaret(); // Чтобы scrollbar не прокручивался
+            richTextBoxExpertsMethod5.Visible = true;
+        }
+
+        // Метод 5) При убирании мышки со всплывающего списка экспертов - прячем его
+        private void richTextBoxExpertsMethod5_MouseLeave(object sender, EventArgs e)
+        {
+            richTextBoxExpertsMethod5.Visible = false;
+            buttonExpertListMethod5.Visible = true;
         }
     }
 }
