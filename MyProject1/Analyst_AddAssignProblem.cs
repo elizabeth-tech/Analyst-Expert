@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Expert_assessment_methods
+namespace MyProject1
 {
     public partial class Analyst_AddAssignProblem : Form
     {

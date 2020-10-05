@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
-namespace Expert_assessment_methods
+namespace MyProject1
 {
     public partial class Analyst_EditExpert : Form
     {

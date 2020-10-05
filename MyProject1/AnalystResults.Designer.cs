@@ -1,4 +1,4 @@
-﻿namespace Expert_assessment_methods
+﻿namespace MyProject1
 {
     partial class AnalystResults
     {
@@ -567,7 +567,7 @@
             // buttonExpertListMethod5
             // 
             this.buttonExpertListMethod5.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonExpertListMethod5.BackgroundImage = global::Expert_assessment_methods.Properties.Resources.icons8_list_30;
+            this.buttonExpertListMethod5.BackgroundImage = global::MyProject1.Properties.Resources.icons8_list_30;
             this.buttonExpertListMethod5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonExpertListMethod5.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.buttonExpertListMethod5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -708,7 +708,7 @@
             // buttonExpertListMethod4
             // 
             this.buttonExpertListMethod4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonExpertListMethod4.BackgroundImage = global::Expert_assessment_methods.Properties.Resources.icons8_list_30;
+            this.buttonExpertListMethod4.BackgroundImage = global::MyProject1.Properties.Resources.icons8_list_30;
             this.buttonExpertListMethod4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonExpertListMethod4.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.buttonExpertListMethod4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -773,7 +773,7 @@
             // buttonExpertListMethod3
             // 
             this.buttonExpertListMethod3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonExpertListMethod3.BackgroundImage = global::Expert_assessment_methods.Properties.Resources.icons8_list_30;
+            this.buttonExpertListMethod3.BackgroundImage = global::MyProject1.Properties.Resources.icons8_list_30;
             this.buttonExpertListMethod3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonExpertListMethod3.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.buttonExpertListMethod3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -906,7 +906,7 @@
             // buttonExpertListMethod2
             // 
             this.buttonExpertListMethod2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonExpertListMethod2.BackgroundImage = global::Expert_assessment_methods.Properties.Resources.icons8_list_30;
+            this.buttonExpertListMethod2.BackgroundImage = global::MyProject1.Properties.Resources.icons8_list_30;
             this.buttonExpertListMethod2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonExpertListMethod2.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.buttonExpertListMethod2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

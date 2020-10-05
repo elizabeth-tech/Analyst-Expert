@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expert assessment methods", "MyProject1\Expert assessment methods.csproj", "{A419D9B5-EC85-4A4B-BA95-04785A232149}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ExpertAssessmentMethodsSetup", "ExpertAssessmentMethodsSetup\ExpertAssessmentMethodsSetup.vdproj", "{6E98AE5F-4F7D-4EBA-B8DA-B69D880F4958}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{A419D9B5-EC85-4A4B-BA95-04785A232149}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A419D9B5-EC85-4A4B-BA95-04785A232149}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A419D9B5-EC85-4A4B-BA95-04785A232149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E98AE5F-4F7D-4EBA-B8DA-B69D880F4958}.Debug|Any CPU.ActiveCfg = Debug
+		{6E98AE5F-4F7D-4EBA-B8DA-B69D880F4958}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

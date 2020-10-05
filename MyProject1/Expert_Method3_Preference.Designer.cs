@@ -1,4 +1,4 @@
-﻿namespace Expert_assessment_methods
+﻿namespace MyProject1
 {
     partial class Expert_Method3_Preference
     {
@@ -136,7 +136,7 @@
             // labelHelp
             // 
             this.labelHelp.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.labelHelp.Image = global::Expert_assessment_methods.Properties.Resources.icons8_question_mark_20;
+            this.labelHelp.Image = global::MyProject1.Properties.Resources.icons8_question_mark_20;
             this.labelHelp.Location = new System.Drawing.Point(370, 124);
             this.labelHelp.Name = "labelHelp";
             this.labelHelp.Size = new System.Drawing.Size(34, 34);

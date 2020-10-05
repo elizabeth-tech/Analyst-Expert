@@ -1,4 +1,4 @@
-﻿namespace Expert_assessment_methods
+﻿namespace MyProject1
 {
     partial class Analyst_AddProblem
     {

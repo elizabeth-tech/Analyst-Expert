@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace Expert_assessment_methods
+namespace MyProject1
 {
     public partial class AnalystResults : Form
     {

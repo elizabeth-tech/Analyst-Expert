@@ -1,4 +1,4 @@
-﻿namespace Expert_assessment_methods
+﻿namespace MyProject1
 {
     partial class Expert_Method1_PairwiseComparison
     {
@@ -369,7 +369,7 @@
             // buttonRight
             // 
             this.buttonRight.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonRight.BackgroundImage = global::Expert_assessment_methods.Properties.Resources.icons8_arrow_right_30;
+            this.buttonRight.BackgroundImage = global::MyProject1.Properties.Resources.icons8_arrow_right_30;
             this.buttonRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonRight.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.buttonRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -383,7 +383,7 @@
             // buttonLeft
             // 
             this.buttonLeft.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonLeft.BackgroundImage = global::Expert_assessment_methods.Properties.Resources.icons8_arrow_left_30;
+            this.buttonLeft.BackgroundImage = global::MyProject1.Properties.Resources.icons8_arrow_left_30;
             this.buttonLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonLeft.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.buttonLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

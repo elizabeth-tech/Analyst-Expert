@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Expert_assessment_methods
+namespace MyProject1
 {
     public partial class Analyst_ProblemAndAlternatives : Form
     {
