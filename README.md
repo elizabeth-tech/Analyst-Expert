@@ -26,6 +26,6 @@
 - Просмотр результатов оценивания
 
 ### Структура репозитория
-MyProject1 - основные файлы проекта, исходники
-Release - скомпилированные файлы
-Setup - установочные файлы. Созданы при помощи расширения Microsoft Visual Studio Installer Projects.
+MyProject1 - основные файлы проекта, исходники  
+Release - скомпилированные файлы  
+Setup - установочные файлы. Созданы при помощи расширения Microsoft Visual Studio Installer Projects.  
