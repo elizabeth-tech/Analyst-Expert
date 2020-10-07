@@ -34,23 +34,18 @@
             this.buttonExpertMenuClose = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.labelFIO = new System.Windows.Forms.Label();
+            this.comboBoxProblems = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.labelFIO = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.buttonOk = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.comboBoxTests = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +60,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(769, 32);
+            this.panel1.Size = new System.Drawing.Size(660, 32);
             this.panel1.TabIndex = 46;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
@@ -77,7 +72,7 @@
             this.buttonExpertMenuTurn.FlatAppearance.BorderSize = 0;
             this.buttonExpertMenuTurn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.buttonExpertMenuTurn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExpertMenuTurn.Location = new System.Drawing.Point(669, 0);
+            this.buttonExpertMenuTurn.Location = new System.Drawing.Point(560, 1);
             this.buttonExpertMenuTurn.Name = "buttonExpertMenuTurn";
             this.buttonExpertMenuTurn.Size = new System.Drawing.Size(47, 32);
             this.buttonExpertMenuTurn.TabIndex = 50;
@@ -91,7 +86,7 @@
             this.buttonExpertMenuClose.FlatAppearance.BorderSize = 0;
             this.buttonExpertMenuClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.buttonExpertMenuClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExpertMenuClose.Location = new System.Drawing.Point(722, 0);
+            this.buttonExpertMenuClose.Location = new System.Drawing.Point(613, 1);
             this.buttonExpertMenuClose.Name = "buttonExpertMenuClose";
             this.buttonExpertMenuClose.Size = new System.Drawing.Size(47, 32);
             this.buttonExpertMenuClose.TabIndex = 49;
@@ -120,37 +115,37 @@
             this.label24.TabIndex = 0;
             this.label24.Text = "Эксперт - Основное меню";
             // 
-            // comboBox1
+            // comboBoxProblems
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.comboBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(132, 138);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(596, 25);
-            this.comboBox1.TabIndex = 95;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // labelFIO
-            // 
-            this.labelFIO.AutoSize = true;
-            this.labelFIO.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFIO.Location = new System.Drawing.Point(40, 66);
-            this.labelFIO.Name = "labelFIO";
-            this.labelFIO.Size = new System.Drawing.Size(71, 21);
-            this.labelFIO.TabIndex = 96;
-            this.labelFIO.Text = "Эксперт:";
+            this.comboBoxProblems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxProblems.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBoxProblems.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBoxProblems.FormattingEnabled = true;
+            this.comboBoxProblems.Location = new System.Drawing.Point(132, 138);
+            this.comboBoxProblems.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.comboBoxProblems.Name = "comboBoxProblems";
+            this.comboBoxProblems.Size = new System.Drawing.Size(458, 25);
+            this.comboBoxProblems.TabIndex = 95;
+            this.comboBoxProblems.SelectionChangeCommitted += new System.EventHandler(this.comboBoxProblems_SelectionChangeCommitted);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(117, 66);
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(40, 65);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(0, 21);
-            this.label3.TabIndex = 98;
+            this.label3.Size = new System.Drawing.Size(71, 21);
+            this.label3.TabIndex = 96;
+            this.label3.Text = "Эксперт:";
+            // 
+            // labelFIO
+            // 
+            this.labelFIO.AutoSize = true;
+            this.labelFIO.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelFIO.Location = new System.Drawing.Point(117, 65);
+            this.labelFIO.Name = "labelFIO";
+            this.labelFIO.Size = new System.Drawing.Size(0, 21);
+            this.labelFIO.TabIndex = 98;
             // 
             // label4
             // 
@@ -168,176 +163,33 @@
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label5.Location = new System.Drawing.Point(40, 99);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(212, 21);
+            this.label5.Size = new System.Drawing.Size(104, 21);
             this.label5.TabIndex = 102;
-            this.label5.Text = "Статус прохождения тестов:";
+            this.label5.Text = "Доступность:";
             // 
-            // checkBox1
+            // buttonOk
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox1.Location = new System.Drawing.Point(322, 201);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(163, 24);
-            this.checkBox1.TabIndex = 104;
-            this.checkBox1.TabStop = false;
-            this.checkBox1.Text = "Парных сравнений";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Enabled = false;
-            this.checkBox2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox2.Location = new System.Drawing.Point(322, 247);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(255, 24);
-            this.checkBox2.TabIndex = 105;
-            this.checkBox2.TabStop = false;
-            this.checkBox2.Text = "Взвешенных экспертных оценок";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Enabled = false;
-            this.checkBox3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox3.Location = new System.Drawing.Point(322, 290);
-            this.checkBox3.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(130, 24);
-            this.checkBox3.TabIndex = 106;
-            this.checkBox3.TabStop = false;
-            this.checkBox3.Text = "Предпочтения";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Enabled = false;
-            this.checkBox4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox4.Location = new System.Drawing.Point(322, 333);
-            this.checkBox4.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(67, 24);
-            this.checkBox4.TabIndex = 107;
-            this.checkBox4.TabStop = false;
-            this.checkBox4.Text = "Ранга";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox5
-            // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Enabled = false;
-            this.checkBox5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox5.Location = new System.Drawing.Point(322, 376);
-            this.checkBox5.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(249, 24);
-            this.checkBox5.TabIndex = 108;
-            this.checkBox5.TabStop = false;
-            this.checkBox5.Text = "Полного попарного сравнения";
-            this.checkBox5.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(237)))), ((int)(((byte)(218)))));
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(44, 196);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(240, 33);
-            this.button2.TabIndex = 109;
-            this.button2.TabStop = false;
-            this.button2.Text = "Пройти";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(237)))), ((int)(((byte)(218)))));
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.ForeColor = System.Drawing.Color.Black;
-            this.button3.Location = new System.Drawing.Point(44, 242);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(240, 33);
-            this.button3.TabIndex = 110;
-            this.button3.TabStop = false;
-            this.button3.Text = "Пройти";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(237)))), ((int)(((byte)(218)))));
-            this.button4.Enabled = false;
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.ForeColor = System.Drawing.Color.Black;
-            this.button4.Location = new System.Drawing.Point(44, 285);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(240, 33);
-            this.button4.TabIndex = 111;
-            this.button4.TabStop = false;
-            this.button4.Text = "Пройти";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(237)))), ((int)(((byte)(218)))));
-            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.ForeColor = System.Drawing.Color.Black;
-            this.button5.Location = new System.Drawing.Point(44, 328);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(240, 33);
-            this.button5.TabIndex = 112;
-            this.button5.TabStop = false;
-            this.button5.Text = "Пройти";
-            this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button6
-            // 
-            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(237)))), ((int)(((byte)(218)))));
-            this.button6.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button6.ForeColor = System.Drawing.Color.Black;
-            this.button6.Location = new System.Drawing.Point(44, 371);
-            this.button6.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(240, 33);
-            this.button6.TabIndex = 113;
-            this.button6.TabStop = false;
-            this.button6.Text = "Пройти";
-            this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.buttonOk.BackColor = System.Drawing.Color.Orange;
+            this.buttonOk.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
+            this.buttonOk.FlatAppearance.BorderSize = 0;
+            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonOk.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonOk.ForeColor = System.Drawing.Color.Black;
+            this.buttonOk.Location = new System.Drawing.Point(223, 302);
+            this.buttonOk.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Size = new System.Drawing.Size(207, 33);
+            this.buttonOk.TabIndex = 109;
+            this.buttonOk.TabStop = false;
+            this.buttonOk.Text = "Открыть оценивание";
+            this.buttonOk.UseVisualStyleBackColor = false;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(258, 99);
+            this.label2.Location = new System.Drawing.Point(150, 99);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 21);
             this.label2.TabIndex = 114;
@@ -354,29 +206,73 @@
             this.label7.Text = "Аналитик еще не назначил вам ни одной проблемы";
             this.label7.Visible = false;
             // 
+            // comboBoxTests
+            // 
+            this.comboBoxTests.BackColor = System.Drawing.Color.White;
+            this.comboBoxTests.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTests.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBoxTests.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBoxTests.FormattingEnabled = true;
+            this.comboBoxTests.Items.AddRange(new object[] {
+            "Парных сравнений",
+            "Взвешенных экспертных оценок",
+            "Предпочтения",
+            "Ранга",
+            "Полного попарного сравнения"});
+            this.comboBoxTests.Location = new System.Drawing.Point(106, 194);
+            this.comboBoxTests.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.comboBoxTests.Name = "comboBoxTests";
+            this.comboBoxTests.Size = new System.Drawing.Size(247, 25);
+            this.comboBoxTests.TabIndex = 141;
+            this.comboBoxTests.SelectionChangeCommitted += new System.EventHandler(this.comboBoxTests_SelectionChangeCommitted);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(40, 194);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(60, 21);
+            this.label6.TabIndex = 142;
+            this.label6.Text = "Метод:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(40, 243);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(151, 21);
+            this.label8.TabIndex = 143;
+            this.label8.Text = "Статус оценивания:";
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelStatus.Location = new System.Drawing.Point(197, 243);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(0, 21);
+            this.labelStatus.TabIndex = 144;
+            // 
             // ExpertMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(769, 464);
+            this.ClientSize = new System.Drawing.Size(660, 370);
+            this.Controls.Add(this.labelStatus);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.comboBoxTests);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.checkBox5);
-            this.Controls.Add(this.checkBox4);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.labelFIO);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.comboBoxProblems);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -385,7 +281,6 @@
             this.Name = "ExpertMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Эксперт - основное меню";
-            this.Activated += new System.EventHandler(this.ExpertMenu_Activated);
             this.Load += new System.EventHandler(this.ExpertMenu_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -399,24 +294,19 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label labelFIO;
+        private System.Windows.Forms.ComboBox comboBoxProblems;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelFIO;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button buttonExpertMenuClose;
         private System.Windows.Forms.Button buttonExpertMenuTurn;
+        private System.Windows.Forms.ComboBox comboBoxTests;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label labelStatus;
     }
 }

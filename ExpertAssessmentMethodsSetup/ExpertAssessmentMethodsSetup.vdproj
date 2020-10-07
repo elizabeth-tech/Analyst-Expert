@@ -21,6 +21,36 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_235B3BFC50CD4BAC830C98154184EBB5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3B3BE988835043DC80F74F107B59ED10"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6FB76B32C40F40E5ABE558FBAFE955D8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B059521AD4E042AD8A04AC438295F14D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E004C9E962A646E4BB65E3AA9D09C00E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_F563F448DF8B49E59EDE5E766D7949A6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -55,6 +85,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -141,6 +179,106 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_235B3BFC50CD4BAC830C98154184EBB5"
+            {
+            "SourcePath" = "8:..\\MyProject1\\bin\\Release\\Data\\MethodComparison\\4\\3.txt"
+            "TargetName" = "8:3.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_801EF5E663E540DF8902CBCA6C6B5C58"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3B3BE988835043DC80F74F107B59ED10"
+            {
+            "SourcePath" = "8:..\\MyProject1\\bin\\Release\\Data\\MethodWeightedAssessments\\1.txt"
+            "TargetName" = "8:1.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_37A2CD65CC114D269357C93DF3BDB15A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6FB76B32C40F40E5ABE558FBAFE955D8"
+            {
+            "SourcePath" = "8:..\\MyProject1\\bin\\Release\\Data\\MethodCompletePairs\\11\\1.txt"
+            "TargetName" = "8:1.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_446E5474D7644C18AF68C6E38693BB7A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B059521AD4E042AD8A04AC438295F14D"
+            {
+            "SourcePath" = "8:..\\MyProject1\\bin\\Release\\Data\\Result5_MethodCompletePairs\\1.txt"
+            "TargetName" = "8:1.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_AA21353D5EB542EC83BC894F1D1547E3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E004C9E962A646E4BB65E3AA9D09C00E"
+            {
+            "SourcePath" = "8:..\\MyProject1\\bin\\Release\\Data\\Result1_MethodComparison\\4\\3.txt"
+            "TargetName" = "8:3.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_BBD62824235043CC913D18C6B1ABC3F0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F563F448DF8B49E59EDE5E766D7949A6"
             {
             "SourcePath" = "8:..\\MyProject1\\Database.mdf"
@@ -197,6 +335,127 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_E853A85FEC4A4F649B0BD707D660765E"
+                    {
+                    "Name" = "8:Data"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_A68E25D86CDD44B3A4D99FF1114083D1"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_1F564AD7D45E496F99E88C8FD820B02D"
+                            {
+                            "Name" = "8:MethodRang"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_AA3887E04C324A049D941146DEAC704D"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_2E2D9AA200D44C8784323895002D5670"
+                            {
+                            "Name" = "8:MethodComparison"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_57388BA363B94DDDBBBFAB59C1F32265"
+                                "Folders"
+                                {
+                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_801EF5E663E540DF8902CBCA6C6B5C58"
+                                    {
+                                    "Name" = "8:4"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "Property" = "8:_D39E61D409DE4F0D842E8DB9E66107F4"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_36EEE98E8996417BA502D3048518FB52"
+                            {
+                            "Name" = "8:Result1_MethodComparison"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_8B185666B98C4C5B9483752A8812E36A"
+                                "Folders"
+                                {
+                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_BBD62824235043CC913D18C6B1ABC3F0"
+                                    {
+                                    "Name" = "8:4"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "Property" = "8:_A3AEAB3232134CAEA64484D1E6EF7392"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_37A2CD65CC114D269357C93DF3BDB15A"
+                            {
+                            "Name" = "8:MethodWeightedAssessments"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_11DE186C38B446719D9B5EF350580769"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_38278862844141FBAC520B100908735B"
+                            {
+                            "Name" = "8:MethodPreference"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_AA3F620BE3C64C9D9085053B397BEE44"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_A070F02DD1D7442EBB6D2B67BEECD00A"
+                            {
+                            "Name" = "8:MethodCompletePairs"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_DCB7699DD6DC414A8F1DE6B6EF00B8E5"
+                                "Folders"
+                                {
+                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_446E5474D7644C18AF68C6E38693BB7A"
+                                    {
+                                    "Name" = "8:11"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "Property" = "8:_7E97DEF250B84674B9719AA9F61433A2"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_AA21353D5EB542EC83BC894F1D1547E3"
+                            {
+                            "Name" = "8:Result5_MethodCompletePairs"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_1C8ABCCC29BD4C5D9D4446E2500CAF8E"
+                                "Folders"
+                                {
+                                }
+                            }
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_C0F209BE49704D90A8F5436FBADAD5D7"
@@ -249,7 +508,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Методы экспертной оценки"
         "ProductCode" = "8:{1EB32449-8467-4CA1-BD8D-FAED2B8AA7C6}"
-        "PackageCode" = "8:{DA77E79B-48E6-4866-BC98-6C0CCCA5D43F}"
+        "PackageCode" = "8:{BA428471-864D-4441-AE2E-185BEA0BC026}"
         "UpgradeCode" = "8:{215E6BA6-2405-43EB-BCEC-46D1EBD09435}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -371,7 +630,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1302B15BE2DD4D1FB71AD7259AAD3CA6"
             {
-            "Name" = "8:Expert assessment methods Installer"
+            "Name" = "8:Методы экспертной оценки"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"

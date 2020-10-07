@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MyProject1
 {
     public partial class ExpertMenu : Form
     {
-        private bool flag = false; // флаг наличия назначенных проблем у эксперта, true - если есть
-
         public ExpertMenu()
         {
             InitializeComponent();
@@ -39,45 +38,63 @@ namespace MyProject1
         // Загрузка формы и заполнение comboBox проблемами
         private async void ExpertMenu_Load(object sender, EventArgs e)
         {
-            label3.Text = Data.nameExpert.ToString(); // Вывод ФИО эксперта
+            labelFIO.Text = Data.nameExpert.ToString(); // Вывод ФИО эксперта
+            comboBoxTests.Text = comboBoxTests.Items[0].ToString(); // Выводим название теста
 
             using (SqlConnection connection = new SqlConnection(Data.connectionString))
             {
                 try
                 {
+                    // Получаем список проблем
                     await connection.OpenAsync();
                     SqlCommand command = new SqlCommand("Select Problems.ProblemName from ExpertProblems " +
                         "join Problems on Problems.Id = ExpertProblems.IdProblem " +
-                        "where IdExpert = (Select Id from Experts where FIOExpert = N'" + label3.Text + "');", connection);
+                        "where IdExpert = (Select Id from Experts where FIOExpert = N'" + labelFIO.Text + "');", connection);
                     SqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    if (reader.HasRows) // Если для текущего эксперта есть назначенные проблемы
                     {
-                        flag = true;
                         label7.Visible = false; // Убираем текст "Аналитик еще не назначил вам ни одной проблемы"
-                        label2.Text = "Есть доступные тесты"; // Статус прохождения теста
+                        label2.Text = "Есть доступные тесты"; // Доступность теста
                         label2.ForeColor = Color.Green;
-                        comboBox1.Visible = true; // Вкладка с проблемами
-
-                        // Красим кнопки Пройти в зеленый и открываем доступ
-                        button2.Enabled = button3.Enabled = button4.Enabled = button5.Enabled = button6.Enabled = true;
-                        button2.BackColor = button3.BackColor = button4.BackColor = button5.BackColor = button6.BackColor = Color.FromArgb(224, 237, 218);
+                        comboBoxProblems.Visible = true; // Вкладка с проблемами                      
+                        buttonOk.Enabled = true; // Открываем доступ к кнопке Пройти
+                        comboBoxTests.Enabled = true; // Открываем доступ к выбору метода
 
                         // Вносим проблемы
                         while (reader.Read())
-                            comboBox1.Items.Add(reader.GetString(0));
-                        comboBox1.Text = comboBox1.Items[0].ToString();      
-                    }
-                    else
-                    {
-                        flag = false;
-                        label7.Visible = true; // Вывод текста "Аналитик еще не назначил вам ни одной проблемы"
-                        label2.Text = "Нет доступных тестов"; // Статус прохождения теста
-                        label2.ForeColor = Color.Red;
-                        comboBox1.Visible = false; // Вкладка с проблемами
+                            comboBoxProblems.Items.Add(reader.GetString(0));
+                        comboBoxProblems.Text = comboBoxProblems.Items[0].ToString();    
 
-                        // Красим кнопки Пройти в красный и закрываем доступ
-                        button2.BackColor = button3.BackColor = button4.BackColor = button5.BackColor = button6.BackColor = Color.DarkSalmon;
-                        button2.Enabled = button3.Enabled = button4.Enabled = button5.Enabled = button6.Enabled = false;
+                        int index = comboBoxTests.Items.IndexOf(comboBoxTests.Text); // Номер метода
+                        int status = StatusTests(index);
+
+                        if (status == 2) // Эксперт проходил тест ранее, но не закончил
+                        {
+                            labelStatus.Text = "Не завершено";
+                            labelStatus.ForeColor = Color.Red;
+                        }
+                        if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
+                        {
+                            labelStatus.Text = "Завершено. Возможно изменение ответов";
+                            labelStatus.ForeColor = Color.DarkCyan;
+                        }
+                        if (status == 0) // Оценивание еще не проводилось
+                        {
+                            labelStatus.Text = "Не проводилось";
+                            labelStatus.ForeColor = Color.Black;
+                        }
+                    }
+                    else // Если для текущего эксперта нет назначенных проблем
+                    {
+                        label7.Visible = true; // Вывод текста "Аналитик еще не назначил вам ни одной проблемы"
+                        label2.Text = "Нет доступных тестов"; // Доступность теста
+                        label2.ForeColor = Color.Red;
+                        comboBoxProblems.Visible = false; // Вкладка с проблемами
+
+                        buttonOk.Enabled = false; // Закрываем доступ к кнопке Пройти
+                        comboBoxTests.Enabled = false; // Закрываем доступ к выбору метода
+                        label8.Visible = false;
+                        labelStatus.Visible = false;
                     }
                     reader.Close();
                 }
@@ -88,249 +105,299 @@ namespace MyProject1
             }
         }
 
-        // Открытие окна метода парных сравнений
-        private void button2_Click(object sender, EventArgs e)
+        // Кнопка Открыть оценивание - Открытие выбранного оценивания (метода)
+        private void buttonOk_Click(object sender, EventArgs e)
         {
-            Data.selectedProblem = comboBox1.Text;
-            Expert_Method1_PairwiseComparison f = new Expert_Method1_PairwiseComparison();
-            f.ShowDialog();
-        }
-
-        // Определение статуса теста
-        private async void StatusTests()
-        {
-            if (flag) // Чтобы изменять только при имеющихся проблемах
+            if(comboBoxTests.Text == "Парных сравнений")
             {
-                // Получаем id эксперта и проблемы, чтобы найти данные
-                int IdExpert = 001, IdProblem = 001;
-                using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                Data.selectedProblem = comboBoxProblems.Text;
+                Expert_Method1_PairwiseComparison f = new Expert_Method1_PairwiseComparison();
+                if (f.ShowDialog() == DialogResult.OK) // вызов диалогового окна
                 {
-                    try
-                    {
-                        await connection.OpenAsync();
-                        SqlCommand command = new SqlCommand("Select Id from Experts where FIOExpert = N'" + Data.nameExpert.ToString() + "';", connection);
-                        IdExpert = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                    // Обновляем статус оценивания
+                    int index = comboBoxTests.Items.IndexOf(comboBoxTests.Text); // Номер метода
+                    int status = StatusTests(index);
 
-                        SqlCommand command2 = new SqlCommand("Select Id from Problems where ProblemName = N'" + comboBox1.Text + "';", connection);
-                        IdProblem = (int)command2.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-
-                // 1) Метод парных сравнений
-                // Если есть папка эксперта и выбранная проблема, то значит тест ранее уже проходился этим экспертом
-                // Проверяем статус теста
-                int status = 0;
-                using (SqlConnection connection = new SqlConnection(Data.connectionString))
-                {
-                    try
-                    {
-                        await connection.OpenAsync();
-                        SqlCommand command = new SqlCommand("Select StatusTest1 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                        status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
                     if (status == 2) // Эксперт проходил тест ранее, но не закончил
                     {
-                        // Красим кнопку Пройти в оранжевый и изменяем текст
-                        button2.BackColor = Color.PeachPuff;
-                        button2.Text = "Закончить оценивание";
-                        checkBox1.Checked = false;
+                        labelStatus.Text = "Не завершено";
+                        labelStatus.ForeColor = Color.Red;
                     }
                     if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
                     {
-                        // Красим кнопку Пройти в желтый и изменяем текст
-                        button2.BackColor = Color.LemonChiffon;
-                        button2.Text = "Изменить ответы";
-                        checkBox1.Checked = true;
-
+                        labelStatus.Text = "Завершено. Возможно изменение ответов";
+                        labelStatus.ForeColor = Color.DarkCyan;
                     }
                     if (status == 0) // Оценивание еще не проводилось
                     {
-                        // Красим кнопку Пройти в зеленый и изменяем текст
-                        button2.BackColor = Color.FromArgb(224, 237, 218);
-                        button2.Text = "Пройти";
-                        checkBox1.Checked = false;
+                        labelStatus.Text = "Не проводилось";
+                        labelStatus.ForeColor = Color.Black;
                     }
                 }
-
-                // 2) Метод взвешенных экспертных оценок
-                // Проверяем статус теста
-                using (SqlConnection connection = new SqlConnection(Data.connectionString))
+            }
+            if(comboBoxTests.Text == "Взвешенных экспертных оценок")
+            {
+                Data.selectedProblem = comboBoxProblems.Text;
+                Expert_Method2_WeightedExpertAssessments f = new Expert_Method2_WeightedExpertAssessments();
+                if (f.ShowDialog() == DialogResult.OK) // вызов диалогового окна
                 {
-                    try
-                    {
-                        await connection.OpenAsync();
-                        SqlCommand command = new SqlCommand("Select StatusTest2 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                        status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    if (status == 0) // Эксперт не проходил тест по этой проблеме
-                    {
-                        // Красим кнопку Пройти в зеленый и изменяем текст
-                        button3.BackColor = Color.FromArgb(224, 237, 218);
-                        button3.Text = "Пройти";
-                        checkBox2.Checked = false;
-                    }
-                    if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
-                    {
-                        // Красим кнопку Пройти в желтый и изменяем текст
-                        button3.BackColor = Color.LemonChiffon;
-                        button3.Text = "Изменить ответы";
-                        checkBox2.Checked = true;
-                    }
-                }
+                    // Обновляем статус оценивания
+                    int index = comboBoxTests.Items.IndexOf(comboBoxTests.Text); // Номер метода
+                    int status = StatusTests(index);
 
-                // 3) Метод предпочтения
-                // Проверяем статус теста
-                using (SqlConnection connection = new SqlConnection(Data.connectionString))
-                {
-                    try
-                    {
-                        await connection.OpenAsync();
-                        SqlCommand command = new SqlCommand("Select StatusTest3 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                        status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    if (status == 0) // Эксперт не проходил тест по этой проблеме
-                    {
-                        // Красим кнопку Пройти в зеленый и изменяем текст
-                        button4.BackColor = Color.FromArgb(224, 237, 218);
-                        button4.Text = "Пройти";
-                        checkBox3.Checked = false;
-                    }
-                    if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
-                    {
-                        // Красим кнопку Пройти в желтый и изменяем текст
-                        button4.BackColor = Color.LemonChiffon;
-                        button4.Text = "Изменить ответы";
-                        checkBox3.Checked = true;
-                    }
-                }
-
-                // 4) Метод ранга
-                // Проверяем статус теста
-                using (SqlConnection connection = new SqlConnection(Data.connectionString))
-                {
-                    try
-                    {
-                        await connection.OpenAsync();
-                        SqlCommand command = new SqlCommand("Select StatusTest4 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                        status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    if (status == 0) // Эксперт не проходил тест по этой проблеме
-                    {
-                        // Красим кнопку Пройти в зеленый и изменяем текст
-                        button5.BackColor = Color.FromArgb(224, 237, 218);
-                        button5.Text = "Пройти";
-                        checkBox4.Checked = false;
-                    }
-                    if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
-                    {
-                        // Красим кнопку Пройти в желтый и изменяем текст
-                        button5.BackColor = Color.LemonChiffon;
-                        button5.Text = "Изменить ответы";
-                        checkBox4.Checked = true;
-                    }
-                }
-
-                // 5) Метод полного попарного сравнения
-                // Проверяем статус теста
-                using (SqlConnection connection = new SqlConnection(Data.connectionString))
-                {
-                    try
-                    {
-                        await connection.OpenAsync();
-                        SqlCommand command = new SqlCommand("Select StatusTest5 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                        status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
                     if (status == 2) // Эксперт проходил тест ранее, но не закончил
                     {
-                        // Красим кнопку Пройти в оранжевый и изменяем текст
-                        button6.BackColor = Color.PeachPuff;
-                        button6.Text = "Закончить оценивание";
-                        checkBox5.Checked = false;
+                        labelStatus.Text = "Не завершено";
+                        labelStatus.ForeColor = Color.Red;
                     }
                     if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
                     {
-                        // Красим кнопку Пройти в желтый и изменяем текст
-                        button6.BackColor = Color.LemonChiffon;
-                        button6.Text = "Изменить ответы";
-                        checkBox5.Checked = true;
+                        labelStatus.Text = "Завершено. Возможно изменение ответов";
+                        labelStatus.ForeColor = Color.DarkCyan;
                     }
                     if (status == 0) // Оценивание еще не проводилось
                     {
-                        // Красим кнопку Пройти в зеленый и изменяем текст
-                        button6.BackColor = Color.FromArgb(224, 237, 218);
-                        button6.Text = "Пройти";
-                        checkBox5.Checked = false;
+                        labelStatus.Text = "Не проводилось";
+                        labelStatus.ForeColor = Color.Black;
+                    }
+                }
+            }
+            if (comboBoxTests.Text == "Предпочтения")
+            {
+                Data.selectedProblem = comboBoxProblems.Text;
+                Expert_Method3_Preference f = new Expert_Method3_Preference();
+                if (f.ShowDialog() == DialogResult.OK) // вызов диалогового окна
+                {
+                    // Обновляем статус оценивания
+                    int index = comboBoxTests.Items.IndexOf(comboBoxTests.Text); // Номер метода
+                    int status = StatusTests(index);
+
+                    if (status == 2) // Эксперт проходил тест ранее, но не закончил
+                    {
+                        labelStatus.Text = "Не завершено";
+                        labelStatus.ForeColor = Color.Red;
+                    }
+                    if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
+                    {
+                        labelStatus.Text = "Завершено. Возможно изменение ответов";
+                        labelStatus.ForeColor = Color.DarkCyan;
+                    }
+                    if (status == 0) // Оценивание еще не проводилось
+                    {
+                        labelStatus.Text = "Не проводилось";
+                        labelStatus.ForeColor = Color.Black;
+                    }
+                }
+            }
+            if (comboBoxTests.Text == "Ранга")
+            {
+                Data.selectedProblem = comboBoxProblems.Text;
+                Expert_Method4_Rang f = new Expert_Method4_Rang();
+                if (f.ShowDialog() == DialogResult.OK) // вызов диалогового окна
+                {
+                    // Обновляем статус оценивания
+                    int index = comboBoxTests.Items.IndexOf(comboBoxTests.Text); // Номер метода
+                    int status = StatusTests(index);
+
+                    if (status == 2) // Эксперт проходил тест ранее, но не закончил
+                    {
+                        labelStatus.Text = "Не завершено";
+                        labelStatus.ForeColor = Color.Red;
+                    }
+                    if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
+                    {
+                        labelStatus.Text = "Завершено. Возможно изменение ответов";
+                        labelStatus.ForeColor = Color.DarkCyan;
+                    }
+                    if (status == 0) // Оценивание еще не проводилось
+                    {
+                        labelStatus.Text = "Не проводилось";
+                        labelStatus.ForeColor = Color.Black;
+                    }
+                }
+            }
+            if (comboBoxTests.Text == "Полного попарного сравнения")
+            {
+                Data.selectedProblem = comboBoxProblems.Text;
+                Expert_Method5_CompletePairs f = new Expert_Method5_CompletePairs();
+                if (f.ShowDialog() == DialogResult.OK) // вызов диалогового окна
+                {
+                    // Обновляем статус оценивания
+                    int index = comboBoxTests.Items.IndexOf(comboBoxTests.Text); // Номер метода
+                    int status = StatusTests(index);
+
+                    if (status == 2) // Эксперт проходил тест ранее, но не закончил
+                    {
+                        labelStatus.Text = "Не завершено";
+                        labelStatus.ForeColor = Color.Red;
+                    }
+                    if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
+                    {
+                        labelStatus.Text = "Завершено. Возможно изменение ответов";
+                        labelStatus.ForeColor = Color.DarkCyan;
+                    }
+                    if (status == 0) // Оценивание еще не проводилось
+                    {
+                        labelStatus.Text = "Не проводилось";
+                        labelStatus.ForeColor = Color.Black;
                     }
                 }
             }
         }
 
+        // Определение статуса теста
+        private int StatusTests(int indexTest)
+        {
+            // Получаем id эксперта и проблемы, чтобы найти данные
+            int IdExpert = 001, IdProblem = 001;
+            using (SqlConnection connection = new SqlConnection(Data.connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("Select Id from Experts where FIOExpert = N'" + Data.nameExpert.ToString() + "';", connection);
+                    IdExpert = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+
+                    command = new SqlCommand("Select Id from Problems where ProblemName = N'" + comboBoxProblems.Text + "';", connection);
+                    IdProblem = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            int status = 0;
+            switch (indexTest)
+            {
+                // Метод парных сравнений
+                case 0:
+                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    {
+                        try
+                        {
+                            connection.Open();
+                            SqlCommand command = new SqlCommand("Select StatusTest1 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
+                            status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    break;
+                // Метод взвешенных экспертных оценок
+                case 1:
+                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    {
+                        try
+                        {
+                            connection.Open();
+                            SqlCommand command = new SqlCommand("Select StatusTest2 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
+                            status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    break;
+                // Метод предпочтения
+                case 2:
+                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    {
+                        try
+                        {
+                            connection.Open();
+                            SqlCommand command = new SqlCommand("Select StatusTest3 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
+                            status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    break;
+                // Метод ранга
+                case 3:
+                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    {
+                        try
+                        {
+                            connection.Open();
+                            SqlCommand command = new SqlCommand("Select StatusTest4 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
+                            status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    break;
+                // Метод полного попарного сравнения
+                case 4:
+                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    {
+                        try
+                        {
+                            connection.Open();
+                            SqlCommand command = new SqlCommand("Select StatusTest5 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
+                            status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    break;
+            }
+            return status;
+        }
+
         // При выборе другой проблемы
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxProblems_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            StatusTests();
+            int index = comboBoxTests.Items.IndexOf(comboBoxTests.Text); // Номер метода            
+            int status = StatusTests(index);
+
+            if (status == 2) // Эксперт проходил тест ранее, но не закончил
+            {
+                labelStatus.Text = "Не завершено";
+                labelStatus.ForeColor = Color.Red;
+            }
+            if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
+            {
+                labelStatus.Text = "Завершено. Возможно изменение ответов";
+                labelStatus.ForeColor = Color.DarkCyan;
+            }
+            if (status == 0) // Оценивание еще не проводилось
+            {
+                labelStatus.Text = "Не проводилось";
+                labelStatus.ForeColor = Color.Black;
+            }
         }
 
-        // При активации формы, обновляем состояние
-        private void ExpertMenu_Activated(object sender, EventArgs e)
+        // При выборе другого метода оценивания
+        private void comboBoxTests_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            StatusTests();
-        }
+            int index = comboBoxTests.Items.IndexOf(comboBoxTests.Text); // Номер метода
+            int status = StatusTests(index);
 
-        // Открытие окна метода Взвешенных экспертных оценок
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Data.selectedProblem = comboBox1.Text;
-            Expert_Method2_WeightedExpertAssessments f = new Expert_Method2_WeightedExpertAssessments();
-            f.ShowDialog();
-        }
-
-        // Открытие окна метода Предпочтения
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Data.selectedProblem = comboBox1.Text;
-            Expert_Method3_Preference f = new Expert_Method3_Preference();
-            f.ShowDialog();
-        }
-
-        // Открытие окна метода Ранга
-        private void button5_Click(object sender, EventArgs e)
-        {
-            Data.selectedProblem = comboBox1.Text;
-            Expert_Method4_Rang f = new Expert_Method4_Rang();
-            f.ShowDialog();
-        }
-
-        // Открытие окна метода полного попарного сравнения
-        private void button6_Click(object sender, EventArgs e)
-        {
-            Data.selectedProblem = comboBox1.Text;
-            Expert_Method5_CompletePairs f = new Expert_Method5_CompletePairs();
-            f.ShowDialog();
+            if (status == 2) // Эксперт проходил тест ранее, но не закончил
+            {
+                labelStatus.Text = "Не завершено";
+                labelStatus.ForeColor = Color.Red;
+            }
+            if (status == 1) // Оценивание полностью завершено и результаты отправлены Аналитику
+            {
+                labelStatus.Text = "Завершено. Возможно изменение ответов";
+                labelStatus.ForeColor = Color.DarkCyan;
+            }
+            if (status == 0) // Оценивание еще не проводилось
+            {
+                labelStatus.Text = "Не проводилось";
+                labelStatus.ForeColor = Color.Black;
+            }
         }
     }
 }

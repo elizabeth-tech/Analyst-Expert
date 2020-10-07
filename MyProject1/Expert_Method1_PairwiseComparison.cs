@@ -308,6 +308,7 @@ namespace MyProject1
                             sw.Write("{0} {1}\n", keyValue.Key.ToString(), keyValue.Value.ToString());
                         sw.Close();
                     }
+                    this.DialogResult = DialogResult.OK;
                     Form form = Application.OpenForms["ExpertMenu"]; // Вызываем форму меню эксперта
                     form.Activate();
                     Close();
@@ -406,6 +407,7 @@ namespace MyProject1
                         sw.Write("{0} {1}\n", i, choices[i]);
                     sw.Close();
                 }
+                this.DialogResult = DialogResult.OK;
                 Form form = Application.OpenForms["ExpertMenu"]; // Вызываем форму меню эксперта
                 form.Activate();
                 Close();

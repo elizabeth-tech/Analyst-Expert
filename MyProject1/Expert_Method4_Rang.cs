@@ -232,6 +232,7 @@ namespace MyProject1
                             }
                             sw.Close();
                         }
+                        this.DialogResult = DialogResult.OK;
                         Form form = Application.OpenForms["ExpertMenu"]; // Вызываем форму меню эксперта
                         form.Activate();
                         Close();
@@ -250,6 +251,7 @@ namespace MyProject1
                             sw.WriteLine();
                             sw.Close();
                         }
+                        this.DialogResult = DialogResult.OK;
                         Form form = Application.OpenForms["ExpertMenu"]; // Вызываем форму меню эксперта
                         form.Activate();
                         Close();
