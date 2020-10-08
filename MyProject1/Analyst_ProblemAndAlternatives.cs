@@ -204,9 +204,6 @@ namespace MyProject1
         // Смена проблемы - смена альтернатив к ней
         private async void comboBoxProblem_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Заполнение таблицы альтернативами
-            LoadAlternatives();
-
             // Проверяем, доступна ли проблема к редактированию\удалению
             using (SqlConnection connection = new SqlConnection(Data.connectionString))
             {
@@ -249,6 +246,8 @@ namespace MyProject1
                     MessageBox.Show(ex.Message);
                 }
             }
+            // Заполнение таблицы альтернативами
+            LoadAlternatives();
         }
 
         // Удаление выбранной проблемы

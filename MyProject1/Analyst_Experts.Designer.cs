@@ -416,7 +416,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(493, 17);
             this.label6.TabIndex = 132;
-            this.label6.Text = "*при помощи ПКМ выберите назначенную проблему, которую желаете удалить\r\n";
+            this.label6.Text = "*при помощи ЛКМ выберите назначенную проблему, которую желаете удалить\r\n";
             // 
             // label7
             // 

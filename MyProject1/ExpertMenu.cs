@@ -268,88 +268,42 @@ namespace MyProject1
             }
 
             int status = 0;
+            string textCommand = "";
             switch (indexTest)
             {
                 // Метод парных сравнений
                 case 0:
-                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
-                    {
-                        try
-                        {
-                            connection.Open();
-                            SqlCommand command = new SqlCommand("Select StatusTest1 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                            status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    }
+                    textCommand = "Select StatusTest1 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";";
                     break;
                 // Метод взвешенных экспертных оценок
                 case 1:
-                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
-                    {
-                        try
-                        {
-                            connection.Open();
-                            SqlCommand command = new SqlCommand("Select StatusTest2 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                            status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    }
+                    textCommand = "Select StatusTest2 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";";
                     break;
                 // Метод предпочтения
                 case 2:
-                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
-                    {
-                        try
-                        {
-                            connection.Open();
-                            SqlCommand command = new SqlCommand("Select StatusTest3 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                            status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    }
+                    textCommand = "Select StatusTest3 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";";
                     break;
                 // Метод ранга
                 case 3:
-                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
-                    {
-                        try
-                        {
-                            connection.Open();
-                            SqlCommand command = new SqlCommand("Select StatusTest4 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                            status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    }
+                    textCommand = "Select StatusTest4 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";";
                     break;
                 // Метод полного попарного сравнения
                 case 4:
-                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
-                    {
-                        try
-                        {
-                            connection.Open();
-                            SqlCommand command = new SqlCommand("Select StatusTest5 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";", connection);
-                            status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    }
+                    textCommand = "Select StatusTest5 from ExpertProblems where IdExpert = " + IdExpert.ToString() + " and IdProblem = " + IdProblem.ToString() + ";";
                     break;
+            }
+            using (SqlConnection connection = new SqlConnection(Data.connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(textCommand, connection);
+                    status = (int)command.ExecuteScalar(); // Возвращает первый столбец первой строки в наборе результатов
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
             return status;
         }

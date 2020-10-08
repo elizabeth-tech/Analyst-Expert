@@ -18,6 +18,7 @@ namespace MyProject1
             AppDomain.CurrentDomain.SetData("DataDirectory", dbPath);
 #endif
             Data.connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True";
+            //Data.connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Test projects\Portfolio\MyProject1\MyProject1\Database.mdf;Integrated Security=True";
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

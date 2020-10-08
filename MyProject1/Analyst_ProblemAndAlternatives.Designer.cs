@@ -327,7 +327,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(548, 17);
             this.label5.TabIndex = 113;
-            this.label5.Text = "*при помощи ПКМ выберите альтернативу, которую желаете удалить или редактировать";
+            this.label5.Text = "*при помощи ЛКМ выберите альтернативу, которую желаете удалить или редактировать";
             // 
             // labelError
             // 

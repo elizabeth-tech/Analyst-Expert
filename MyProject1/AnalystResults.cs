@@ -37,6 +37,136 @@ namespace MyProject1
             WndProc(ref m);
         }
 
+        // Загрузка формы
+        private async void AnalystResults_Load(object sender, EventArgs e)
+        {
+            comboBoxTests.Text = comboBoxTests.Items[0].ToString(); // Выводим первый метод (парных сравнений)
+
+            // Показываем combobox с экспертами для метода парных сравнений
+            label5.Visible = true;
+            comboBoxExperts.Visible = true;
+            dataGridViewExperts.Visible = false; // Убираем таблицу экспертов
+
+            using (SqlConnection connection = new SqlConnection(Data.connectionString))
+            {
+                try
+                {
+                    // Загрузка проблем
+                    await connection.OpenAsync();
+                    SqlCommand command = new SqlCommand("SELECT distinct ProblemName FROM Problems" +
+                        " join ExpertProblems on ExpertProblems.IdProblem = Problems.Id" +
+                        " where flag = 1", connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                            comboBoxProblems.Items.Add(reader.GetString(0));
+                        comboBoxProblems.Text = comboBoxProblems.Items[0].ToString();
+                    }
+                    reader.Close();
+
+                    // Загрузка альтернатив
+                    command = new SqlCommand("select Alternatives.AlternativeName" +
+                        " from Problems" +
+                        " join Alternatives on Alternatives.IdProblem = Problems.Id" +
+                        " where Problems.Id = (select Problems.Id from Problems" +
+                        " where Problems.ProblemName = N'" + comboBoxProblems.Text + "')", connection);
+                    reader = command.ExecuteReader();
+                    dataGridViewAlternatives.Rows.Clear();
+                    if (reader.HasRows) // Если у проблемы есть альтернативы
+                    {
+                        int i = 0;
+                        while (reader.Read())
+                        {
+                            dataGridViewAlternatives.Rows.Add();
+                            dataGridViewAlternatives.Rows[i].Cells[0].Value = i.ToString();
+                            dataGridViewAlternatives.Rows[i].Cells[1].Value = reader.GetString(0);
+                            i++;
+                        }
+                    }
+                    reader.Close();
+
+                    // Получаем Id первой выведенной в Combobox проблемы
+                    command = new SqlCommand("Select Id from Problems where ProblemName=N'" + comboBoxProblems.Text + "';", connection);
+                    int IdProblem = (int)command.ExecuteScalar();
+
+                    // Загрузка списка экспертов для первой отображенной проблемы, для метода парных сравнений, у которых статус 1 (т.е. тест пройден)
+                    command = new SqlCommand("Select distinct Experts.FIOExpert from ExpertProblems" +
+                        " join Experts on Experts.Id = ExpertProblems.IdExpert" +
+                        " where ExpertProblems.StatusTest1 = 1 and ExpertProblems.IdProblem = " + IdProblem.ToString(), connection);
+                    reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        comboBoxExperts.Items.Clear();
+                        while (reader.Read())
+                            comboBoxExperts.Items.Add(reader.GetString(0));
+                        comboBoxExperts.Text = comboBoxExperts.Items[0].ToString();
+                        Load_Method1();
+                    }
+                    else
+                    {
+                        comboBoxExperts.Items.Clear();
+                        comboBoxExperts.Items.Add("(нет)");
+                        comboBoxExperts.Text = "(нет)";
+                        dataGridViewMethod.Visible = false;
+                        labelError.Visible = true;
+                        labelError.Text = "Для данной проблемы ни один эксперт не прошел\nоценивание";
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        // Загрузка данных для метода 1) парных сравнений
+        private async void Load_Method1()
+        {
+            if (comboBoxExperts.Text != "(нет)")
+            {
+                // Находим Id эксперта (т.е папку с проблемой) и Id проблемы (т.е файл с результатом)
+                int IdExpert = 001, IdProblem = 001;
+                using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                {
+                    try
+                    {
+                        await connection.OpenAsync();
+                        SqlCommand command = new SqlCommand("Select Id from Experts where FIOExpert=N'" + comboBoxExperts.Text + "'", connection);
+                        IdExpert = (int)command.ExecuteScalar();
+
+                        command = new SqlCommand("Select Id from Problems where ProblemName=N'" + comboBoxProblems.Text + "';", connection);
+                        IdProblem = (int)command.ExecuteScalar();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
+                // Считываем результат в таблицу
+                using (StreamReader SR = new StreamReader("Data/Result1_MethodComparison/" + IdExpert.ToString() + "/" + IdProblem.ToString() + ".txt"))
+                {
+                    dataGridViewMethod.Rows.Clear();
+                    int row = 0;
+                    string line;
+                    while ((line = SR.ReadLine()) != null)
+                    {
+                        dataGridViewMethod.Rows.Add();
+                        dataGridViewMethod[0, row].Value = row + 1; // Номер альтернативы
+                        dataGridViewMethod[1, row].Value = dataGridViewAlternatives[1, row].Value; // Название альтернативы
+                        dataGridViewMethod[2, row].Value = String.Format("{0:0.###}", Convert.ToDouble(line)); // Вес альтернативы
+                        row++;
+                    }
+                    SR.Close();
+                }
+                // Сортируем по убыванию веса альтернатив
+                dataGridViewMethod.Sort(dataGridViewMethod.Columns[2], ListSortDirection.Descending);
+
+            }
+        }
+
         // Загрузка результатов для метода 2) Взвешенных экспертных оценок
         private void Load_Method2(SqlConnection connection, int IdProblem)
         {
@@ -44,9 +174,10 @@ namespace MyProject1
             FileInfo fileInfo = new FileInfo(@"Data\MethodWeightedAssessments\" + IdProblem.ToString() + ".txt");
             if (!fileInfo.Exists) // Если файл не существует
             {
-                labelError2.ForeColor = Color.Red;
-                labelError2.Text = "Для данной проблемы ни один эксперт не прошел\nоценивание";
-                dataGridViewMethod2.Visible = false;
+                labelError.Visible = true;
+                labelError.ForeColor = Color.Red;
+                labelError.Text = "Для данной проблемы ни один эксперт не прошел\nоценивание";
+                dataGridViewMethod.Visible = false;
             }
             else
             {
@@ -73,9 +204,10 @@ namespace MyProject1
                     MessageBox.Show(ex.Message);
                 }
 
-                labelError2.ForeColor = Color.Black;
-                labelError2.Text = "Ранжирование альтернатив на основе\nоценок " + estimates.Count.ToString() + " из " + countExpert.ToString() + " эксперта(ов)";
-                dataGridViewMethod2.Visible = true;
+                labelError.Visible = true;
+                labelError.ForeColor = Color.Black;
+                labelError.Text = "Ранжирование альтернатив на основе\nоценок " + estimates.Count.ToString() + " из " + countExpert.ToString() + " эксперта(ов)";
+                dataGridViewMethod.Visible = true;
 
                 // Находим компетентность экспертов, которые прошли тест и вносим в словарь Id-компетентность (ключ-значение) 
                 Dictionary<int, double> competence = new Dictionary<int, double>();
@@ -134,17 +266,17 @@ namespace MyProject1
                 }
 
                 // Выводим данные в таблицу
-                dataGridViewMethod2.Rows.Clear();
+                dataGridViewMethod.Rows.Clear();
                 for (int j = 0; j < result.Length; j++)
                 {
-                    dataGridViewMethod2.Rows.Add();
-                    dataGridViewMethod2.Rows[j].Cells[0].Value = (j + 1).ToString(); // Номер
-                    dataGridViewMethod2.Rows[j].Cells[1].Value = dataGridViewAlternatives[1, j].Value; // Название альтернативы
-                    dataGridViewMethod2.Rows[j].Cells[2].Value = result[j].ToString(); // Вес
+                    dataGridViewMethod.Rows.Add();
+                    dataGridViewMethod.Rows[j].Cells[0].Value = (j + 1).ToString(); // Номер
+                    dataGridViewMethod.Rows[j].Cells[1].Value = dataGridViewAlternatives[1, j].Value; // Название альтернативы
+                    dataGridViewMethod.Rows[j].Cells[2].Value = result[j].ToString(); // Вес
 
                 }
                 // Сортируем по убыванию веса альтернатив
-                dataGridViewMethod2.Sort(dataGridViewMethod2.Columns[2], ListSortDirection.Descending);
+                dataGridViewMethod.Sort(dataGridViewMethod.Columns[2], ListSortDirection.Descending);
             }
         }
 
@@ -155,9 +287,10 @@ namespace MyProject1
             FileInfo fileInfo = new FileInfo(@"Data\MethodPreference\" + IdProblem.ToString() + ".txt");
             if (!fileInfo.Exists) // Если файл не существует
             {
-                labelError3.ForeColor = Color.Red;
-                labelError3.Text = "Для данной проблемы ни один эксперт не прошел\nоценивание";
-                dataGridViewMethod3.Visible = false;
+                labelError.Visible = true;
+                labelError.ForeColor = Color.Red;
+                labelError.Text = "Для данной проблемы ни один эксперт не прошел\nоценивание";
+                dataGridViewMethod.Visible = false;
             }
             else
             {
@@ -184,9 +317,10 @@ namespace MyProject1
                     MessageBox.Show(ex.Message);
                 }
 
-                labelError3.ForeColor = Color.Black;
-                labelError3.Text = "Ранжирование альтернатив на основе\nоценок " + estimates.Count.ToString() + " из " + countExpert.ToString() + " эксперта(ов)";
-                dataGridViewMethod3.Visible = true;
+                labelError.Visible = true;
+                labelError.ForeColor = Color.Black;
+                labelError.Text = "Ранжирование альтернатив на основе\nоценок " + estimates.Count.ToString() + " из " + countExpert.ToString() + " эксперта(ов)";
+                dataGridViewMethod.Visible = true;
                 
 
                 // Алгоритм метода предпочтений
@@ -228,17 +362,17 @@ namespace MyProject1
                     result[i] = l[i] / L;
 
                 // Выводим данные в таблицу
-                dataGridViewMethod3.Rows.Clear();
+                dataGridViewMethod.Rows.Clear();
                 for (int j = 0; j < result.Length; j++)
                 {
-                    dataGridViewMethod3.Rows.Add();
-                    dataGridViewMethod3.Rows[j].Cells[0].Value = (j + 1).ToString(); // Номер
-                    dataGridViewMethod3.Rows[j].Cells[1].Value = dataGridViewAlternatives[1, j].Value; // Название альтернативы
-                    dataGridViewMethod3.Rows[j].Cells[2].Value = String.Format("{0:0.###}", Convert.ToDouble(result[j])); // Вес
+                    dataGridViewMethod.Rows.Add();
+                    dataGridViewMethod.Rows[j].Cells[0].Value = (j + 1).ToString(); // Номер
+                    dataGridViewMethod.Rows[j].Cells[1].Value = dataGridViewAlternatives[1, j].Value; // Название альтернативы
+                    dataGridViewMethod.Rows[j].Cells[2].Value = String.Format("{0:0.###}", Convert.ToDouble(result[j])); // Вес
 
                 }
                 // Сортируем по убыванию веса альтернатив
-                dataGridViewMethod3.Sort(dataGridViewMethod3.Columns[2], ListSortDirection.Descending);
+                dataGridViewMethod.Sort(dataGridViewMethod.Columns[2], ListSortDirection.Descending);
             }
         }
 
@@ -249,9 +383,10 @@ namespace MyProject1
             FileInfo fileInfo = new FileInfo(@"Data\MethodRang\" + IdProblem.ToString() + ".txt");
             if (!fileInfo.Exists) // Если файл не существует
             {
-                labelError4.ForeColor = Color.Red;
-                labelError4.Text = "Для данной проблемы ни один эксперт не прошел\nоценивание";
-                dataGridViewMethod4.Visible = false;
+                labelError.Visible = true;
+                labelError.ForeColor = Color.Red;
+                labelError.Text = "Для данной проблемы ни один эксперт не прошел\nоценивание";
+                dataGridViewMethod.Visible = false;
             }
             else
             {
@@ -278,9 +413,10 @@ namespace MyProject1
                     MessageBox.Show(ex.Message);
                 }
 
-                labelError4.ForeColor = Color.Black;
-                labelError4.Text = "Ранжирование альтернатив на основе\nоценок " + estimates.Count.ToString() + " из " + countExpert.ToString() + " эксперта(ов)";
-                dataGridViewMethod4.Visible = true;
+                labelError.Visible = true;
+                labelError.ForeColor = Color.Black;
+                labelError.Text = "Ранжирование альтернатив на основе\nоценок " + estimates.Count.ToString() + " из " + countExpert.ToString() + " эксперта(ов)";
+                dataGridViewMethod.Visible = true;
 
                 // Алгоритм метода ранга
                 // Для каждого эксперта вычисляется сумма оценок всех альтернатив
@@ -323,17 +459,17 @@ namespace MyProject1
                     result[i] = sum_R[i] / estimates.Count;
 
                 // Выводим данные в таблицу
-                dataGridViewMethod4.Rows.Clear();
+                dataGridViewMethod.Rows.Clear();
                 for (int j = 0; j < result.Length; j++)
                 {
-                    dataGridViewMethod4.Rows.Add();
-                    dataGridViewMethod4.Rows[j].Cells[0].Value = (j + 1).ToString(); // Номер
-                    dataGridViewMethod4.Rows[j].Cells[1].Value = dataGridViewAlternatives[1, j].Value; // Название альтернативы
-                    dataGridViewMethod4.Rows[j].Cells[2].Value = String.Format("{0:0.###}", Convert.ToDouble(result[j])); // Вес
+                    dataGridViewMethod.Rows.Add();
+                    dataGridViewMethod.Rows[j].Cells[0].Value = (j + 1).ToString(); // Номер
+                    dataGridViewMethod.Rows[j].Cells[1].Value = dataGridViewAlternatives[1, j].Value; // Название альтернативы
+                    dataGridViewMethod.Rows[j].Cells[2].Value = String.Format("{0:0.###}", Convert.ToDouble(result[j])); // Вес
 
                 }
                 // Сортируем по убыванию веса альтернатив
-                dataGridViewMethod4.Sort(dataGridViewMethod4.Columns[2], ListSortDirection.Descending);
+                dataGridViewMethod.Sort(dataGridViewMethod.Columns[2], ListSortDirection.Descending);
             }
         }
 
@@ -344,9 +480,10 @@ namespace MyProject1
             FileInfo fileInfo = new FileInfo(@"Data\Result5_MethodCompletePairs\" + IdProblem.ToString() + ".txt");
             if (!fileInfo.Exists) // Если файл не существует
             {
-                labelError5.ForeColor = Color.Red;
-                labelError5.Text = "Для данной проблемы ни один эксперт не прошел\nоценивание";
-                dataGridViewMethod5.Visible = false;
+                labelError.Visible = true;
+                labelError.ForeColor = Color.Red;
+                labelError.Text = "Для данной проблемы ни один эксперт не прошел\nоценивание";
+                dataGridViewMethod.Visible = false;
             }
             else
             {
@@ -373,9 +510,10 @@ namespace MyProject1
                     MessageBox.Show(ex.Message);
                 }
 
-                labelError5.ForeColor = Color.Black;
-                labelError5.Text = "Ранжирование альтернатив на основе\nоценок " + estimates.Count.ToString() + " из " + countExpert.ToString() + " эксперта(ов)";
-                dataGridViewMethod5.Visible = true;
+                labelError.Visible = true;
+                labelError.ForeColor = Color.Black;
+                labelError.Text = "Ранжирование альтернатив на основе\nоценок " + estimates.Count.ToString() + " из " + countExpert.ToString() + " эксперта(ов)";
+                dataGridViewMethod.Visible = true;
 
                 // Алгоритм полного попарного сопоставления
                 // Копируем в матрицу
@@ -397,93 +535,273 @@ namespace MyProject1
                 }
 
                 // Выводим данные в таблицу
-                dataGridViewMethod5.Rows.Clear();
+                dataGridViewMethod.Rows.Clear();
                 for (int j = 0; j < result.Length; j++)
                 {
-                    dataGridViewMethod5.Rows.Add();
-                    dataGridViewMethod5.Rows[j].Cells[0].Value = (j + 1).ToString(); // Номер
-                    dataGridViewMethod5.Rows[j].Cells[1].Value = dataGridViewAlternatives[1, j].Value; // Название альтернативы
-                    dataGridViewMethod5.Rows[j].Cells[2].Value = String.Format("{0:0.###}", Convert.ToDouble(result[j])); // Вес
+                    dataGridViewMethod.Rows.Add();
+                    dataGridViewMethod.Rows[j].Cells[0].Value = (j + 1).ToString(); // Номер
+                    dataGridViewMethod.Rows[j].Cells[1].Value = dataGridViewAlternatives[1, j].Value; // Название альтернативы
+                    dataGridViewMethod.Rows[j].Cells[2].Value = String.Format("{0:0.###}", Convert.ToDouble(result[j])); // Вес
 
                 }
                 // Сортируем по убыванию веса альтернатив
-                dataGridViewMethod5.Sort(dataGridViewMethod5.Columns[2], ListSortDirection.Descending);
+                dataGridViewMethod.Sort(dataGridViewMethod.Columns[2], ListSortDirection.Descending);
             }
         }
 
-        // Загрузка формы
-        private async void AnalystResults_Load(object sender, EventArgs e)
+        // Загрузка результатов в таблицу, в зависимости от выбранного метода
+        private async void LoadMethods()
         {
+            // Получаем Id выведенной в Combobox проблемы
+            int IdProblem = 001;
             using (SqlConnection connection = new SqlConnection(Data.connectionString))
             {
                 try
                 {
-                    // Загрузка проблем
                     await connection.OpenAsync();
-                    SqlCommand command = new SqlCommand("SELECT distinct ProblemName FROM Problems" +
-                        " join ExpertProblems on ExpertProblems.IdProblem = Problems.Id" +
-                        " where flag = 1", connection);
-                    SqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                            comboBoxProblems.Items.Add(reader.GetString(0));
-                        comboBoxProblems.Text = comboBoxProblems.Items[0].ToString();
-                    }
-                    reader.Close();
+                    SqlCommand command = new SqlCommand("Select Id from Problems where ProblemName=N'" + comboBoxProblems.Text + "';", connection);
+                    IdProblem = (int)command.ExecuteScalar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
 
-                    // Загрузка альтернатив
-                    command = new SqlCommand("select Alternatives.AlternativeName" +
-                        " from Problems" +
-                        " join Alternatives on Alternatives.IdProblem = Problems.Id" +
-                        " where Problems.Id = (select Problems.Id from Problems" +
-                        " where Problems.ProblemName = N'" + comboBoxProblems.Text + "')", connection);
-                    reader = command.ExecuteReader();
-                    dataGridViewAlternatives.Rows.Clear();
-                    if (reader.HasRows) // Если у проблемы есть альтернативы
+            int index = comboBoxTests.Items.IndexOf(comboBoxTests.Text); // Номер метода
+            switch (index)
+            {
+                // Метод парных сравнений
+                case 0:                    
+                    label5.Visible = true;
+                    comboBoxExperts.Visible = true; // Показываем combobox с экспертами для метода парных сравнений
+                    dataGridViewExperts.Visible = false;
+                    dataGridViewMethod.Visible = true;
+                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
                     {
-                        int i = 0;
-                        while (reader.Read())
+                        try
                         {
-                            dataGridViewAlternatives.Rows.Add();
-                            dataGridViewAlternatives.Rows[i].Cells[0].Value = i.ToString();
-                            dataGridViewAlternatives.Rows[i].Cells[1].Value = reader.GetString(0);
-                            i++;
-                        }   
-                    }
-                    reader.Close();
-
-                    // Получаем Id первой выведенной в Combobox проблемы
-                    command = new SqlCommand("Select Id from Problems where ProblemName=N'" + comboBoxProblems.Text + "';", connection);
-                    int IdProblem = (int)command.ExecuteScalar();
-
-                    // Загрузка списка экспертов для первой отображенной проблемы, для метода парных сравнений, у которых статус 1 (т.е. тест пройден)
-                    command = new SqlCommand("Select distinct Experts.FIOExpert from ExpertProblems" +
+                            await connection.OpenAsync();
+                            // Загрузка списка экспертов для первой отображенной проблемы, для метода парных сравнений, у которых статус 1 (т.е. тест пройден)
+                            SqlCommand command = new SqlCommand("Select distinct Experts.FIOExpert from ExpertProblems" +
                         " join Experts on Experts.Id = ExpertProblems.IdExpert" +
                         " where ExpertProblems.StatusTest1 = 1 and ExpertProblems.IdProblem = " + IdProblem.ToString(), connection);
-                    reader = command.ExecuteReader();
+                            SqlDataReader reader = command.ExecuteReader();
+                            if (reader.HasRows)
+                            {
+                                labelError.Visible = false;
+                                comboBoxExperts.Items.Clear();
+                                while (reader.Read())
+                                    comboBoxExperts.Items.Add(reader.GetString(0));
+                                comboBoxExperts.Text = comboBoxExperts.Items[0].ToString();
+                            }
+                            else
+                            {
+                                comboBoxExperts.Items.Clear();
+                                comboBoxExperts.Items.Add("(нет)");
+                                comboBoxExperts.Text = "(нет)";
+                                dataGridViewMethod.Visible = false;
+                                labelError.Visible = true;
+                                labelError.Text = "Для данной проблемы ни один эксперт не прошел\nоценивание";
+                            }
+                            reader.Close();
+                            Load_Method1();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    break;
+
+                // Метод взвешенных экспертных оценок
+                case 1:
+                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    {
+                        try
+                        {
+                            await connection.OpenAsync();
+                            Load_Method2(connection, IdProblem);
+                            LoadExperts(index);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    break;
+
+                // Метод предпочтения
+                case 2:
+
+                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    {
+                        try
+                        {
+                            await connection.OpenAsync();
+                            Load_Method3(connection, IdProblem);
+                            LoadExperts(index);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    break;
+
+                // Метод ранга
+                case 3:
+                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    {
+                        try
+                        {
+                            await connection.OpenAsync();
+                            Load_Method4(connection, IdProblem);
+                            LoadExperts(index);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    break;
+
+                // Метод полного попарного сравнения
+                case 4:
+                    using (SqlConnection connection = new SqlConnection(Data.connectionString))
+                    {
+                        try
+                        {
+                            await connection.OpenAsync();
+                            Load_Method5(connection, IdProblem);
+                            LoadExperts(index);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    break;
+            }
+        }
+
+        // Смена метода оценивания
+        private void comboBoxTests_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            LoadMethods();
+        }
+
+        // Смена эксперта для первого метода - смена результатов
+        private void comboBoxExperts_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            Load_Method1();
+        }
+
+        // Загрузка экспертов в таблицу (кто прошел, кто не прошел оценивание)
+        private async void LoadExperts(int index)
+        {
+            label5.Visible = false;
+            comboBoxExperts.Visible = false;
+            dataGridViewExperts.Rows.Clear();
+            dataGridViewExperts.Visible = true;
+
+            // Загружаем список экспертов и соответствующий значок в таблицу
+            using (SqlConnection connection = new SqlConnection(Data.connectionString))
+            {
+                try
+                {
+                    // Получаем Id выведенной в Combobox проблемы
+                    await connection.OpenAsync();
+                    SqlCommand command = new SqlCommand("Select Id from Problems where ProblemName=N'" + comboBoxProblems.Text + "';", connection);
+                    int IdProblem = (int)command.ExecuteScalar();
+                    string textCommand1 = "", textCommand2 = "";
+                    switch(index)
+                    {
+                        // Метод парных сравнений
+                        case 0:
+                            textCommand1 = "Select Experts.FIOExpert from Experts" +
+                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
+                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest1 = 1";
+                            textCommand2 = "Select Experts.FIOExpert from Experts" +
+                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
+                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest1 = 0" +
+                        " or ExpertProblems.StatusTest1 = 2";
+                            break;
+
+                        // Метод взвешенных экспертных оценок
+                        case 1:
+                            textCommand1 = "Select Experts.FIOExpert from Experts" +
+                       " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
+                       " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest2 = 1";
+                            textCommand2 = "Select Experts.FIOExpert from Experts" +
+                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
+                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest2 = 0" +
+                        " or ExpertProblems.StatusTest2 = 2";
+                            break;
+
+                        // Метод предпочтения
+                        case 2:
+                            textCommand1 = "Select Experts.FIOExpert from Experts" +
+                       " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
+                       " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest3 = 1";
+                            textCommand2 = "Select Experts.FIOExpert from Experts" +
+                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
+                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest3 = 0" +
+                        " or ExpertProblems.StatusTest3 = 2";
+                            break;
+
+                        // Метод ранга
+                        case 3:
+                            textCommand1 = "Select Experts.FIOExpert from Experts" +
+                       " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
+                       " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest4 = 1";
+                            textCommand2 = "Select Experts.FIOExpert from Experts" +
+                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
+                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest4 = 0" +
+                        " or ExpertProblems.StatusTest4 = 2";
+                            break;
+
+                        // Метод полного попарного сравнения
+                        case 4:
+                            textCommand1 = "Select Experts.FIOExpert from Experts" +
+                       " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
+                       " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest5 = 1";
+                            textCommand2 = "Select Experts.FIOExpert from Experts" +
+                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
+                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest5 = 0" +
+                        " or ExpertProblems.StatusTest5 = 2";
+                            break;
+                    }
+                    // Загрузка экспертов, которые прошли оценивание т.е. статус 1
+                    SqlCommand command1 = new SqlCommand(textCommand1, connection);
+                    SqlDataReader reader = command1.ExecuteReader();
+                    int i = 0;
                     if (reader.HasRows)
                     {
-                        comboBoxExperts.Items.Clear();
                         while (reader.Read())
-                            comboBoxExperts.Items.Add(reader.GetString(0));
-                        comboBoxExperts.Text = comboBoxExperts.Items[0].ToString();
-                    }
-                    else
-                    {
-                        comboBoxExperts.Items.Clear();
-                        comboBoxExperts.Items.Add("(нет)");
-                        comboBoxExperts.Text = "(нет)";
-                        dataGridViewMethod1.Visible = false;
-                        labelError1.Visible = true;
-                        labelError1.Text = "Для данной проблемы ни один эксперт не прошел\nоценивание";
+                        {
+                            dataGridViewExperts.Rows.Add();
+                            dataGridViewExperts.Rows[i].Cells[0].Value = "✓";
+                            dataGridViewExperts.Rows[i].Cells[1].Value = reader.GetString(0);
+                            i++;
+                        }
                     }
                     reader.Close();
-                    
-                    Load_Method2(connection, IdProblem); // Загрузка данных для метода 2) взвешенных оценок
-                    Load_Method3(connection, IdProblem); // Загрузка данных для метода 3) предпочтения
-                    Load_Method4(connection, IdProblem); // Загрузка данных для метода 4) ранга
-                    Load_Method5(connection, IdProblem); // Загрузка данных для метода 5) полного попарного сопоставления
+
+                    // Загрузка экспертов, которые не прошли оценивание т.е статус 0, либо 2
+                    SqlCommand command2 = new SqlCommand(textCommand2, connection);
+                    reader = command2.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            dataGridViewExperts.Rows.Add();
+                            dataGridViewExperts.Rows[i].Cells[0].Value = "X";
+                            dataGridViewExperts.Rows[i].Cells[1].Value = reader.GetString(0);
+                            i++;
+                        }
+                    }
+                    reader.Close();
                 }
                 catch (Exception ex)
                 {
@@ -492,9 +810,10 @@ namespace MyProject1
             }
         }
 
-        // Смена проблемы - смена альтернатив к ней и смена списка экспертов
-        private async void comboBoxProblems_SelectedIndexChanged(object sender, EventArgs e)
+        // Смена проблемы, смена альтернатив к ней, смена результатов
+        private async void comboBoxProblems_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            // Загружаем альтернативы к выбранной проблеме
             using (SqlConnection connection = new SqlConnection(Data.connectionString))
             {
                 try
@@ -519,333 +838,13 @@ namespace MyProject1
                         }
                         reader.Close();
                     }
-
-                    // Получаем Id выведенной в Combobox проблемы
-                    command = new SqlCommand("Select Id from Problems where ProblemName=N'" + comboBoxProblems.Text + "';", connection);
-                    int IdProblem = (int)command.ExecuteScalar();
-
-                    // Загрузка списка экспертов для отображенной проблемы, для метода парных сравнений, у которых статус 1 (т.е. тест пройден)
-                    command = new SqlCommand("Select distinct Experts.FIOExpert from ExpertProblems" +
-                        " join Experts on Experts.Id = ExpertProblems.IdExpert" +
-                        " where ExpertProblems.StatusTest1 = 1 and ExpertProblems.IdProblem = " + IdProblem.ToString(), connection);
-                    SqlDataReader reader3 = command.ExecuteReader();
-                    if (reader3.HasRows)
-                    {
-                        comboBoxExperts.Items.Clear();
-                        dataGridViewMethod1.Visible = true;
-                        labelError1.Visible = false;
-                        while (reader3.Read())
-                            comboBoxExperts.Items.Add(reader3.GetString(0));
-                        comboBoxExperts.Text = comboBoxExperts.Items[0].ToString();
-                    }
-                    else
-                    {
-                        comboBoxExperts.Items.Clear();
-                        comboBoxExperts.Items.Add("(нет)");
-                        comboBoxExperts.Text = "(нет)";
-                        dataGridViewMethod1.Visible = false;
-                        labelError1.Visible = true;
-                        labelError1.Text = "Для данной проблемы ни один эксперт не прошел\nоценивание";
-                    }
-                    reader3.Close();
-
-                    Load_Method2(connection, IdProblem); // Загрузка данных для метода 2) взвешенных оценок
-                    Load_Method3(connection, IdProblem); // Загрузка данных для метода 3) предпочтения
-                    Load_Method4(connection, IdProblem); // Загрузка данных для метода 4) ранга
-                    Load_Method5(connection, IdProblem); // Загрузка данных для метода 5) полного попарного сопоставления
+                    LoadMethods();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
             }
-        }
-
-        // Смена эксперта для первого метода - смена результатов
-        private async void comboBoxExperts_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBoxExperts.Text != "(нет)")
-            {
-                // Находим Id эксперта (т.е папку с проблемой) и Id проблемы (т.е файл с результатом)
-                int IdExpert = 001, IdProblem = 001;
-                using (SqlConnection connection = new SqlConnection(Data.connectionString))
-                {
-                    try
-                    {
-                        await connection.OpenAsync();
-                        SqlCommand command = new SqlCommand("Select Id from Experts where FIOExpert=N'" + comboBoxExperts.Text + "'", connection);
-                        IdExpert = (int)command.ExecuteScalar();
-
-                        command = new SqlCommand("Select Id from Problems where ProblemName=N'" + comboBoxProblems.Text + "';", connection);
-                        IdProblem = (int)command.ExecuteScalar();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-
-                // Считываем результат в таблицу
-                using (StreamReader SR = new StreamReader("Data/Result1_MethodComparison/" + IdExpert.ToString() + "/" + IdProblem.ToString() + ".txt"))
-                {
-                    dataGridViewMethod1.Rows.Clear();
-                    int row = 0;
-                    string line;
-                    while ((line = SR.ReadLine()) != null)
-                    {
-                        dataGridViewMethod1.Rows.Add();
-                        dataGridViewMethod1[0, row].Value = row + 1; // Номер альтернативы
-                        dataGridViewMethod1[1, row].Value = dataGridViewAlternatives[1, row].Value; // Название альтернативы
-                        dataGridViewMethod1[2, row].Value = String.Format("{0:0.###}", Convert.ToDouble(line)); // Вес альтернативы
-                        row++;
-                    }
-                    SR.Close();
-                }
-                // Сортируем по убыванию веса альтернатив
-                dataGridViewMethod1.Sort(dataGridViewMethod1.Columns[2], ListSortDirection.Descending);
-
-            }
-
-        }
-
-        // Метод 2) При убирании мышки со всплывающего списка экспертов - прячем его
-        private void richTextBoxExpertsMethod2_MouseLeave(object sender, EventArgs e)
-        {
-            richTextBoxExpertsMethod2.Visible = false;
-            buttonExpertListMethod2.Visible = true;
-        }
-
-        // Метод 2) При наведении на кнопку - показываем список экспертов
-        private async void buttonExpertListMethod2_MouseEnter(object sender, EventArgs e)
-        {
-            buttonExpertListMethod2.Visible = false;
-            richTextBoxExpertsMethod2.Clear();
-
-            // Загружаем список экспертов и соответствующий значок в richTextBox
-            using (SqlConnection connection = new SqlConnection(Data.connectionString))
-            {
-                try
-                {
-                    // Получаем Id выведенной в Combobox проблемы
-                    await connection.OpenAsync();
-                    SqlCommand command = new SqlCommand("Select Id from Problems where ProblemName=N'" + comboBoxProblems.Text + "';", connection);
-                    int IdProblem = (int)command.ExecuteScalar();
-
-                    // Загрузка экспертов, которые прошли оценивание
-                    command = new SqlCommand("Select Experts.FIOExpert from Experts" +
-                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
-                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest2 = 1", connection);
-                    SqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                            richTextBoxExpertsMethod2.AppendText("  " + "✓ " + reader.GetString(0) + "\n");
-                    }
-                    reader.Close();
-
-                    // Загрузка экспертов, которые не прошли оценивание т.е статус 0, либо 2
-                    command = new SqlCommand("Select Experts.FIOExpert from Experts" +
-                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
-                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest2 = 0" +
-                        " or ExpertProblems.StatusTest2 = 2", connection);
-                    reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                            richTextBoxExpertsMethod2.AppendText("  " + "X " + reader.GetString(0) + "\n");
-                    }
-
-                    reader.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-
-            richTextBoxExpertsMethod2.Select(0, 0);
-            richTextBoxExpertsMethod2.ScrollToCaret(); // Чтобы scrollbar не прокручивался
-            richTextBoxExpertsMethod2.Visible = true;
-        }
-
-        // Метод 3) При наведении на кнопку - показываем список экспертов
-        private async void buttonExpertListMethod3_MouseEnter(object sender, EventArgs e)
-        {
-            buttonExpertListMethod3.Visible = false;
-            richTextBoxExpertsMethod3.Clear();
-
-            // Загружаем список экспертов и соответствующий значок в richTextBox
-            using (SqlConnection connection = new SqlConnection(Data.connectionString))
-            {
-                try
-                {
-                    // Получаем Id выведенной в Combobox проблемы
-                    await connection.OpenAsync();
-                    SqlCommand command = new SqlCommand("Select Id from Problems where ProblemName=N'" + comboBoxProblems.Text + "';", connection);
-                    int IdProblem = (int)command.ExecuteScalar();
-
-                    // Загрузка экспертов, которые прошли оценивание
-                    command = new SqlCommand("Select Experts.FIOExpert from Experts" +
-                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
-                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest3 = 1", connection);
-                    SqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                            richTextBoxExpertsMethod3.AppendText("  " + "✓ " + reader.GetString(0) + "\n");
-                    }
-                    reader.Close();
-
-                    // Загрузка экспертов, которые не прошли оценивание т.е статус 0, либо 2
-                    command = new SqlCommand("Select Experts.FIOExpert from Experts" +
-                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
-                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest3 = 0" +
-                        " or ExpertProblems.StatusTest3 = 2", connection);
-                    reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                            richTextBoxExpertsMethod3.AppendText("  " + "X " + reader.GetString(0) + "\n");
-                    }
-
-                    reader.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-
-            richTextBoxExpertsMethod3.Select(0, 0);
-            richTextBoxExpertsMethod3.ScrollToCaret(); // Чтобы scrollbar не прокручивался
-            richTextBoxExpertsMethod3.Visible = true;
-        }
-
-        // Метод 3) При убирании мышки со всплывающего списка экспертов - прячем его
-        private void richTextBoxExpertsMethod3_MouseLeave(object sender, EventArgs e)
-        {
-            richTextBoxExpertsMethod3.Visible = false;
-            buttonExpertListMethod3.Visible = true;
-        }
-
-        // Метод 4) При наведении на кнопку - показываем список экспертов
-        private async void buttonExpertListMethod4_MouseEnter(object sender, EventArgs e)
-        {
-            buttonExpertListMethod4.Visible = false;
-            richTextBoxExpertsMethod4.Clear();
-
-            // Загружаем список экспертов и соответствующий значок в richTextBox
-            using (SqlConnection connection = new SqlConnection(Data.connectionString))
-            {
-                try
-                {
-                    // Получаем Id выведенной в Combobox проблемы
-                    await connection.OpenAsync();
-                    SqlCommand command = new SqlCommand("Select Id from Problems where ProblemName=N'" + comboBoxProblems.Text + "';", connection);
-                    int IdProblem = (int)command.ExecuteScalar();
-
-                    // Загрузка экспертов, которые прошли оценивание
-                    command = new SqlCommand("Select Experts.FIOExpert from Experts" +
-                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
-                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest4 = 1", connection);
-                    SqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                            richTextBoxExpertsMethod4.AppendText("  " + "✓ " + reader.GetString(0) + "\n");
-                    }
-                    reader.Close();
-
-                    // Загрузка экспертов, которые не прошли оценивание т.е статус 0, либо 2
-                    command = new SqlCommand("Select Experts.FIOExpert from Experts" +
-                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
-                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest4 = 0" +
-                        " or ExpertProblems.StatusTest4 = 2", connection);
-                    reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                            richTextBoxExpertsMethod4.AppendText("  " + "X " + reader.GetString(0) + "\n");
-                    }
-
-                    reader.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-
-            richTextBoxExpertsMethod4.Select(0, 0);
-            richTextBoxExpertsMethod4.ScrollToCaret(); // Чтобы scrollbar не прокручивался
-            richTextBoxExpertsMethod4.Visible = true;
-        }
-
-        // Метод 4) При убирании мышки со всплывающего списка экспертов - прячем его
-        private void richTextBoxExpertsMethod4_MouseLeave(object sender, EventArgs e)
-        {
-            richTextBoxExpertsMethod4.Visible = false;
-            buttonExpertListMethod4.Visible = true;
-        }
-
-        // Метод 5) При наведении на кнопку - показываем список экспертов
-        private async void buttonExpertListMethod5_MouseEnter(object sender, EventArgs e)
-        {
-            buttonExpertListMethod5.Visible = false;
-            richTextBoxExpertsMethod5.Clear();
-
-            // Загружаем список экспертов и соответствующий значок в richTextBox
-            using (SqlConnection connection = new SqlConnection(Data.connectionString))
-            {
-                try
-                {
-                    // Получаем Id выведенной в Combobox проблемы
-                    await connection.OpenAsync();
-                    SqlCommand command = new SqlCommand("Select Id from Problems where ProblemName=N'" + comboBoxProblems.Text + "';", connection);
-                    int IdProblem = (int)command.ExecuteScalar();
-
-                    // Загрузка экспертов, которые прошли оценивание
-                    command = new SqlCommand("Select Experts.FIOExpert from Experts" +
-                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
-                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest5 = 1", connection);
-                    SqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                            richTextBoxExpertsMethod5.AppendText("  " + "✓ " + reader.GetString(0) + "\n");
-                    }
-                    reader.Close();
-
-                    // Загрузка экспертов, которые не прошли оценивание т.е статус 0, либо 2
-                    command = new SqlCommand("Select Experts.FIOExpert from Experts" +
-                        " join ExpertProblems on ExpertProblems.IdExpert = Experts.Id" +
-                        " where ExpertProblems.IdProblem = " + IdProblem.ToString() + " and ExpertProblems.StatusTest5 = 0" +
-                        " or ExpertProblems.StatusTest5 = 2", connection);
-                    reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                            richTextBoxExpertsMethod5.AppendText("  " + "X " + reader.GetString(0) + "\n");
-                    }
-
-                    reader.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-
-            richTextBoxExpertsMethod5.Select(0, 0);
-            richTextBoxExpertsMethod5.ScrollToCaret(); // Чтобы scrollbar не прокручивался
-            richTextBoxExpertsMethod5.Visible = true;
-        }
-
-        // Метод 5) При убирании мышки со всплывающего списка экспертов - прячем его
-        private void richTextBoxExpertsMethod5_MouseLeave(object sender, EventArgs e)
-        {
-            richTextBoxExpertsMethod5.Visible = false;
-            buttonExpertListMethod5.Visible = true;
         }
     }
 }
