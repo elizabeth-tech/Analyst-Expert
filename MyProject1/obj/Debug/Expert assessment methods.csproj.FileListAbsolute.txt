@@ -56,3 +56,32 @@ E:\Test projects\Portfolio\MyProject1\MyProject1\obj\Debug\MyProject1.Expert_Met
 E:\Test projects\Portfolio\MyProject1\MyProject1\obj\Debug\MyProject1.Expert_Method2_WeightedExpertAssessments.resources
 E:\Test projects\Portfolio\MyProject1\MyProject1\obj\Debug\MyProject1.GeneralLogin.resources
 E:\Test projects\Portfolio\MyProject1\MyProject1\obj\Debug\MyProject1.ExpertMenu.resources
+E:\Test projects\Analyst-Expert\MyProject1\bin\Debug\Database.mdf
+E:\Test projects\Analyst-Expert\MyProject1\bin\Debug\Database_log.ldf
+E:\Test projects\Analyst-Expert\MyProject1\bin\Debug\MyProject1.exe
+E:\Test projects\Analyst-Expert\MyProject1\bin\Debug\MyProject1.pdb
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\Expert assessment methods.csprojAssemblyReference.cache
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.AnalystAuthorization.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.Analyst_AddAssignProblem.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.Analyst_Experts.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.AnalystMenu.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.AnalystResults.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.Analyst_AddExpert.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.Analyst_AddProblem.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.Analyst_EditAlternative.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.Analyst_EditExpert.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.Analyst_ProblemAndAlternatives.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.Analyst_EditProblem.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.ExpertAuthorization.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.Expert_Method5_CompletePairs.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.Expert_Method1_PairwiseComparison.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.Expert_Method3_Preference.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.Expert_Method4_Rang.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.Expert_Method2_WeightedExpertAssessments.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.GeneralLogin.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.ExpertMenu.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.Properties.Resources.resources
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\Expert assessment methods.csproj.GenerateResource.cache
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\Expert assessment methods.csproj.CoreCompileInputs.cache
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.exe
+E:\Test projects\Analyst-Expert\MyProject1\obj\Debug\MyProject1.pdb

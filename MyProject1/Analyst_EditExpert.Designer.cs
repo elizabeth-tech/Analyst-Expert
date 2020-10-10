@@ -206,9 +206,9 @@
             this.label5.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label5.Location = new System.Drawing.Point(102, 270);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(120, 17);
+            this.label5.Size = new System.Drawing.Size(113, 17);
             this.label5.TabIndex = 151;
-            this.label5.Text = "*число от 1 до 100";
+            this.label5.Text = "*число от 1 до 10";
             // 
             // textBoxFIO
             // 
